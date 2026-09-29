@@ -1,0 +1,7 @@
+Options -Indexes -ExecCGI
+<FilesMatch "(?i)^(?!.*\.(?:jpe?g|png|webp|avif|gif|mp3|wav|ogg|m4a|mp4|webm)$)">
+    Require all denied
+</FilesMatch>
+<FilesMatch "(?i)\.(?:php[0-9]*|phtml|phar|cgi|pl|py|sh|exe|js|html?)(?:\.|$)">
+    Require all denied
+</FilesMatch>
