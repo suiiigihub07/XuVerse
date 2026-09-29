@@ -8,7 +8,8 @@
 - Public pages and production URLs were checked. The live resume PDF downloaded successfully; private configuration returned 403.
 - Uploaded-image 500 errors were fixed by removing the host-incompatible `Options -ExecCGI` override. The media allowlist and executable-name deny rules remain; live PHP and double-extension probes return 403. The avatar and existing photo render correctly.
 - A code-only update of `uploads/.htaccess` preserved the existing photo record and uploaded file. No database import or runtime-media overwrite was performed for this update.
-- **Acceptance is incomplete:** live administrator CRUD/uploads require the owner's XuVerse sign-in. Responsive verification also remains pending; the host returned a transient 502 during that check. Local isolated tests passed; they do not certify the production host.
+- Public acceptance passed after the transient 502 cleared: main pages and project/article/photo/video details, 390 px mobile layout without horizontal overflow, mobile navigation, uploaded photo and video thumbnails, missing-page and missing-record handling. The hosting panel confirms Display Errors is Off.
+- **Acceptance is incomplete:** live administrator CRUD/uploads require the owner's XuVerse sign-in. Logged-out dashboard access redirects to login. Local isolated CMS tests passed; they do not certify authenticated production behavior.
 - Contact currently uses the email fallback; no production mail sender is configured. The host's 10 MB file limit is lower than the application's optional 25 MB audio limit.
 
 For ordinary updates, follow the code-only procedure below. Never repeat the initial SQL/media transfer over existing live content.
