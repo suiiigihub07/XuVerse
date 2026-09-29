@@ -1,6 +1,6 @@
 # XuVerse readiness audit — 2026-09-29
 
-Scope: existing application, without redesign. No remote repository was created and no public deployment was performed.
+Scope: existing application, without redesign. The readiness audit preceded publication; the source is now on GitHub and the initial deployment is online at https://xuverse.freehosting.dev/.
 
 ## Findings and fixes
 
@@ -29,7 +29,7 @@ Scope: existing application, without redesign. No remote repository was created 
 
 ## Remaining launch work
 
-GitHub account/repository handoff and hosting selection are pending. Actual Linux hosting, HTTPS/proxy behavior, provider permissions, contact delivery, responsive browser appearance and a live code-update preservation test must be checked after deployment. This is a focused readiness review, not a guarantee against every security defect.
+GitHub publication and initial InfinityFree deployment are complete. Live public pages load over HTTPS with production canonical URLs, and the resume PDF downloads. Private configuration returned 403. Uploaded images currently hit the provider's .htaccess error page; the hosting session expired during diagnosis. Final media repair, live CMS acceptance, responsive checks and a live code-update preservation test remain pending. Contact uses the existing email fallback until a mail sender is configured. This is a focused readiness review, not a guarantee against every security defect.
 
 Keep backups outside the public web root on production. The local pre-change snapshot and database export are in ignored, HTTP-blocked `tmp/readiness-backup/`; never upload that folder. The code-only archive intentionally omits it.
 

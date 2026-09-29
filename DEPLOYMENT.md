@@ -1,6 +1,16 @@
 # Deploying XuVerse without losing content
 
-No public deployment has been performed. The hosting provider is not yet chosen.
+## Current deployment — 2026-09-29
+
+- Site: https://xuverse.freehosting.dev/ (InfinityFree, HTTPS).
+- Source: https://github.com/suiiigihub07/XuVerse, branch `main`.
+- Initial code, Composer dependencies, media and database were transferred. Private production configuration exists only on the host; private exports remain outside Git.
+- Public pages and production URLs were checked. The live resume PDF downloaded successfully; private configuration returned 403.
+- **Acceptance is incomplete:** uploaded images show the provider's .htaccess error page. Hosting sign-in expired during diagnosis. Repair that directory's rules and recheck images before considering launch complete.
+- Live administrator CRUD/uploads, responsive verification and code-update preservation still need acceptance testing. Local isolated tests passed; they do not certify the production host.
+- Contact currently uses the email fallback; no production mail sender is configured. The host's 10 MB file limit is lower than the application's optional 25 MB audio limit.
+
+For ordinary updates, follow the code-only procedure below. Never repeat the initial SQL/media transfer over existing live content.
 
 ## GitHub handoff
 

@@ -2,6 +2,10 @@
 
 XuVerse is B K Suraj's PHP and MySQL portfolio with an integrated CMS for resume records, projects, articles, photography, videos, music and settings.
 
+Public site: [xuverse.freehosting.dev](https://xuverse.freehosting.dev/). Source: [suiiigihub07/XuVerse](https://github.com/suiiigihub07/XuVerse).
+
+Initial deployment is online; final hosting acceptance is still in progress. See [DEPLOYMENT.md](DEPLOYMENT.md) for current status and the update process.
+
 ## Requirements
 
 - Apache 2.4, mod_rewrite and enabled `.htaccess`
