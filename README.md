@@ -6,6 +6,8 @@ Public site: [xuverse.freehosting.dev](https://xuverse.freehosting.dev/). Source
 
 Initial deployment is online; final hosting acceptance is still in progress. See [DEPLOYMENT.md](DEPLOYMENT.md) for current status and the update process.
 
+The September 30 responsive update is live: fluid phone/tablet/desktop layouts, searchable project and article collections, keyboard/swipe photo navigation, article section links, copy-email feedback and accessible delete confirmations. See [RESPONSIVE-UPDATE.md](RESPONSIVE-UPDATE.md) for verification scope.
+
 ## Requirements
 
 - Apache 2.4, mod_rewrite and enabled `.htaccess`

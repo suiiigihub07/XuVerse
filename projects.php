@@ -36,7 +36,16 @@ include 'includes/navbar.php';
 
 <?php if($result && $result->num_rows > 0): ?>
 
-<div class="projects-grid">
+<div class="collection-tools" data-collection-tools hidden>
+<label for="project-search">Find a project</label>
+<div class="collection-search">
+<input type="search" id="project-search" placeholder="Search titles and descriptions" aria-controls="project-results" autocomplete="off">
+<button type="button" class="btn secondary-btn" data-clear-search>Clear</button>
+</div>
+<p class="collection-count" role="status" aria-live="polite" aria-atomic="true"></p>
+</div>
+<p class="collection-empty" data-collection-empty hidden>No projects match. Try a different word or clear the search.</p>
+<div class="projects-grid" id="project-results" data-collection>
 
 <?php while($row = $result->fetch_assoc()): ?>
 

@@ -129,9 +129,10 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 <link
 rel="stylesheet"
 href="<?= e(xuverse_url('assets/css/style.min.css')) ?>?v=20260918-consistency-5">
+<link rel="stylesheet" href="<?= e(xuverse_url('assets/css/responsive.css')) ?>?v=20260930-3">
 
 <script
-src="<?= e(xuverse_url('assets/js/main.min.js')) ?>?v=20260918-consistency-1"
+src="<?= e(xuverse_url('assets/js/main.min.js')) ?>?v=20260930-1"
 defer></script>
 
 <script type="application/ld+json">

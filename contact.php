@@ -155,6 +155,7 @@ data-mailto="<?= e($mailto) ?>"
 data-email="<?= e($email) ?>">
 Start a conversation
 </a>
+<button type="button" class="vx-btn" data-copy-email="<?= e($email) ?>" hidden>Copy email</button>
 </div>
 
 <p class="mail-status" aria-live="polite"></p>

@@ -37,7 +37,16 @@ include 'includes/navbar.php';
 
 <?php if($result && $result->num_rows > 0): ?>
 
-<div class="article-grid">
+<div class="collection-tools" data-collection-tools hidden>
+<label for="article-search">Find an article</label>
+<div class="collection-search">
+<input type="search" id="article-search" placeholder="Search titles and previews" aria-controls="article-results" autocomplete="off">
+<button type="button" class="btn secondary-btn" data-clear-search>Clear</button>
+</div>
+<p class="collection-count" role="status" aria-live="polite" aria-atomic="true"></p>
+</div>
+<p class="collection-empty" data-collection-empty hidden>No articles match. Try a different word or clear the search.</p>
+<div class="article-grid" id="article-results" data-collection>
 
 <?php while($row = $result->fetch_assoc()): ?>
 

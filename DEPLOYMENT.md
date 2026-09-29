@@ -9,10 +9,16 @@
 - Uploaded-image 500 errors were fixed by removing the host-incompatible `Options -ExecCGI` override. The media allowlist and executable-name deny rules remain; live PHP and double-extension probes return 403. The avatar and existing photo render correctly.
 - A code-only update of `uploads/.htaccess` preserved the existing photo record and uploaded file. No database import or runtime-media overwrite was performed for this update.
 - Public acceptance passed after the transient 502 cleared: main pages and project/article/photo/video details, 390 px mobile layout without horizontal overflow, mobile navigation, uploaded photo and video thumbnails, missing-page and missing-record handling. The hosting panel confirms Display Errors is Off.
-- **Acceptance is incomplete:** live administrator CRUD/uploads require the owner's XuVerse sign-in. Logged-out dashboard access redirects to login. Local isolated CMS tests passed; they do not certify authenticated production behavior.
+- Live experience create/edit/delete was subsequently verified using a temporary record, then removed; the five original records remain. Other CMS mutation/upload acceptance remains incomplete. Logged-out dashboard access redirects to login. Local isolated CMS tests do not certify every authenticated production workflow.
 - Contact currently uses the email fallback; no production mail sender is configured. The host's 10 MB file limit is lower than the application's optional 25 MB audio limit.
 
 For ordinary updates, follow the code-only procedure below. Never repeat the initial SQL/media transfer over existing live content.
+
+## Responsive update — 2026-09-30
+
+Seven application files were overlaid into `/htdocs` using the hosting file manager. No SQL, private configuration or runtime upload files were included. The responsive stylesheet is versioned `20260930-3`; JavaScript is versioned `20260930-1`. A prior-code rollback archive and SHA-256 release manifest were retained locally under ignored `output/responsive/`.
+
+Live verification passed 30 public page/viewport combinations and 20 authenticated admin section/viewport combinations, plus search, email-copy, photo preview, menu keyboard behavior and cancellation of the new delete dialog. The existing experience records and uploaded photo remain available. Details and testing limits are recorded in [RESPONSIVE-UPDATE.md](RESPONSIVE-UPDATE.md).
 
 ## GitHub repository
 
