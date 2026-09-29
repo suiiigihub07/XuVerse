@@ -1,4 +1,6 @@
-Options -Indexes -ExecCGI
+# Shared hosts may reject ExecCGI overrides, including disabling it.
+# The allowlist and executable-name deny rule below block script requests.
+Options -Indexes
 <FilesMatch "(?i)^(?!.*\.(?:jpe?g|png|webp|avif|gif|mp3|wav|ogg|m4a|mp4|webm)$)">
     Require all denied
 </FilesMatch>

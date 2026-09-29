@@ -6,15 +6,16 @@
 - Source: https://github.com/suiiigihub07/XuVerse, branch `main`.
 - Initial code, Composer dependencies, media and database were transferred. Private production configuration exists only on the host; private exports remain outside Git.
 - Public pages and production URLs were checked. The live resume PDF downloaded successfully; private configuration returned 403.
-- **Acceptance is incomplete:** uploaded images show the provider's .htaccess error page. Hosting sign-in expired during diagnosis. Repair that directory's rules and recheck images before considering launch complete.
-- Live administrator CRUD/uploads, responsive verification and code-update preservation still need acceptance testing. Local isolated tests passed; they do not certify the production host.
+- Uploaded-image 500 errors were fixed by removing the host-incompatible `Options -ExecCGI` override. The media allowlist and executable-name deny rules remain; live PHP and double-extension probes return 403. The avatar and existing photo render correctly.
+- A code-only update of `uploads/.htaccess` preserved the existing photo record and uploaded file. No database import or runtime-media overwrite was performed for this update.
+- **Acceptance is incomplete:** live administrator CRUD/uploads require the owner's XuVerse sign-in. Responsive verification also remains pending; the host returned a transient 502 during that check. Local isolated tests passed; they do not certify the production host.
 - Contact currently uses the email fallback; no production mail sender is configured. The host's 10 MB file limit is lower than the application's optional 25 MB audio limit.
 
 For ordinary updates, follow the code-only procedure below. Never repeat the initial SQL/media transfer over existing live content.
 
-## GitHub handoff
+## GitHub repository
 
-Create an empty repository named **XuVerse** in your GitHub account. Do not initialize it with a README, license or gitignore. Provide the repository URL and authenticate on your computer when Git requests it. Never put tokens in the repository or chat. Do not force push.
+The existing repository is connected as `origin` on `main`. Commit and push normal code changes there; do not create another repository or force push. Never put tokens in the repository or chat.
 
 ## First deployment
 
