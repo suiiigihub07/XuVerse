@@ -30,31 +30,31 @@
             context.clearRect(0, 0, width, height);
             cursor.x += (cursor.targetX - cursor.x) * .045;
             cursor.y += (cursor.targetY - cursor.y) * .045;
-            const time = elapsed * .00009;
-            const count = width < 700 ? 16 : 28;
+            const time = elapsed * .00032;
+            const count = width < 700 ? 22 : 36;
             const spread = Math.max(width, height);
             /* Parallel contour paths form a drifting composition, not a busy network. */
             for (let i = 0; i < 5; i++) {
-                const shift = Math.sin(time + i * .75) * spread * .025;
+                const shift = Math.sin(time + i * .75) * spread * .065;
                 const x = width * (.54 + i * .095) + shift + cursor.x;
                 context.beginPath();
                 context.moveTo(x + spread * .19, -height * .12);
                 context.bezierCurveTo(x - spread * .15, height * .26,
                     x + spread * .25, height * .67, x - spread * .25, height * 1.12);
-                context.strokeStyle = `rgba(225,29,56,${.045 + i * .006})`;
-                context.lineWidth = .65;
+                context.strokeStyle = `rgba(225,29,56,${.13 + i * .015})`;
+                context.lineWidth = .9;
                 context.stroke();
             }
             for (let i = 0; i < count; i++) {
                 const seed = i * 2.399963;
                 const baseX = ((i * 73.37 + 17.1) % 100) * .01;
                 const baseY = ((i * 41.13 + 8.7) % 100) * .01;
-                const x = width * baseX + Math.sin(time * .8 + seed) * 19 + cursor.x * .4;
-                const y = height * baseY + Math.cos(time * .65 + seed) * 24 + cursor.y * .4;
+                const x = width * baseX + Math.sin(time * .8 + seed) * 36 + cursor.x * .4;
+                const y = height * baseY + Math.cos(time * .65 + seed) * 42 + cursor.y * .4;
                 const breath = .5 + .5 * Math.sin(time * 2 + seed);
                 context.beginPath();
-                context.arc(x, y, .65 + breath * .5, 0, Math.PI * 2);
-                context.fillStyle = `rgba(255,68,89,${.14 + breath * .18})`;
+                context.arc(x, y, .9 + breath * .65, 0, Math.PI * 2);
+                context.fillStyle = `rgba(255,68,89,${.3 + breath * .25})`;
                 context.fill();
                 if (i % 6 === 0) {
                     context.beginPath();

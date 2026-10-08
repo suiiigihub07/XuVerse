@@ -1,184 +1,186 @@
 [
-  {
-    "title": "KAGE",
-    "subtitle": "Korean Age, and the pressure to belong",
-    "slug": "kage",
-    "article_number": 1,
-    "date_display": "August 2025",
-    "date_precision": "month",
-    "written_date": "2025-08",
-    "category": "Reflective Essay",
-    "language": "en",
-    "summary": "A reflective outsider perspective on life in Korea, exploring fascination, social masks, and the tension between belonging and self-erasure. KAGE asks whether adapting to a place can bring connection without turning the effort to fit in into a cage.",
-    "tags": [
-      "Korea",
-      "Belonging",
-      "Identity",
-      "Social Pressure",
-      "Life Abroad",
-      "Personal Reflection"
-    ],
-    "author": "B K Suraj",
-    "publication_status": "published",
-    "date_note": "Month supplied by the author; no exact day specified.",
-    "word_count": 775,
-    "reading_time_minutes": 4,
-    "published_at": "2026-10-08T16:22:41+00:00",
-    "pdf_path": "assets/downloads/kage.pdf",
-    "cover": null,
-    "related_links": [
-      "articles/before-the-next-cut",
-      "articles/what-the-frame-holds",
-      "articles/same-moment-different-meaning"
-    ],
-    "legacy_ids": []
-  },
-  {
-    "title": "Before the Next Cut",
-    "subtitle": "Cinema, attention, and the patience to look",
-    "slug": "before-the-next-cut",
-    "article_number": 2,
-    "date_display": "2026",
-    "written_date": "2026",
-    "date_precision": "year",
-    "category": "Reflective Essay",
-    "language": "en",
-    "author": "B K Suraj",
-    "publication_status": "published",
-    "summary": "A cinema enthusiast reflects on fast edits, the rhythm of social feeds, and the quiet details that need time to emerge. The essay explores how direction, cinematography, and editing can earn attention while leaving room for patience and discovery.",
-    "meta_description": "A cinema enthusiast reflects on fast edits, quiet frames, and how direction and cinematography can leave room for patience in a world of scrolling.",
-    "tags": [
-      "Cinema",
-      "Cinematography",
-      "Film Direction",
-      "Editing",
-      "Attention",
-      "Visual Storytelling"
-    ],
-    "word_count": 1010,
-    "date_note": "The brief specifies 2026; no month or day was supplied.",
-    "reading_time_minutes": 6,
-    "published_at": "2026-10-08T16:22:41+00:00",
-    "pdf_path": "assets/downloads/before-the-next-cut.pdf",
-    "cover": null,
-    "related_links": [
-      "articles/kage",
-      "articles/what-the-frame-holds",
-      "articles/same-moment-different-meaning"
-    ],
-    "legacy_ids": []
-  },
-  {
-    "title": "What the Frame Holds",
-    "subtitle": "Photography, perspective, and the weight of a moment",
-    "slug": "what-the-frame-holds",
-    "article_number": 3,
-    "date_display": "October 2026",
-    "written_date": "2026-10",
-    "date_precision": "month",
-    "category": "Reflective Essay",
-    "language": "en",
-    "author": "B K Suraj",
-    "publication_status": "published",
-    "summary": "A reflective essay on how photographs shape perception through framing, distance, and detail. Looking across older and contemporary images, it explores the choices behind a picture, the limits of interpretation, and the lasting impact of learning to notice.",
-    "meta_description": "A reflective essay on photographic framing, perspective, and the quiet details that make a single image memorable across time.",
-    "tags": [
-      "Photography",
-      "Framing",
-      "Composition",
-      "Perspective",
-      "Visual Storytelling",
-      "Creative Learning"
-    ],
-    "word_count": 1086,
-    "date_note": "Creation month used because no article-specific date was supplied.",
-    "reading_time_minutes": 6,
-    "published_at": "2026-10-08T16:22:41+00:00",
-    "pdf_path": "assets/downloads/what-the-frame-holds.pdf",
-    "cover": null,
-    "related_links": [
-      "articles/kage",
-      "articles/before-the-next-cut",
-      "articles/same-moment-different-meaning"
-    ],
-    "legacy_ids": []
-  },
-  {
-    "title": "Same Moment, Different Meaning",
-    "subtitle": "Framing, Composition, and Interpretation in Photography",
-    "slug": "same-moment-different-meaning",
-    "author": "B K Suraj",
-    "date_display": "October 2026",
-    "written_date": "2026-10",
-    "date_precision": "month",
-    "type": "Research / Exploration",
-    "study_type": "Narrative literature review and conceptual synthesis",
-    "status": "Independent study; not peer-reviewed",
-    "summary": "A literature-based study of how photographic framing shapes attention, aesthetic preference, and interpretation. It proposes assessing visual clarity separately from the preservation of relevant context, and outlines a future study of cropping and viewer judgments.",
-    "tags": [
-      "Photography",
-      "Framing",
-      "Composition",
-      "Visual Perception",
-      "Cropping",
-      "Visual Literacy"
-    ],
-    "word_count": 2782,
-    "reading_time_minutes": 14,
-    "source_count": 7,
-    "original_participant_data": false,
-    "original_photographic_dataset": false,
-    "contribution": "Proposed clarity-context framework; conceptual synthesis, not experimentally validated",
-    "pdf_file": "same-moment-different-meaning.pdf",
-    "references": [
-      {
-        "citation": "Ahn, S. (2012). Image cropping: Collection and analysis of crowdsourced data (Technical Report UCB/EECS-2012-94). University of California, Berkeley.",
-        "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2012/EECS-2012-94.html",
-        "access": "Full university report; cropping behaviour and analysis limitations."
-      },
-      {
-        "citation": "Amirshahi, S. A., Hayn-Leichsenring, G. U., Denzler, J., & Redies, C. (2014). Evaluating the rule of thirds in photographs and paintings. Art & Perception, 2(1-2), 163-182.",
-        "url": "https://doi.org/10.1163/22134913-00002024",
-        "access": "Publisher abstract and indexed publisher text; full text not successfully accessed."
-      },
-      {
-        "citation": "Barrett, T. (1986). Teaching about photography: Photographs and contexts. Art Education, 39(4), 33-36.",
-        "url": "https://terrybarrettosu.com/wp-content/uploads/2017/08/Barrett-1986-Photographs-Contexts.pdf",
-        "access": "Author-hosted full article; conceptual and educational argument."
-      },
-      {
-        "citation": "Chuang, H.-C., Tseng, H.-Y., & Chiang, C.-Y. (2024). Impact of leading line composition on visual cognition: An eye-tracking study. Journal of Eye Movement Research, 17(5), Article 2.",
-        "url": "https://doi.org/10.16910/jemr.17.5.2",
-        "access": "Full journal article; 2024 date follows original journal record."
-      },
-      {
-        "citation": "McManus, I. C., Zhou, F. A., l'Anson, S., Waterfield, L., Stöver, K., & Cook, R. (2011). The psychometrics of photographic cropping: The influence of colour, meaning, and expertise. Perception, 40(3), 332-357.",
-        "url": "https://doi.org/10.1068/p6700",
-        "access": "Publisher abstract only; expertise and cropping summary."
-      },
-      {
-        "citation": "Palmer, S. E., Gardner, J. S., & Wickens, T. D. (2008). Aesthetic issues in spatial composition: Effects of position and direction on framing single objects. Spatial Vision, 21(3-5), 421-449.",
-        "url": "https://doi.org/10.1163/156856808784532662",
-        "access": "Full article in author laboratory repository: https://palmerlab.berkeley.edu/pdf/PalmerGardner%26Wickens-1.pdf"
-      },
-      {
-        "citation": "Sammartino, J., & Palmer, S. E. (2012). Aesthetic issues in spatial composition: Representational fit and the role of semantic context. Perception, 41(12), 1434-1457.",
-        "url": "https://doi.org/10.1068/p7233",
-        "access": "Publisher abstract only; contextual meaning and preference."
-      }
-    ],
-    "publication_status": "published",
-    "published_at": "2026-10-08T16:22:41+00:00",
-    "category": "Research / Exploration",
-    "pdf_path": "assets/downloads/same-moment-different-meaning.pdf",
-    "cover": null,
-    "related_links": [
-      "articles/kage",
-      "articles/before-the-next-cut",
-      "articles/what-the-frame-holds"
-    ],
-    "legacy_ids": [],
-    "abstract": "Photographic framing selects both the subject of an image and the evidence available for understanding it. This narrative review examines seven selected sources on cropping, spatial composition, visual attention, and photographic context. It asks how framing influences the relationship between visual appeal and interpretation, and what an emerging photographer can learn from that relationship. The reviewed literature indicates that compositional preferences depend on the task, depicted subject, and accompanying meaning; familiar rules are useful prompts rather than universal guarantees. The paper distinguishes attention, aesthetic preference, and interpretation as separate outcomes. Its conceptual contribution is a two-part assessment of framing: visual clarity and preservation of relevant context. A crop may strengthen the first while weakening the second. Hypothetical examples illustrate this trade-off, and a future comparison study is proposed to test it. The central conclusion is that evaluating a frame requires asking not only what becomes more noticeable, but also what becomes harder to understand. No original participant data or photographic corpus is reported.",
-    "limitations": "The review is selective and access is uneven. Abstract-only sources support limited summaries, not detailed appraisal of their methods. Search terms and language choices may exclude relevant scholarship. The evidence spans different tasks, stimuli, and publication types; it cannot be treated as one consistent experiment.\n\nSome reviewed studies use simplified subjects or restricted participant groups. Findings should not be assumed to apply equally across genres, cultures, ages, or viewing environments. Preference judgments do not establish emotional depth, factual accuracy, memory, or ethical adequacy. This paper also contains no analysis of named photographic masterpieces or the author's own portfolio.\n\nThe proposed framework is a conceptual contribution. Its categories depend on intended use and on a defensible definition of relevant context. It does not supply a universal scoring tool, and it has not demonstrated a new effect. The hypothetical examples clarify the argument but cannot substitute for measured responses."
-  }
+    {
+        "title": "KAGE",
+        "subtitle": "Korean Age, and the pressure to belong",
+        "slug": "kage",
+        "author": "B K Suraj",
+        "date_display": "August 2025",
+        "written_date": "2025-08",
+        "date_precision": "month",
+        "category": "Reflective Essay",
+        "language": "en",
+        "summary": "A reflective outsider perspective on life in Korea, exploring fascination, social masks, and the tension between belonging and self-erasure. KAGE asks whether adapting to a place can bring connection without turning the effort to fit in into a cage.",
+        "tags": [
+            "Korea",
+            "Belonging",
+            "Identity",
+            "Social Pressure",
+            "Life Abroad",
+            "Personal Reflection"
+        ],
+        "publication_status": "published",
+        "source_note": "",
+        "references": [],
+        "article_number": 1,
+        "date_note": "Month supplied by the author; no exact day specified.",
+        "word_count": 775,
+        "reading_time_minutes": 4,
+        "published_at": "2026-10-08T16:22:41+00:00",
+        "pdf_path": "assets/downloads/kage.pdf",
+        "cover": null,
+        "related_links": [
+            "articles/before-the-next-cut",
+            "articles/what-the-frame-holds",
+            "articles/same-moment-different-meaning"
+        ],
+        "legacy_ids": []
+    },
+    {
+        "title": "Before the Next Cut",
+        "subtitle": "Cinema, attention, and the patience to look",
+        "slug": "before-the-next-cut",
+        "article_number": 2,
+        "date_display": "2026",
+        "written_date": "2026",
+        "date_precision": "year",
+        "category": "Reflective Essay",
+        "language": "en",
+        "author": "B K Suraj",
+        "publication_status": "published",
+        "summary": "A cinema enthusiast reflects on fast edits, the rhythm of social feeds, and the quiet details that need time to emerge. The essay explores how direction, cinematography, and editing can earn attention while leaving room for patience and discovery.",
+        "meta_description": "A cinema enthusiast reflects on fast edits, quiet frames, and how direction and cinematography can leave room for patience in a world of scrolling.",
+        "tags": [
+            "Cinema",
+            "Cinematography",
+            "Film Direction",
+            "Editing",
+            "Attention",
+            "Visual Storytelling"
+        ],
+        "word_count": 1010,
+        "date_note": "The brief specifies 2026; no month or day was supplied.",
+        "reading_time_minutes": 6,
+        "published_at": "2026-10-08T16:22:41+00:00",
+        "pdf_path": "assets/downloads/before-the-next-cut.pdf",
+        "cover": null,
+        "related_links": [
+            "articles/kage",
+            "articles/what-the-frame-holds",
+            "articles/same-moment-different-meaning"
+        ],
+        "legacy_ids": []
+    },
+    {
+        "title": "What the Frame Holds",
+        "subtitle": "Photography, perspective, and the weight of a moment",
+        "slug": "what-the-frame-holds",
+        "article_number": 3,
+        "date_display": "October 2026",
+        "written_date": "2026-10",
+        "date_precision": "month",
+        "category": "Reflective Essay",
+        "language": "en",
+        "author": "B K Suraj",
+        "publication_status": "published",
+        "summary": "A reflective essay on how photographs shape perception through framing, distance, and detail. Looking across older and contemporary images, it explores the choices behind a picture, the limits of interpretation, and the lasting impact of learning to notice.",
+        "meta_description": "A reflective essay on photographic framing, perspective, and the quiet details that make a single image memorable across time.",
+        "tags": [
+            "Photography",
+            "Framing",
+            "Composition",
+            "Perspective",
+            "Visual Storytelling",
+            "Creative Learning"
+        ],
+        "word_count": 1086,
+        "date_note": "Creation month used because no article-specific date was supplied.",
+        "reading_time_minutes": 6,
+        "published_at": "2026-10-08T16:22:41+00:00",
+        "pdf_path": "assets/downloads/what-the-frame-holds.pdf",
+        "cover": null,
+        "related_links": [
+            "articles/kage",
+            "articles/before-the-next-cut",
+            "articles/same-moment-different-meaning"
+        ],
+        "legacy_ids": []
+    },
+    {
+        "title": "Same Moment, Different Meaning",
+        "subtitle": "Framing, Composition, and Interpretation in Photography",
+        "slug": "same-moment-different-meaning",
+        "author": "B K Suraj",
+        "date_display": "October 2026",
+        "written_date": "2026-10",
+        "date_precision": "month",
+        "type": "Research / Exploration",
+        "study_type": "Narrative literature review and conceptual synthesis",
+        "status": "Independent study; not peer-reviewed",
+        "summary": "A literature-based study of how photographic framing shapes attention, aesthetic preference, and interpretation. It proposes assessing visual clarity separately from the preservation of relevant context, and outlines a future study of cropping and viewer judgments.",
+        "tags": [
+            "Photography",
+            "Framing",
+            "Composition",
+            "Visual Perception",
+            "Cropping",
+            "Visual Literacy"
+        ],
+        "word_count": 2782,
+        "reading_time_minutes": 14,
+        "source_count": 7,
+        "original_participant_data": false,
+        "original_photographic_dataset": false,
+        "contribution": "Proposed clarity-context framework; conceptual synthesis, not experimentally validated",
+        "pdf_file": "same-moment-different-meaning.pdf",
+        "references": [
+            {
+                "citation": "Ahn, S. (2012). Image cropping: Collection and analysis of crowdsourced data (Technical Report UCB/EECS-2012-94). University of California, Berkeley.",
+                "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2012/EECS-2012-94.html",
+                "access": "Full university report; cropping behaviour and analysis limitations."
+            },
+            {
+                "citation": "Amirshahi, S. A., Hayn-Leichsenring, G. U., Denzler, J., & Redies, C. (2014). Evaluating the rule of thirds in photographs and paintings. Art & Perception, 2(1-2), 163-182.",
+                "url": "https://doi.org/10.1163/22134913-00002024",
+                "access": "Publisher abstract and indexed publisher text; full text not successfully accessed."
+            },
+            {
+                "citation": "Barrett, T. (1986). Teaching about photography: Photographs and contexts. Art Education, 39(4), 33-36.",
+                "url": "https://terrybarrettosu.com/wp-content/uploads/2017/08/Barrett-1986-Photographs-Contexts.pdf",
+                "access": "Author-hosted full article; conceptual and educational argument."
+            },
+            {
+                "citation": "Chuang, H.-C., Tseng, H.-Y., & Chiang, C.-Y. (2024). Impact of leading line composition on visual cognition: An eye-tracking study. Journal of Eye Movement Research, 17(5), Article 2.",
+                "url": "https://doi.org/10.16910/jemr.17.5.2",
+                "access": "Full journal article; 2024 date follows original journal record."
+            },
+            {
+                "citation": "McManus, I. C., Zhou, F. A., l'Anson, S., Waterfield, L., Stöver, K., & Cook, R. (2011). The psychometrics of photographic cropping: The influence of colour, meaning, and expertise. Perception, 40(3), 332-357.",
+                "url": "https://doi.org/10.1068/p6700",
+                "access": "Publisher abstract only; expertise and cropping summary."
+            },
+            {
+                "citation": "Palmer, S. E., Gardner, J. S., & Wickens, T. D. (2008). Aesthetic issues in spatial composition: Effects of position and direction on framing single objects. Spatial Vision, 21(3-5), 421-449.",
+                "url": "https://doi.org/10.1163/156856808784532662",
+                "access": "Full article in author laboratory repository: https://palmerlab.berkeley.edu/pdf/PalmerGardner%26Wickens-1.pdf"
+            },
+            {
+                "citation": "Sammartino, J., & Palmer, S. E. (2012). Aesthetic issues in spatial composition: Representational fit and the role of semantic context. Perception, 41(12), 1434-1457.",
+                "url": "https://doi.org/10.1068/p7233",
+                "access": "Publisher abstract only; contextual meaning and preference."
+            }
+        ],
+        "publication_status": "published",
+        "published_at": "2026-10-08T16:22:41+00:00",
+        "category": "Research / Exploration",
+        "pdf_path": "assets/downloads/same-moment-different-meaning.pdf",
+        "cover": null,
+        "related_links": [
+            "articles/kage",
+            "articles/before-the-next-cut",
+            "articles/what-the-frame-holds"
+        ],
+        "legacy_ids": [],
+        "abstract": "Photographic framing selects both the subject of an image and the evidence available for understanding it. This narrative review examines seven selected sources on cropping, spatial composition, visual attention, and photographic context. It asks how framing influences the relationship between visual appeal and interpretation, and what an emerging photographer can learn from that relationship. The reviewed literature indicates that compositional preferences depend on the task, depicted subject, and accompanying meaning; familiar rules are useful prompts rather than universal guarantees. The paper distinguishes attention, aesthetic preference, and interpretation as separate outcomes. Its conceptual contribution is a two-part assessment of framing: visual clarity and preservation of relevant context. A crop may strengthen the first while weakening the second. Hypothetical examples illustrate this trade-off, and a future comparison study is proposed to test it. The central conclusion is that evaluating a frame requires asking not only what becomes more noticeable, but also what becomes harder to understand. No original participant data or photographic corpus is reported.",
+        "limitations": "The review is selective and access is uneven. Abstract-only sources support limited summaries, not detailed appraisal of their methods. Search terms and language choices may exclude relevant scholarship. The evidence spans different tasks, stimuli, and publication types; it cannot be treated as one consistent experiment.\n\nSome reviewed studies use simplified subjects or restricted participant groups. Findings should not be assumed to apply equally across genres, cultures, ages, or viewing environments. Preference judgments do not establish emotional depth, factual accuracy, memory, or ethical adequacy. This paper also contains no analysis of named photographic masterpieces or the author's own portfolio.\n\nThe proposed framework is a conceptual contribution. Its categories depend on intended use and on a defensible definition of relevant context. It does not supply a universal scoring tool, and it has not demonstrated a new effect. The hypothetical examples clarify the argument but cannot substitute for measured responses."
+    }
 ]

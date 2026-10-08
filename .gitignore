@@ -25,6 +25,8 @@ auth.json
 Thumbs.db
 __pycache__/
 *.pyc
+# Unfinished, unused concurrent editor draft. Preserve locally; do not publish.
+/includes/content-editor.php
 /.xuverse-local-revision
 /*_backup.php
 *.sql

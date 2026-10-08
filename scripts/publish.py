@@ -17,7 +17,7 @@ def run(*args, capture=False):
 def allowed(name):
     p=PurePosixPath(name)
     if '__pycache__' in p.parts or p.suffix in {'.pyc','.zip','.sql','.log','.bak','.pem','.key'}: return False
-    return (p.parts[0] in {'admin','includes','assets','content','scripts'} or name in {'.htaccess','.gitignore','.gitattributes','README.md','DEPLOYMENT.md','PUBLISH.md','composer.json','composer.lock'} or (len(p.parts)==1 and p.suffix=='.php' and not name.startswith('config.') and 'backup' not in name))
+    return (p.parts[0] in {'admin','includes','assets','content','scripts'} or name in {'.htaccess','.gitignore','.gitattributes','README.md','DEPLOYMENT.md','PUBLISH.md','CONTENT-GUIDE.md','composer.json','composer.lock'} or (len(p.parts)==1 and p.suffix=='.php' and not name.startswith('config.') and 'backup' not in name))
 
 def release_files(revision):
     names=run('git','ls-tree','-r','--name-only',revision,capture=True).splitlines()
@@ -25,6 +25,17 @@ def release_files(revision):
 
 def blob(revision,name):
     return subprocess.check_output(['git','show',revision+':'+name],cwd=ROOT)
+
+def assert_publishable(read):
+    # Canonical source is versioned publicly. Do not push unfinished private work.
+    for collection in ('articles', 'projects', 'media'):
+        entries = json.loads(read('content/' + collection + '.json'))
+        drafts = [entry.get('slug', '(unnamed)') for entry in entries
+                  if entry.get('publication_status', 'published') != 'published']
+        if drafts:
+            raise RuntimeError('Publish stopped before GitHub/hosting: review local drafts in '
+                               + collection + ': ' + ', '.join(drafts)
+                               + '. Keep unfinished work in a private backup outside canonical content.')
 
 class Host:
     def __init__(self,config):
@@ -137,6 +148,7 @@ def install_router(host,revision):
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--message',default='Publish XuVerse content'); p.add_argument('--prepare',action='store_true'); p.add_argument('--deploy',metavar='REVISION'); p.add_argument('--rollback',metavar='REVISION'); p.add_argument('--fail-after',type=int,default=0); p.add_argument('--config',type=Path,default=DEFAULT_CONFIG); p.add_argument('--reuse-backup',type=Path); args=p.parse_args()
     if not args.deploy and not args.rollback:
+        assert_publishable(lambda name: (ROOT/name).read_bytes())
         # Git stores canonical text with LF. Hash and build those exact bytes on Windows too.
         for source in list((ROOT/'content').glob('*.json')) + list((ROOT/'content/writing').glob('*.md')):
             raw=source.read_bytes()
@@ -154,6 +166,7 @@ def main():
         run('git','push','origin','HEAD:main')
     revision=run('git','rev-parse',args.rollback or args.deploy or 'HEAD',capture=True)
     if len(revision)!=40: raise RuntimeError('Expected full commit SHA')
+    assert_publishable(lambda name: blob(revision, name))
     manifest=json.loads(blob(revision,'content/manifest.json'))
     for name,digest in manifest['files'].items():
         if hashlib.sha256(blob(revision,name)).hexdigest()!=digest:

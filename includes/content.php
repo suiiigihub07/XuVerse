@@ -16,10 +16,15 @@ function xuverse_checkout_revision() {
     return '';
 }
 
-function xuverse_content($name) {
+function xuverse_content($name, $refresh = false) {
     static $cache = [];
     if (!preg_match('/^[a-z-]+$/', $name)) { throw new InvalidArgumentException('Invalid content name'); }
+    if ($refresh) { unset($cache[$name]); }
     return $cache[$name] ??= json_decode(file_get_contents(dirname(__DIR__) . '/content/' . $name . '.json'), true, 512, JSON_THROW_ON_ERROR);
+}
+
+function xuverse_published($name) {
+    return array_values(array_filter(xuverse_content($name), fn($item) => ($item['publication_status'] ?? 'published') === 'published'));
 }
 
 // All raw HTML is escaped. Only this small Markdown vocabulary produces markup.
@@ -70,14 +75,14 @@ function xuverse_body($article) {
 }
 
 function xuverse_public_settings($settings = []) {
-    $copy = xuverse_content('copy'); $links = xuverse_content('links');
+    $copy = xuverse_content('copy'); $links = xuverse_content('links'); $site = xuverse_content('site');
     $settings = array_merge($settings, [
-        'site_title' => 'XuVerse', 'hero_title' => $copy['name'], 'hero_description' => $copy['hero_intro'],
-        'hero_subtitle' => 'Intelligence Computing undergraduate', 'meta_description' => $copy['hero_intro'],
-        'resume_headline' => 'Intelligence Computing undergraduate', 'resume_summary' => $copy['resume_summary'],
+        'site_title' => $site['site_title'], 'hero_title' => $copy['name'], 'hero_description' => $copy['hero_intro'],
+        'hero_subtitle' => $site['headline'], 'meta_description' => $copy['hero_intro'],
+        'resume_headline' => $site['headline'], 'resume_summary' => $copy['resume_summary'],
         'location_text' => $copy['location'], 'current_focus' => $copy['current_focus'],
-        'contact_email' => substr($links['email'], 7), 'og_image' => 'assets/images/public/portrait.webp',
-        'footer_tagline' => $copy['footer'], 'footer_text' => '', 'nav_cta_label' => 'Connect'
+        'contact_email' => substr($links['email'], 7), 'og_image' => $site['portrait'],
+        'footer_tagline' => $copy['footer'], 'footer_text' => '', 'nav_cta_label' => $site['nav_contact']
     ]);
     foreach (['github','linkedin','instagram','youtube','tiktok','facebook'] as $key) { $settings[$key . '_url'] = $links[$key]; }
     return $settings;
@@ -87,13 +92,21 @@ function xuverse_public_start($title, $description, $path = '') {
     global $settings, $pageTitle, $pageDescription, $canonicalUrl, $conn, $schemaData, $pageType, $pageImage;
     require_once __DIR__ . '/db.php';
     $settings = xuverse_public_settings();
-    $pageTitle = $title . ' | B K Suraj'; $pageDescription = $description;
+    $pageTitle = $title . ' | ' . xuverse_content('copy')['name']; $pageDescription = $description;
     $canonicalUrl = xuverse_base_url() . '/' . $path;
+    $publicReturnPath = $path;
     include __DIR__ . '/header.php'; include __DIR__ . '/navbar.php';
+    if ($publicReturnPath !== '') {
+        echo '<nav class="container public-return-nav" aria-label="Return navigation">';
+        $section = explode('/', $publicReturnPath)[0];
+        $parents = ['photos'=>'media#photographs','videos'=>'media#videos','articles'=>'articles','projects'=>'projects'];
+        if (str_contains($publicReturnPath, '/') && isset($parents[$section])) { echo '<a href="'.e(xuverse_url($parents[$section])).'">← Back to '.e($section === 'photos' || $section === 'videos' ? 'media' : $section).'</a>'; }
+        echo '<a href="'.e(xuverse_url()).'">← Home</a></nav>';
+    }
 }
 
 function xuverse_find_public($collection, $slug, $id = 0) {
-    foreach (xuverse_content($collection) as $item) {
+    foreach (xuverse_published($collection) as $item) {
         if (($slug !== '' && $item['slug'] === $slug) || ($id && in_array($id, $item['legacy_ids'] ?? [], true))) { return $item; }
     }
     return null;

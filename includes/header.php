@@ -39,7 +39,7 @@ $metaDescription = xuverse_setting(
 );
 $pageDescription = $pageDescription ?? $metaDescription;
 $canonicalUrl = $canonicalUrl ?? xuverse_current_url();
-$ownerAvatar = 'assets/images/public/portrait.webp';
+$ownerAvatar = xuverse_content('site')['portrait'];
 $pageImage = $pageImage ?? xuverse_setting($settings, 'og_image', $ownerAvatar);
 $absoluteImage = xuverse_absolute_url($pageImage);
 $pageType = $pageType ?? 'website';

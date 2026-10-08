@@ -48,7 +48,7 @@ include '../includes/navbar.php';
 <div class="dashboard-heading">
 <div>
 <h1>Control Center</h1>
-<p>Welcome back, <?= e($adminName) ?>. Account and music tools remain here. Public content is edited in the local content files and published as one revision; historical records are retained below.</p>
+<p>Welcome back, <?= e($adminName) ?>. Edit your public website content here, review the preview, then use Publish to sync the same revision.</p>
 </div>
 
 <div class="dashboard-actions">
@@ -56,7 +56,25 @@ include '../includes/navbar.php';
 </div>
 </div>
 
+<?php
+require_once '../includes/dashboard-content.php';
+$publicMedia=xuverse_content('media');
+$publicStats=['Projects'=>count(xuverse_content('projects')),'Articles'=>count(xuverse_content('articles')),'Photographs'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='photograph')),'Gallery posts'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='card series')),'Videos'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='video'))];
+?>
 <div class="dashboard-grid">
+<a class="stat-card" href="content/index.php"><h2>Website content</h2><p>Photos, ANCHOR galleries, videos, writing and every public content section</p></a>
+<?php foreach($publicStats as $label=>$total): ?><div class="stat-card"><h2><?= $total ?></h2><p><?= e($label) ?></p></div><?php endforeach; ?>
+</div>
+
+<div class="quick-links">
+<?php require_once '../includes/dashboard-content.php'; foreach (xuverse_editor_sections() as $key=>$label): ?>
+<a href="content/index.php?collection=<?= e($key) ?>"><h2><?= e($label) ?></h2><p>Edit the content displayed on your public pages</p></a>
+<?php endforeach; ?>
+</div>
+<details class="section"><summary>Historical records and account tools</summary>
+<p>These retained database records are separate from the current public content.</p>
+<div class="dashboard-grid">
+
 
 <div class="stat-card">
 <h2><?= $counts['experience'] ?></h2>
@@ -99,6 +117,7 @@ include '../includes/navbar.php';
 </div>
 
 </div>
+
 
 <div class="quick-links">
 
@@ -153,7 +172,7 @@ include '../includes/navbar.php';
 </a>
 
 </div>
-
+</details>
 </div>
 </section>
 

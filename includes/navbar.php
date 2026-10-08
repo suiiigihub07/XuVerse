@@ -8,8 +8,10 @@ $navSettings = $conn->query(
      LIMIT 1"
 )->fetch_assoc();
 
-$siteTitle = 'XuVerse';
-$navCtaLabel = 'Connect';
+require_once __DIR__ . '/content.php';
+$navCopy = xuverse_content('site');
+$siteTitle = $navCopy['site_title'];
+$navCtaLabel = $navCopy['nav_contact'];
 $currentScript = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
 $currentPage = basename($currentScript);
 $isAdminArea = strpos($currentScript, '/admin/') !== false;
@@ -43,7 +45,7 @@ $profileInitial = strtoupper(substr(trim($profileName) ?: 'X', 0, 1));
 
 <a href="<?= e(xuverse_url()) ?>" class="logo">
 <span><?= e($siteTitle) ?></span>
-<small><?= e(xuverse_person_name($conn)) ?></small>
+<small><?= e(xuverse_content('copy')['name']) ?></small>
 </a>
 
 <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-links">
@@ -52,13 +54,13 @@ $profileInitial = strtoupper(substr(trim($profileName) ?: 'X', 0, 1));
 
 <div class="nav-links" id="primary-links">
 
-<a class="<?= nav_active('index.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('')) ?>">Home</a>
-<a class="<?= nav_active(['projects.php','project.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('projects')) ?>">Projects</a>
-<a class="<?= nav_active(['articles.php','article.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('articles')) ?>">Articles</a>
-<a class="<?= nav_active(['media.php','photo.php','video.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('media')) ?>">Media</a>
-<a class="<?= nav_active('about.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('about')) ?>">About</a>
-<a class="<?= nav_active('resume.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('resume')) ?>">Resume</a>
-<a class="nav-action <?= nav_active('contact.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('contact')) ?>">Connect</a>
+<a class="<?= nav_active('index.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('')) ?>"> <?= e($navCopy['nav_home']) ?></a>
+<a class="<?= nav_active(['projects.php','project.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('projects')) ?>"> <?= e($navCopy['nav_projects']) ?></a>
+<a class="<?= nav_active(['articles.php','article.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('articles')) ?>"> <?= e($navCopy['nav_articles']) ?></a>
+<a class="<?= nav_active(['media.php','photo.php','video.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('media')) ?>"> <?= e($navCopy['nav_media']) ?></a>
+<a class="<?= nav_active('about.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('about')) ?>"> <?= e($navCopy['nav_about']) ?></a>
+<a class="<?= nav_active('resume.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('resume')) ?>"> <?= e($navCopy['nav_resume']) ?></a>
+<a class="nav-action <?= nav_active('contact.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('contact')) ?>"> <?= e($navCopy['nav_contact']) ?></a>
 <?php if(isset($_SESSION['user_id'])): ?>
 <div class="profile-menu">
 <button

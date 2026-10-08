@@ -11,8 +11,8 @@ if (empty($_GET['slug'])) {
     exit;
 }
 $embedUrl = xuverse_youtube_embed($video['url']);
-parse_str(parse_url($video['url'], PHP_URL_QUERY), $query);
-$pageImage = 'https://i.ytimg.com/vi/' . $query['v'] . '/hqdefault.jpg';
+$videoId = basename(parse_url($embedUrl, PHP_URL_PATH) ?? '');
+$pageImage = 'https://i.ytimg.com/vi/' . $videoId . '/hqdefault.jpg';
 $schemaData = [
     '@type' => 'VideoObject',
     'name' => $video['title'],
@@ -31,9 +31,8 @@ xuverse_public_start($video['title'], $video['summary'], 'videos/' . $video['slu
 <iframe src="<?= e($embedUrl) ?>" title="<?= e($video['title']) ?>" width="1600" height="900" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 <div class="media-detail-info">
-<p class="page-kicker">Video</p>
 <h1><?= e($video['title']) ?></h1>
-<p><?= e($video['summary']) ?></p>
+<div class="prose"><?= xuverse_markdown(!empty($video['description']) ? $video['description'] : $video['summary']) ?></div>
 <?php if (!empty($video['credit_note'])): ?>
 <p class="media-credit"><?= e($video['credit_note']) ?></p>
 <?php endif; ?>

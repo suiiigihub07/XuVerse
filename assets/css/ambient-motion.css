@@ -3,8 +3,8 @@ body.xv-motion-mounted { isolation: isolate; }
 .xv-ambient { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; contain:strict; }
 .xv-ambient canvas { display:block; width:100%; height:100%; opacity:.85; }
 .xv-ambient::before,.xv-ambient::after { content:""; position:absolute; inset:-15%; pointer-events:none; will-change:transform; }
-.xv-ambient::before { background:radial-gradient(ellipse at 82% 22%,rgba(225,29,56,.14),transparent 38%),radial-gradient(ellipse at 12% 80%,rgba(153,27,27,.13),transparent 35%); animation:xv-light-drift 26s cubic-bezier(.45,0,.55,1) infinite alternate; }
-.xv-ambient::after { background:radial-gradient(ellipse at 70% 65%,rgba(225,29,56,.07),transparent 38%); animation:xv-light-drift 34s cubic-bezier(.45,0,.55,1) -12s infinite alternate-reverse; }
+.xv-ambient::before { background:radial-gradient(ellipse at 82% 22%,rgba(225,29,56,.22),transparent 38%),radial-gradient(ellipse at 12% 80%,rgba(153,27,27,.2),transparent 35%); animation:xv-light-drift 12s cubic-bezier(.45,0,.55,1) infinite alternate; }
+.xv-ambient::after { background:linear-gradient(125deg,transparent 35%,rgba(225,29,56,.11) 46%,rgba(255,51,78,.18) 50%,rgba(225,29,56,.08) 54%,transparent 66%); animation:xv-ribbon-flow 9s ease-in-out infinite alternate; }
 .xv-motion-paused .xv-ambient::before,.xv-motion-paused .xv-ambient::after,.xv-motion-paused::before,.xv-motion-paused::after,.xv-motion-paused .identity-panel::after { animation-play-state:paused; }
 .xv-ambient[data-reading="true"] { opacity:.55; }
 .xv-motion-toggle { position:relative; grid-column:1/-1; justify-self:start; display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:10px 13px; border:1px solid rgba(225,29,56,.35); border-radius:6px; background:rgba(8,8,11,.92); color:#d4d4d8; font:600 .72rem/1.2 var(--font-body,sans-serif); cursor:pointer; transition:border-color .2s,color .2s; }
@@ -13,6 +13,7 @@ body.xv-motion-mounted { isolation: isolate; }
 .xv-motion-toggle[hidden] { display:none; }
 .xv-motion-toggle:hover,.xv-motion-toggle:focus-visible { color:#fff; border-color:#ff334e; }
 @keyframes xv-light-drift { from { transform:translate3d(-2%,-1%,0) scale(.97); } to { transform:translate3d(3%,2%,0) scale(1.04); } }
+@keyframes xv-ribbon-flow { from { transform:translate3d(-12%,8%,0) rotate(-8deg); } to { transform:translate3d(12%,-8%,0) rotate(8deg); } }
 
 /* Keep the familiar reveals, with a slower, coordinated easing curve. */
 .motion-ready .reveal { transition:opacity .72s cubic-bezier(.16,1,.3,1) var(--reveal-delay,0ms),transform .82s cubic-bezier(.16,1,.3,1) var(--reveal-delay,0ms); }

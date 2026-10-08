@@ -4,7 +4,7 @@ require_once __DIR__ . '/content.php';
 
 $footerCopy = xuverse_content('copy');
 $footerLinks = xuverse_content('links');
-$siteTitle = 'XuVerse';
+$siteTitle = xuverse_content('site')['site_title'];
 
 $socialLinks = [
     'github' => ['label' => 'GitHub', 'url' => $footerLinks['github']],

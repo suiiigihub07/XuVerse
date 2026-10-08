@@ -3,6 +3,7 @@ require_once 'includes/content.php';
 
 $copy = xuverse_content('copy');
 $links = xuverse_content('links');
+$site = xuverse_content('site');
 $email = substr($links['email'], 7);
 $configuredRecipient = trim((string)xuverse_config('CONTACT_TO', ''));
 $recipient = filter_var($configuredRecipient, FILTER_VALIDATE_EMAIL) ? $configuredRecipient : $email;
@@ -73,12 +74,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 }
 
 $socials = [
-    ['label' => 'GitHub', 'url' => $links['github'], 'meta' => 'developer profile'],
-    ['label' => 'LinkedIn', 'url' => $links['linkedin'], 'meta' => 'professional profile'],
-    ['label' => 'YouTube', 'url' => $links['youtube'], 'meta' => 'video work'],
-    ['label' => 'Instagram', 'url' => $links['instagram'], 'meta' => 'photos / life'],
-    ['label' => 'TikTok', 'url' => $links['tiktok'], 'meta' => 'short-form video'],
-    ['label' => 'Facebook', 'url' => $links['facebook'], 'meta' => 'community profile'],
+    ['label' => 'GitHub', 'url' => $links['github'], 'meta' => $site['social_descriptions']['github']],
+    ['label' => 'LinkedIn', 'url' => $links['linkedin'], 'meta' => $site['social_descriptions']['linkedin']],
+    ['label' => 'YouTube', 'url' => $links['youtube'], 'meta' => $site['social_descriptions']['youtube']],
+    ['label' => 'Instagram', 'url' => $links['instagram'], 'meta' => $site['social_descriptions']['instagram']],
+    ['label' => 'TikTok', 'url' => $links['tiktok'], 'meta' => $site['social_descriptions']['tiktok']],
+    ['label' => 'Facebook', 'url' => $links['facebook'], 'meta' => $site['social_descriptions']['facebook']],
 ];
 
 xuverse_public_start('Connect', $copy['contact_intro'], 'contact');
@@ -96,7 +97,7 @@ xuverse_public_start('Connect', $copy['contact_intro'], 'contact');
 <div class="container connect-layout">
 <div class="connect-email reveal">
 <div>
-<p class="page-kicker"><?= e($copy['location']) ?></p>
+<p class="page-kicker"><?= e($site['contact_email_label']) ?> · <?= e($copy['location']) ?></p>
 <h2>Start a conversation</h2>
 <p><?= e($copy['availability']) ?></p>
 </div>
@@ -127,9 +128,9 @@ xuverse_public_start('Connect', $copy['contact_intro'], 'contact');
 <?php if ($contactMailReady): ?>
 <section class="inquiry-panel reveal" aria-labelledby="inquiry-title">
 <div class="inquiry-intro">
-<p class="page-kicker">Project inquiry</p>
-<h2 id="inquiry-title">Tell me what you have in mind.</h2>
-<p>Use the form for an introduction, or email directly if that is easier.</p>
+<p class="page-kicker"><?= e($site['contact_inquiry_kicker']) ?></p>
+<h2 id="inquiry-title"><?= e($site['contact_inquiry_heading']) ?></h2>
+<p><?= e($site['contact_inquiry_intro']) ?></p>
 </div>
 <?php if ($formStatus !== ''): ?>
 <p class="form-status <?= $formStatusType === 'success' ? 'is-success' : 'is-error' ?>"
