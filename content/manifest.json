@@ -1,7 +1,7 @@
 {
-    "content_sha256": "2dd30cdfee0f78fc87d2544f9de8eccef148e25565ac967482d840808ce5ec0f",
+    "content_sha256": "723383c517c3882d15286ca4e55cf77ae44498046ecafb8b7efd6c348d78ba4f",
     "files": {
-        "content/articles.json": "be4bd59724f1f281da04cfbd89545215a04f77becc72d8a4544212e859395583",
+        "content/articles.json": "f7e2350f4c6037a4404563d6c1aea30947f234ebc10743cf1f385bdf44b92c9a",
         "content/copy.json": "88a223103207dc0272e5a232c4cc0967a9cf10faf4af977ebdedc1286784c722",
         "content/links.json": "4ee74f11040be2f34eccb4ae6a174171e1eaee1202d8d9eb47005da67514cc0b",
         "content/media.json": "5c6b4c88fe6bd24b6f4f6d6aec2c4b555de159d67c563888fd9fb3a8c2160799",
@@ -9,14 +9,14 @@
         "content/projects.json": "3421d9a121e1e2b7083c68f6f0c09e67f41a27031d265e8dfa545e1cd41e1b0e",
         "content/skills.json": "1d98ec347ddcfcaa35a642eada13d41184c1e4616a1b458f3281fc9ed33ed4e2",
         "content/writing/before-the-next-cut.md": "1490e1c84bb579702c5bf365b0a5608316c9eb1e702518989a800e7bc07588eb",
-        "content/writing/kage.md": "49a42e79df3e47e00f4aa281ecd69ee3e28100eb162107fa2d19ea52083514df",
+        "content/writing/kage.md": "ad5f38639f6f3108636601adf66ceaf4665b7c1d84f7283d8be595f4cf74ecec",
         "content/writing/same-moment-different-meaning.md": "4854abdcce73c11cd2598837f82f35e3337760b70c756659aadc1f59111c2057",
         "content/writing/what-the-frame-holds.md": "be40ca3f42c4915d095e31fceb75f6641730cc48888149cb0f035dfcf16dce51"
     },
     "writing": {
         "kage": {
-            "source_sha256": "75a00e6e94232df8955156a267e3df6478be05508414e18eb426cf636cbe0f41",
-            "pdf_sha256": "5af7eb3744fa917c14de8b40d84c6d7d2a9577cd525c0818a31a8985778f6b50"
+            "source_sha256": "d8cb6f25e19aa28888b8962d69149c52481aeddbd38d0f6011e57fbc1e6b53d8",
+            "pdf_sha256": "e16bc1cddb3e66cd8833fb717ffc59fc3c6101ff4764b88e17c4148726af7f47"
         },
         "before-the-next-cut": {
             "source_sha256": "0d3dbc13dc192754eed80b53dbbabd4692f0aab0951d5c99ab8912d3679d6dfc",

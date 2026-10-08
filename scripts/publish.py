@@ -137,6 +137,11 @@ def install_router(host,revision):
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--message',default='Publish XuVerse content'); p.add_argument('--prepare',action='store_true'); p.add_argument('--deploy',metavar='REVISION'); p.add_argument('--rollback',metavar='REVISION'); p.add_argument('--fail-after',type=int,default=0); p.add_argument('--config',type=Path,default=DEFAULT_CONFIG); p.add_argument('--reuse-backup',type=Path); args=p.parse_args()
     if not args.deploy and not args.rollback:
+        # Git stores canonical text with LF. Hash and build those exact bytes on Windows too.
+        for source in list((ROOT/'content').glob('*.json')) + list((ROOT/'content/writing').glob('*.md')):
+            raw=source.read_bytes()
+            normalized=raw.replace(b'\r\n',b'\n')
+            if normalized!=raw: source.write_bytes(normalized)
         run(PHP,'scripts/build-content.php'); run(PHP,'scripts/verify-content.php')
         changed=run('git','status','--porcelain','--untracked-files=all',capture=True).splitlines()
         names=[line[3:] for line in changed if allowed(line[3:])]
@@ -149,6 +154,10 @@ def main():
         run('git','push','origin','HEAD:main')
     revision=run('git','rev-parse',args.rollback or args.deploy or 'HEAD',capture=True)
     if len(revision)!=40: raise RuntimeError('Expected full commit SHA')
+    manifest=json.loads(blob(revision,'content/manifest.json'))
+    for name,digest in manifest['files'].items():
+        if hashlib.sha256(blob(revision,name)).hexdigest()!=digest:
+            raise RuntimeError('Committed canonical content hash mismatch: '+name)
     # Deploy only a revision confirmed at origin/main, or a retained ancestor for rollback.
     remote=run('git','ls-remote','origin','refs/heads/main',capture=True).split()[0]
     if not args.rollback and remote!=revision: raise RuntimeError('GitHub main does not match requested revision')
