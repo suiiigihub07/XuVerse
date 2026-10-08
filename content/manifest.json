@@ -1,7 +1,7 @@
 {
-    "content_sha256": "a405584bcbbb73493eaf1ba8b9242f3c5150533cfd104143f81a70010d9cdb99",
+    "content_sha256": "2dd30cdfee0f78fc87d2544f9de8eccef148e25565ac967482d840808ce5ec0f",
     "files": {
-        "content/articles.json": "7c131d6d7672809218aa10947e8313f538aa4021da3229372d9ad135bd5c4063",
+        "content/articles.json": "be4bd59724f1f281da04cfbd89545215a04f77becc72d8a4544212e859395583",
         "content/copy.json": "88a223103207dc0272e5a232c4cc0967a9cf10faf4af977ebdedc1286784c722",
         "content/links.json": "4ee74f11040be2f34eccb4ae6a174171e1eaee1202d8d9eb47005da67514cc0b",
         "content/media.json": "5c6b4c88fe6bd24b6f4f6d6aec2c4b555de159d67c563888fd9fb3a8c2160799",
@@ -9,26 +9,26 @@
         "content/projects.json": "3421d9a121e1e2b7083c68f6f0c09e67f41a27031d265e8dfa545e1cd41e1b0e",
         "content/skills.json": "1d98ec347ddcfcaa35a642eada13d41184c1e4616a1b458f3281fc9ed33ed4e2",
         "content/writing/before-the-next-cut.md": "1490e1c84bb579702c5bf365b0a5608316c9eb1e702518989a800e7bc07588eb",
-        "content/writing/kage.md": "b5e442b453fe7d7fd4fa72da91ecdf64ffb744bf4357dc4e8437b00d869a6543",
+        "content/writing/kage.md": "49a42e79df3e47e00f4aa281ecd69ee3e28100eb162107fa2d19ea52083514df",
         "content/writing/same-moment-different-meaning.md": "4854abdcce73c11cd2598837f82f35e3337760b70c756659aadc1f59111c2057",
         "content/writing/what-the-frame-holds.md": "be40ca3f42c4915d095e31fceb75f6641730cc48888149cb0f035dfcf16dce51"
     },
     "writing": {
         "kage": {
-            "source_sha256": "b448323cbd1340338f5f8cd9668e00b7f2d80ba53fddcdf45b7a52e2a71170d0",
-            "pdf_sha256": "2d70e4f99ffde607007d86d37df4637f71f0c104e49a8cc17c715c719810543a"
+            "source_sha256": "75a00e6e94232df8955156a267e3df6478be05508414e18eb426cf636cbe0f41",
+            "pdf_sha256": "5af7eb3744fa917c14de8b40d84c6d7d2a9577cd525c0818a31a8985778f6b50"
         },
         "before-the-next-cut": {
-            "source_sha256": "a9a2a5bb5c4aa542d0fff4f1d130a8abad192189fc536ff157124ee08e5452bc",
-            "pdf_sha256": "92242c1f5bf7de7e38e7046e2de1d68170c2ff2892a4e73be5b02d17d7aa7e58"
+            "source_sha256": "0d3dbc13dc192754eed80b53dbbabd4692f0aab0951d5c99ab8912d3679d6dfc",
+            "pdf_sha256": "a9020501364bd42326da95ad80b3897f037b72b8287cd9743b552d746a312947"
         },
         "what-the-frame-holds": {
-            "source_sha256": "a0ca87d40f848c602e6cd5e48988b17dc5f71c2518a0e81c1522443335e3353b",
-            "pdf_sha256": "8101a389b882ef8def8c11f87625baa93ba5174ea1b2ec991d4efc1097b6168a"
+            "source_sha256": "f1420a4d25e96e13ab6632d426fac34049eb27c14e3be0d0fa6aa0661cdce660",
+            "pdf_sha256": "14b5b8a4c6b440e132805cc314413866352b2bbc6cd656a413bf742a64059a7d"
         },
         "same-moment-different-meaning": {
-            "source_sha256": "93e0852f225eadaaafe793328f60403051fb077bb0295386dc65c963fad55041",
-            "pdf_sha256": "fee47ba64133a1963f933adba9997a7f66526ce0725fcd91a1e4c5e4e49b0442"
+            "source_sha256": "26cda2659734c519923776262a859d0f4826ec4b65dbb8f56a8a6a3aa25ae3dd",
+            "pdf_sha256": "633a200d61c55c580981077fcd54c139d1040f78983d484d4167a890f6920dc2"
         }
     }
 }

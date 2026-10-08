@@ -31,3 +31,5 @@ It would be unfair to turn that tension into a verdict on a country. It is more 
 There is no wish to remain a permanent spectator. Distance can become its own comfortable mask. A meaningful life here requires participation, patience, and the willingness to be corrected. But it should also leave room to speak imperfectly, to disagree gently, and to be present without looking entirely composed.
 
 Korea continues to fascinate me. The question is how to move closer without mistaking approval for connection. Perhaps that is what KAGE names most clearly: the hope of belonging somewhere without making a cage of the effort to belong.
+
+Temporary publication verification note.

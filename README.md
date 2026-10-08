@@ -1,12 +1,10 @@
 # XuVerse
 
-XuVerse is B K Suraj's PHP and MySQL portfolio with an integrated CMS for resume records, projects, articles, photography, videos, music and settings.
+XuVerse is B K Suraj's PHP and MySQL portfolio for software projects, writing, research and selected media. Public content comes from versioned JSON and Markdown; the CMS retains account and music tools and historical private records.
 
 Public site: [xuverse.freehosting.dev](https://xuverse.freehosting.dev/). Source: [suiiigihub07/XuVerse](https://github.com/suiiigihub07/XuVerse).
 
-Initial deployment is online; final hosting acceptance is still in progress. See [DEPLOYMENT.md](DEPLOYMENT.md) for current status and the update process.
-
-The September 30 responsive update is live: fluid phone/tablet/desktop layouts, searchable project and article collections, keyboard/swipe photo navigation, article section links, copy-email feedback and accessible delete confirmations. See [RESPONSIVE-UPDATE.md](RESPONSIVE-UPDATE.md) for verification scope.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for verified hosting status and [PUBLISH.md](PUBLISH.md) for the single edit-and-publish workflow. Earlier responsive notes are historical; the October handoff supersedes their public content and visual design.
 
 ## Requirements
 
@@ -60,22 +58,10 @@ Environment variables accept these names and the existing XUVERSE_ prefix; the p
 
 ## Source and live content
 
-| Location | Owns | Ordinary update |
-| --- | --- | --- |
-| GitHub | Code, static assets, schema, Composer lockfile | Commit and push |
-| Local MySQL | Development content | Keep locally |
-| Production MySQL | Live CMS content | Never re-import starter SQL |
-| Production uploads | Live media | Preserve |
-| Host private config | Production credentials | Preserve |
+Public JSON and Markdown in `content/`, public assets and generated PDFs are versioned in Git. Local and production MySQL retain their own accounts, music and historical records; their uploads and private settings are preserved separately. No SQL import is part of ordinary publication.
 
-Runtime uploads, dependencies, secrets, backups and temporary files are excluded from Git. Existing media stays on disk. Transfer required uploads privately during the first deployment; static assets remain in Git.
+Edit JSON/Markdown, preview in XAMPP, then run `powershell -File scripts/Publish.ps1 -Message "Describe your edit"`. Publish validates, regenerates PDFs, commits, pushes and activates a verified isolated release. Verify the hosted browser and revision marker. Public editorial CMS fields are read-only so live database edits cannot create a second source.
 
-Develop in XAMPP â†’ test â†’ git add â†’ git commit â†’ git push â†’ build code archive â†’ upload/extract without deleting existing files.
+`python scripts/build-release.py` creates an optional installation/reference archive in ignored `dist/`: code, canonical content, public assets/PDFs, dependencies and upload security rules. It excludes SQL, private config, runtime media and `output/`. Ordinary updates use Publish.
 
-Run `python scripts/build-release.py` after staging intended files and installing Composer dependencies. It packages current working files into ignored `dist/xuverse-code-*.zip`: code, assets, dependencies and upload security rules. It excludes SQL, private config and runtime media.
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for deployment/backups and [READINESS-AUDIT.md](READINESS-AUDIT.md) for findings and verification limits.
-
-## October content and publishing revision
-
-Public content now lives in versioned JSON and Markdown under content/, including the three approved essays and independent research paper. Public pages read these files; legacy database records remain private. Use the single Publish action in [PUBLISH.md](PUBLISH.md) for validated PDF generation, GitHub push, FTPS release staging and pointer activation. Publication status is recorded in DEPLOYMENT.md; an archive alone is not deployment evidence.
+See [PUBLISH.md](PUBLISH.md) for the short guide and [DEPLOYMENT.md](DEPLOYMENT.md) for tested results and limits.
