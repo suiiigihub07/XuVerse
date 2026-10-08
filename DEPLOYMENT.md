@@ -53,7 +53,9 @@ The existing repository is connected as `origin` on `main`. Commit and push norm
 
 ## Every subsequent update
 
-Use the single Publish action documented in [PUBLISH.md](PUBLISH.md). Edit canonical JSON/Markdown, preview locally, then run `powershell -File scripts/Publish.ps1 -Message "Describe your edit"`. It normalizes canonical text to Git's LF bytes, validates content, regenerates affected PDFs, commits/pushes, checks the committed hashes, stages a complete FTPS release, verifies every uploaded file, and atomically activates the pointer. Complete browser acceptance after activation.
+The 2026-10-09 owner correction restores the original black/red visual identity and layout hooks while retaining canonical writing, research references, PDFs and the Publish architecture. The original theme and main animation assets remain unchanged; additive content layouts and a bounded, pausable ambient layer provide the new presentation. Local verification passed 63 page/viewport combinations (320, 390, 768, 1024, 1440 and 2560 pixel widths), photo preview/next/Escape, mobile menu/Escape, six footer socials, email copy, and actual inline playback of all three supplied YouTube videos. Final hosted acceptance and release receipts are stored privately in `output/visual-restore/`; these local checks alone do not establish deployment.
+
+Use the single Publish action documented in [PUBLISH.md](PUBLISH.md). Edit canonical JSON/Markdown, preview locally, then run `python scripts/publish.py --message "Describe your edit"`. It normalizes canonical text to Git's LF bytes, validates content, regenerates affected PDFs, commits/pushes, checks the committed hashes, stages a complete FTPS release, verifies every uploaded file, and atomically activates the pointer. Complete browser acceptance after activation.
 
 Do not import SQL, overlay the whole root, mirror directories, replace runtime uploads, or edit public records independently in live MySQL. Accounts/music remain in each environment's database. Shared configuration, uploads and dependencies are preserved. Back up before any future schema migration; none was required for this file-reader architecture.
 

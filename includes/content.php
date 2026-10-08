@@ -101,7 +101,8 @@ function xuverse_find_public($collection, $slug, $id = 0) {
 
 function xuverse_public_card($item, $route, $image = '') {
     $url = xuverse_url($route . '/' . $item['slug']);
-    echo '<article class="public-card">';
+    $cardClass = $route === 'projects' ? 'project-card' : 'article-card';
+    echo '<article class="public-card ' . $cardClass . ' reveal magnetic-card">';
     if ($image) { echo '<a href="' . e($url) . '"><img src="' . e(xuverse_url($image)) . '" alt="' . e($item['title']) . '" loading="lazy" decoding="async"></a>'; }
     echo '<p class="eyebrow">' . e($item['category'] ?? $item['status'] ?? '') . '</p><h2><a href="' . e($url) . '">' . e($item['title']) . '</a></h2><p>' . e($item['summary']) . '</p><a class="text-link" href="' . e($url) . '">Read more →</a></article>';
 }

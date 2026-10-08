@@ -1,2 +1,49 @@
-<?php require_once 'includes/content.php'; $m=xuverse_find_public('media',$_GET['slug'] ?? '',(int)($_GET['id'] ?? 0)); if(!$m || $m['type']!=='video'){http_response_code(404);require '404.php';exit;} if(empty($_GET['slug'])){header('Location: '.xuverse_url('videos/'.$m['slug']),true,301);exit;} xuverse_public_start($m['title'],$m['summary'],'videos/'.$m['slug']); parse_str(parse_url($m['url'],PHP_URL_QUERY),$query); ?>
-<section class="section container public-reading"><p class="eyebrow">Selected video</p><h1><?= e($m['title']) ?></h1><p><?= e($m['summary']) ?></p><iframe class="public-video" src="https://www.youtube-nocookie.com/embed/<?= e($query['v']) ?>" title="<?= e($m['title']) ?>" loading="lazy" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe><?php if(isset($m['credit_note'])): ?><p><?= e($m['credit_note']) ?></p><?php endif; ?><p><a class="text-link" href="<?= e($m['url']) ?>">Watch on YouTube</a></p><a class="text-link" href="<?= e(xuverse_url('media')) ?>">← Back to media</a></section><?php include 'includes/footer.php'; ?>
+<?php
+require_once 'includes/content.php';
+$video = xuverse_find_public('media', $_GET['slug'] ?? '', (int)($_GET['id'] ?? 0));
+if (!$video || $video['type'] !== 'video') {
+    http_response_code(404);
+    require '404.php';
+    exit;
+}
+if (empty($_GET['slug'])) {
+    header('Location: ' . xuverse_url('videos/' . $video['slug']), true, 301);
+    exit;
+}
+$embedUrl = xuverse_youtube_embed($video['url']);
+parse_str(parse_url($video['url'], PHP_URL_QUERY), $query);
+$pageImage = 'https://i.ytimg.com/vi/' . $query['v'] . '/hqdefault.jpg';
+$schemaData = [
+    '@type' => 'VideoObject',
+    'name' => $video['title'],
+    'description' => $video['summary'],
+    'thumbnailUrl' => [$pageImage],
+    'contentUrl' => $video['url'],
+    'embedUrl' => $embedUrl
+];
+xuverse_public_start($video['title'], $video['summary'], 'videos/' . $video['slug']);
+?>
+
+<section class="section media-detail-section">
+<div class="container">
+<article class="media-detail reveal">
+<div class="media-detail-frame video-detail-frame media-player">
+<iframe src="<?= e($embedUrl) ?>" title="<?= e($video['title']) ?>" width="1600" height="900" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<div class="media-detail-info">
+<p class="page-kicker">Video</p>
+<h1><?= e($video['title']) ?></h1>
+<p><?= e($video['summary']) ?></p>
+<?php if (!empty($video['credit_note'])): ?>
+<p class="media-credit"><?= e($video['credit_note']) ?></p>
+<?php endif; ?>
+<div class="project-buttons">
+<a href="<?= e($video['url']) ?>" target="_blank" rel="noopener noreferrer" class="btn">Watch on YouTube</a>
+<a href="<?= e(xuverse_url('media#videos')) ?>" class="text-link">Back to videos</a>
+</div>
+</div>
+</article>
+</div>
+</section>
+
+<?php include 'includes/footer.php'; ?>

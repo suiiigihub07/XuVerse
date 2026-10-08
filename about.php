@@ -1,3 +1,6 @@
-<?php require_once 'includes/content.php'; $copy=xuverse_content('copy'); xuverse_public_start('About',$copy['about'],'about'); ?>
-<section class="section container public-reading"><p class="eyebrow">About</p><h1>B K Suraj</h1><p class="lead"><?= e($copy['about']) ?></p><p><?= e($copy['philosophy']) ?></p><p><?= e($copy['location']) ?></p><a class="text-link" href="<?= e(xuverse_url('resume')) ?>">Read the fuller resume →</a></section>
-<?php include 'includes/footer.php'; ?>
+<?php require_once 'includes/content.php';$copy=xuverse_content('copy');$profile=xuverse_content('profile');xuverse_public_start('About',$copy['about'],'about'); ?>
+<section class="page-hero"><div class="container"><p class="eyebrow">About</p><h1>About me</h1><p><?= e($copy['location']) ?> · Intelligence Computing undergraduate</p></div></section>
+<section class="section"><div class="container about-layout">
+<aside class="identity-panel reveal magnetic-card"><img src="<?= e(xuverse_url('assets/images/public/portrait.webp')) ?>" alt="Portrait of B K Suraj" width="1024" height="1024" loading="eager" decoding="async"></aside>
+<article class="about-copy reveal"><p class="eyebrow">Build · Create · Write · Explore</p><h2><?= e($copy['name']) ?></h2><p><?= e($copy['about']) ?></p><blockquote class="about-philosophy"><?= e($copy['philosophy']) ?></blockquote><p><?= e($profile['education']['institution']) ?> · <?= e($profile['education']['program']) ?></p><p><?= e($copy['current_focus']) ?></p><div class="action-row"><a class="vx-btn primary" href="<?= e(xuverse_url('resume')) ?>">Read the fuller resume</a><a class="vx-btn" href="<?= e(xuverse_url('contact')) ?>">Let’s Connect</a></div></article>
+</div></section><?php include 'includes/footer.php'; ?>

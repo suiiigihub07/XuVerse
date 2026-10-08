@@ -1,0 +1,45 @@
+/* Motion is independent of the site's theme and page content. */
+body.xv-motion-mounted { isolation: isolate; }
+.xv-ambient { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; contain:strict; }
+.xv-ambient canvas { display:block; width:100%; height:100%; opacity:.85; }
+.xv-ambient::before,.xv-ambient::after { content:""; position:absolute; inset:-15%; pointer-events:none; will-change:transform; }
+.xv-ambient::before { background:radial-gradient(ellipse at 82% 22%,rgba(225,29,56,.14),transparent 38%),radial-gradient(ellipse at 12% 80%,rgba(153,27,27,.13),transparent 35%); animation:xv-light-drift 26s cubic-bezier(.45,0,.55,1) infinite alternate; }
+.xv-ambient::after { background:radial-gradient(ellipse at 70% 65%,rgba(225,29,56,.07),transparent 38%); animation:xv-light-drift 34s cubic-bezier(.45,0,.55,1) -12s infinite alternate-reverse; }
+.xv-motion-paused .xv-ambient::before,.xv-motion-paused .xv-ambient::after,.xv-motion-paused::before,.xv-motion-paused::after,.xv-motion-paused .identity-panel::after { animation-play-state:paused; }
+.xv-ambient[data-reading="true"] { opacity:.55; }
+.xv-motion-toggle { position:fixed; left:18px; bottom:18px; z-index:90; display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:10px 13px; border:1px solid rgba(225,29,56,.35); border-radius:6px; background:rgba(8,8,11,.92); color:#d4d4d8; font:600 .72rem/1.2 var(--font-body,sans-serif); cursor:pointer; transition:border-color .2s,color .2s; }
+.xv-motion-toggle::before { content:""; width:5px; height:5px; border-radius:50%; background:#ff334e; }
+.xv-motion-toggle[aria-pressed="false"]::before { background:#71717a; }
+.xv-motion-toggle[hidden] { display:none; }
+.xv-motion-toggle:hover,.xv-motion-toggle:focus-visible { color:#fff; border-color:#ff334e; }
+@keyframes xv-light-drift { from { transform:translate3d(-2%,-1%,0) scale(.97); } to { transform:translate3d(3%,2%,0) scale(1.04); } }
+
+/* Keep the familiar reveals, with a slower, coordinated easing curve. */
+.motion-ready .reveal { transition:opacity .72s cubic-bezier(.16,1,.3,1) var(--reveal-delay,0ms),transform .82s cubic-bezier(.16,1,.3,1) var(--reveal-delay,0ms); }
+.xv-enter { transition:opacity .72s cubic-bezier(.16,1,.3,1) var(--xv-enter-delay,0ms),transform .82s cubic-bezier(.16,1,.3,1) var(--xv-enter-delay,0ms); }
+.xv-enter:not(.xv-enter-visible) { opacity:0; transform:translate3d(0,22px,0); }
+.xv-enter.xv-enter-visible { opacity:1; transform:translate3d(0,0,0); }
+.xv-enter:focus-within { opacity:1; transform:none; }
+.identity-panel::after { animation:xv-frame-light 5s ease-in-out infinite alternate; }
+@keyframes xv-frame-light { from { opacity:.55; } to { opacity:1; } }
+
+/* Landscape players never inherit the old 420px media-frame minimum. */
+.media-player,.video-detail-frame { position:relative; display:block; width:100%; aspect-ratio:16 / 9; min-height:0!important; height:auto; padding:0; overflow:hidden; }
+.media-player iframe,.video-detail-frame iframe { position:absolute; inset:0; display:block; width:100%; height:100%; border:0; }
+iframe.public-video { display:block; width:100%; height:auto; min-height:0; aspect-ratio:16 / 9; }
+.video-card .media-link { aspect-ratio:16 / 9; }
+.portrait-card .media-link { display:block; aspect-ratio:3 / 4; height:auto; min-height:0; max-height:none; overflow:hidden; }
+.portrait-card .media-link .responsive-picture { display:block; width:100%; height:100%; }
+.portrait-card .media-link img { display:block; width:100%; height:100%; aspect-ratio:3 / 4; object-fit:cover; object-position:center; }
+.photograph-detail-frame { width:min(100%,600px); aspect-ratio:3 / 4; min-height:0!important; margin-inline:auto; padding:0; overflow:hidden; }
+.photograph-detail-frame .responsive-picture { display:block; width:100%; height:100%; }
+.photograph-detail-frame img { display:block; width:100%; height:100%; max-height:none; object-fit:contain; }
+/* Credited communication cards are shown whole, rather than cropped as photos. */
+.anchor-card .media-link { aspect-ratio:auto; }
+.anchor-card .media-link img { width:100%; height:auto; aspect-ratio:auto; object-fit:contain; }
+
+@media (prefers-reduced-motion:reduce) {
+  .xv-ambient::before,.xv-ambient::after,.identity-panel::after { animation:none!important; will-change:auto; }
+  .xv-enter,.xv-enter:not(.xv-enter-visible) { opacity:1; transform:none; transition:none; }
+}
+@media print { .xv-ambient,.xv-motion-toggle { display:none!important; } .xv-enter,.xv-enter:not(.xv-enter-visible) { opacity:1; transform:none; } }

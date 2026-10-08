@@ -60,7 +60,7 @@ Environment variables accept these names and the existing XUVERSE_ prefix; the p
 
 Public JSON and Markdown in `content/`, public assets and generated PDFs are versioned in Git. Local and production MySQL retain their own accounts, music and historical records; their uploads and private settings are preserved separately. No SQL import is part of ordinary publication.
 
-Edit JSON/Markdown, preview in XAMPP, then run `powershell -File scripts/Publish.ps1 -Message "Describe your edit"`. Publish validates, regenerates PDFs, commits, pushes and activates a verified isolated release. Verify the hosted browser and revision marker. Public editorial CMS fields are read-only so live database edits cannot create a second source.
+Edit JSON/Markdown, preview in XAMPP, then run `python scripts/publish.py --message "Describe your edit"`. Publish validates, regenerates PDFs, commits, pushes and activates a verified isolated release. Verify the hosted browser and revision marker. Public editorial CMS fields are read-only so live database edits cannot create a second source.
 
 `python scripts/build-release.py` creates an optional installation/reference archive in ignored `dist/`: code, canonical content, public assets/PDFs, dependencies and upload security rules. It excludes SQL, private config, runtime media and `output/`. Ordinary updates use Publish.
 

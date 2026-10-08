@@ -1,10 +1,10 @@
 {
-    "content_sha256": "b09d0b1eb7519ae339d99aa1136b3a94df2c6590aac08c0e874fff1c63f230c3",
+    "content_sha256": "b63a59e0b087ea1a8f660f517c3536996534634477a86318d60aedb133a5b4ca",
     "files": {
         "content/articles.json": "ecc4a2c86b68843fa3a4171465cf01b5ca74c0808f0f08b98898ea2d434d1747",
         "content/copy.json": "88a223103207dc0272e5a232c4cc0967a9cf10faf4af977ebdedc1286784c722",
         "content/links.json": "4ee74f11040be2f34eccb4ae6a174171e1eaee1202d8d9eb47005da67514cc0b",
-        "content/media.json": "5c6b4c88fe6bd24b6f4f6d6aec2c4b555de159d67c563888fd9fb3a8c2160799",
+        "content/media.json": "24c07a27d895be99d1757312adab36e42905588c1b24a20013b4b2bb9e404a05",
         "content/profile.json": "88c827d3b91f0181a066fe315f1995c9e62c9cf24ab2976871651ece7dccb81f",
         "content/projects.json": "8cfab4e9e3dbc35e49b3f5e36913b295bce8d4bfddfd744c903f6d307ef070f1",
         "content/skills.json": "1d98ec347ddcfcaa35a642eada13d41184c1e4616a1b458f3281fc9ed33ed4e2",
@@ -15,20 +15,20 @@
     },
     "writing": {
         "kage": {
-            "source_sha256": "f3e9e29834fae018abccee5be840ba4cb5756185d07bd1200f59907ecc99b992",
-            "pdf_sha256": "0d4204e0f95c744ed9e516984f68fb93c6c5fcac8458210ed25af1cb405b855e"
+            "source_sha256": "a5f6017ec1a323d5aacbbf13ec8af4da59200592764e5e3af2ef2b7f0634a94d",
+            "pdf_sha256": "6d317ee3b16bd5dd817eba2b28c08d7f4e16a86bd22d5042bdd3c6e2c5e58f4f"
         },
         "before-the-next-cut": {
-            "source_sha256": "0d3dbc13dc192754eed80b53dbbabd4692f0aab0951d5c99ab8912d3679d6dfc",
-            "pdf_sha256": "a9020501364bd42326da95ad80b3897f037b72b8287cd9743b552d746a312947"
+            "source_sha256": "fe4f977be3fffbc0311981ddd45bbb43a82e2b7f040ef28f363a8182870ebb92",
+            "pdf_sha256": "728a048e2ffd484f9e3b0ae3f60c888779dfc1e7fdc2c831f2c9c38707f31f4e"
         },
         "what-the-frame-holds": {
-            "source_sha256": "f1420a4d25e96e13ab6632d426fac34049eb27c14e3be0d0fa6aa0661cdce660",
-            "pdf_sha256": "14b5b8a4c6b440e132805cc314413866352b2bbc6cd656a413bf742a64059a7d"
+            "source_sha256": "e2b298153ece134bd6f04649f9a11adb425549e282dd4f7be2b75f60b9aaa4b8",
+            "pdf_sha256": "bbb9ae6dd9a7544f1247d6ce0cd3b5f7e40e151119339eee67cfacc5dfd37dca"
         },
         "same-moment-different-meaning": {
-            "source_sha256": "8e9d1238ee0d12e2d4f8081f7ac9f7e8cfb26a71cb0601b33e535e2c23f99ef9",
-            "pdf_sha256": "ec08572339a5377e6f5cfa285aac4ffea6065ae121bbe3daf06dab46555d3841"
+            "source_sha256": "7936f62fbfb6edbbdded7e1890f96f73d29ad76ca0f6076c7b4dfdb518c42b82",
+            "pdf_sha256": "5fe0e0fde1b41029ac1abc9a6f8dfc968d9d03ec65502df9fa6a0d8775724ddf"
         }
     }
 }

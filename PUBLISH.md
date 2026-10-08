@@ -2,12 +2,14 @@
 
 Public content has one source: the JSON files and Markdown in `content/`. The public website and downloadable writing PDFs use this source. Historical CMS records remain in MySQL privately; editorial CMS pages explain why they are read-only. Account, password, avatar and music tools continue using MySQL and uploads.
 
+The owner's 2026-10-09 correction preserves the original black/red theme, Inter/Manrope/Space Grotesk fonts, portrait frame, navigation, social footer and animation hooks. Content additions must extend that identity. Do not replace the theme when editing writing or profile content. Photographs and videos have separate Media sections; embedded YouTube players use 16:9 landscape frames. Existing duplicate mirror-photo records are represented once with a neutral caption, without inventing event details.
+
 1. Edit page copy in `content/copy.json`, profile information in `content/profile.json`, and records in the corresponding JSON collection. Edit full writing in `content/writing/<slug>.md`. Keep the initial title/subtitle/date blocks, authored-date precision, references, caveats and stable slugs. `published_at` is separate from the authored date.
 2. Preview at `http://localhost/xuverse/`. Other computers must pull the repository to receive changes.
-3. In the project terminal run `powershell -File scripts/Publish.ps1 -Message "Describe your edit"`. This validates, regenerates affected PDFs, checks PHP and content hashes, stages only application files, commits, pushes to existing `origin/main`, uploads and verifies a complete isolated release over FTPS, then switches the active pointer.
+3. In the project terminal run `python scripts/publish.py --message "Describe your edit"`. This validates, regenerates affected PDFs, checks PHP and content hashes, stages only application files, commits, pushes to existing `origin/main`, uploads and verifies a complete isolated release over FTPS, then switches the active pointer.
 4. Open the hosted site and `release.json` in an authenticated browser. Check the rendered writing and PDF. InfinityFree's browser challenge can prevent ordinary HTTP clients from reading the site; a transport success alone is not final acceptance. The saved private receipt distinguishes activation from browser verification.
 
-`-Prepare` runs validation and stages the allowed changes without committing, pushing or deploying. Review `git diff --cached` before publishing. Unrelated presentation files are never staged by Publish. A push or upload failure stops publication; rerunning resumes the same verified revision. No SQL import, directory mirror or upload replacement is part of Publish.
+`--prepare` runs validation and stages the allowed changes without committing, pushing or deploying. Review `git diff --cached` before publishing. The optional `scripts/Publish.ps1` wrapper calls the same Python command on systems that allow PowerShell scripts. This workstation blocks PowerShell scripts; use the Python command without changing that policy. Unrelated presentation files are never staged by Publish. A push or upload failure stops publication; rerunning resumes the same verified revision. No SQL import, directory mirror or upload replacement is part of Publish.
 
 ## Private access and release storage
 

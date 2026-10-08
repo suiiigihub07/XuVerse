@@ -1,29 +1,18 @@
 <?php
 
-require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/content.php';
 
-if (!isset($settings) || !is_array($settings)) {
-    require_once __DIR__ . '/db.php';
-
-    $settings = $conn->query(
-        "SELECT * FROM settings
-         LIMIT 1"
-    )->fetch_assoc();
-}
-
-if (!isset($conn)) {
-    require_once __DIR__ . '/db.php';
-}
-
-$siteTitle = xuverse_setting($settings, 'site_title', 'XuVerse');
+$footerCopy = xuverse_content('copy');
+$footerLinks = xuverse_content('links');
+$siteTitle = 'XuVerse';
 
 $socialLinks = [
-    'github' => ['label' => 'GitHub', 'url' => $settings['github_url'] ?? ''],
-    'linkedin' => ['label' => 'LinkedIn', 'url' => $settings['linkedin_url'] ?? ''],
-    'instagram' => ['label' => 'Instagram', 'url' => $settings['instagram_url'] ?? ''],
-    'youtube' => ['label' => 'YouTube', 'url' => $settings['youtube_url'] ?? ''],
-    'tiktok' => ['label' => 'TikTok', 'url' => $settings['tiktok_url'] ?? ''],
-    'facebook' => ['label' => 'Facebook', 'url' => $settings['facebook_url'] ?? '']
+    'github' => ['label' => 'GitHub', 'url' => $footerLinks['github']],
+    'linkedin' => ['label' => 'LinkedIn', 'url' => $footerLinks['linkedin']],
+    'instagram' => ['label' => 'Instagram', 'url' => $footerLinks['instagram']],
+    'youtube' => ['label' => 'YouTube', 'url' => $footerLinks['youtube']],
+    'tiktok' => ['label' => 'TikTok', 'url' => $footerLinks['tiktok']],
+    'facebook' => ['label' => 'Facebook', 'url' => $footerLinks['facebook']]
 ];
 
 function xuverse_social_icon($name)
@@ -45,4 +34,27 @@ function xuverse_social_icon($name)
 </main>
 </div>
 
-<footer class="site-footer"><div class="container public-footer"><a href="<?= e(xuverse_url()) ?>">XuVerse · B K Suraj</a><nav aria-label="Footer"><a href="<?= e(xuverse_url('about')) ?>">About</a> <a href="<?= e(xuverse_url('articles')) ?>">Writing</a> <a href="<?= e(xuverse_url('contact')) ?>">Connect</a></nav><p>&copy; <?= gmdate('Y') ?></p></div></footer></body></html>
+<footer class="site-footer" aria-label="XuVerse closing signature">
+<div class="container footer-core">
+<div class="footer-mark">
+<a href="<?= e(xuverse_url()) ?>" class="footer-brand"><?= e($siteTitle) ?></a>
+<p><?= e($footerCopy['footer']) ?></p>
+</div>
+
+<nav class="footer-icons" aria-label="Social links">
+<?php foreach ($socialLinks as $key => $social): ?>
+<a href="<?= e($social['url']) ?>" target="_blank" rel="noopener noreferrer"
+   aria-label="<?= e($social['label']) ?>" class="magnetic-card">
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<?= xuverse_social_icon($key) ?>
+</svg>
+</a>
+<?php endforeach; ?>
+</nav>
+
+<p class="footer-copy">&copy; <?= gmdate('Y') ?> <?= e($siteTitle) ?></p>
+</div>
+</footer>
+
+</body>
+</html>

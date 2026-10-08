@@ -123,6 +123,10 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 
 
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
 <link rel="preload" href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260918-consistency-5" as="style">
 <?php if (session_status() === PHP_SESSION_ACTIVE && !empty($_SESSION['user_id'])): ?>
 <meta name="csrf-token" content="<?= e(xuverse_csrf_token()) ?>">
@@ -143,6 +147,7 @@ defer></script>
 
 <link rel="stylesheet" href="<?= e(xuverse_url('assets/css/public.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=<?= substr(hash_file('sha256', __DIR__ . '/../assets/css/public.css'),0,12) ?>">
 <meta name="xuverse-content-sha256" content="<?= e(xuverse_content('manifest')['content_sha256']) ?>">
+<?php require __DIR__ . '/ambient-motion.php'; ?>
 </head>
 
 <body>

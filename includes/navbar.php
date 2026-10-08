@@ -53,12 +53,12 @@ $profileInitial = strtoupper(substr(trim($profileName) ?: 'X', 0, 1));
 <div class="nav-links" id="primary-links">
 
 <a class="<?= nav_active('index.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('')) ?>">Home</a>
-<a class="<?= nav_active('projects.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('projects')) ?>">Projects</a>
-<a class="<?= nav_active('articles.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('articles')) ?>">Articles</a>
-<a class="<?= nav_active('media.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('media')) ?>">Media</a>
+<a class="<?= nav_active(['projects.php','project.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('projects')) ?>">Projects</a>
+<a class="<?= nav_active(['articles.php','article.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('articles')) ?>">Articles</a>
+<a class="<?= nav_active(['media.php','photo.php','video.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('media')) ?>">Media</a>
 <a class="<?= nav_active('about.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('about')) ?>">About</a>
 <a class="<?= nav_active('resume.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('resume')) ?>">Resume</a>
-<a class="<?= nav_active('contact.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('contact')) ?>">Connect</a>
+<a class="nav-action <?= nav_active('contact.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('contact')) ?>">Connect</a>
 <?php if(isset($_SESSION['user_id'])): ?>
 <div class="profile-menu">
 <button
