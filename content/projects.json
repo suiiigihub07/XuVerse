@@ -2,7 +2,7 @@
   {
     "title": "XuVerse",
     "summary": "A personal portfolio that brings software projects, writing, research, and media into one place.",
-    "description": "Built as a PHP and MySQL portfolio with content management, project records, writing, media, a resume, and contact options. The next revision turns the existing structure into a clearer record of practical work and ongoing exploration.",
+    "description": "Built as a PHP and MySQL portfolio with content management, project records, writing, media, a resume, and contact options. Versioned public content and one Publish workflow connect its local preview, GitHub revision, and PHP-hosted release.",
     "role": "Personal project: development and content curation",
     "technology": [
       "PHP",
@@ -24,7 +24,7 @@
   {
     "title": "Lost & Found Management System",
     "summary": "An academic web prototype for recording and finding lost items.",
-    "description": "A PHP and MySQL application with authentication, item uploads, search, and administration. Present it as an academic prototype, with the actual implemented behaviour described from its source.",
+    "description": "An academic PHP and MySQL web prototype with authentication, item uploads, search, and administration. Its records and access controls support reporting and finding lost items.",
     "technology": [
       "PHP",
       "MySQL",

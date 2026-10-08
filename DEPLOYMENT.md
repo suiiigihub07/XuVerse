@@ -1,6 +1,20 @@
 # Deploying XuVerse without losing content
 
-## Current deployment — 2026-09-29
+## October handoff acceptance — 2026-10-09 (Korea time)
+
+The approved pages, three complete essays, independent research paper, credited ANCHOR cards and selected videos use canonical JSON/Markdown under `content/`. No database migration or SQL import was needed. Historical records and runtime data are retained; public editorial CMS fields explain the single source and are read-only.
+
+The accepted baseline `d14ba4d4533021a830678ee455941dfb74d935ca` rendered on the live site at 2026-10-08 16:22:41 UTC. That actual first-publication timestamp is separate from the supplied month/year authored dates. The article test revision `831bb7ec2ba2b11830ca0d35f2d326225d986bfc` was published at 16:31:13 UTC. Its KAGE body, structured metadata and browser-downloaded PDF matched the local content and committed GitHub bytes. Rollback restored the baseline at 16:34:10 UTC; the note disappeared and the downloaded PDF matched the baseline bytes. The temporary note is removed through the same Publish workflow for the final release. `/release.json` reports the authoritative active revision/content hash; private receipts and browser evidence remain in excluded `output/verification/`.
+
+An intentional failure after three staged files left the original site active. An early candidate failed browser acceptance because isolated configuration loading was wrong; original routing was restored and checked before the corrected baseline. Transfer hash verification also caught a host overwrite problem, fixed with temporary-file upload/rename. Idle FTP reconnects were added. A Windows line-ending mismatch was caught during the article drill and that staging run was stopped before activation; Publish now normalizes source text and checks exact committed hashes before contacting the host. None of these failures imported SQL or replaced uploads.
+
+Local verification covered 72 combinations across eight pages and nine widths (320–3440 px), safe Markdown, canonical/PDF hashes, research references, protected paths, redirects, PHP syntax, URL portability, and isolated authentication/music CRUD with temporary records. The existing authenticated live dashboard retained original counts (5 experience, 2 education, 13 skills, 8 projects, 3 historical articles, 8 media, 16 highlights, 2 music); editorial read-only explanations and music tools rendered. This does not certify every live mutation/upload operation.
+
+Private backups outside the web root contain the complete local database/uploads/code and the original host uploads/configuration/routing. The handoff, safety ZIP, audits, SQL, credentials and `output/` are excluded from Git/release and blocked over HTTP. Existing presentation folders are untouched.
+
+Contact uses the verified email link; no mail-delivery success is claimed. Existing locked host dependencies are shared by releases. InfinityFree's browser challenge requires actual browser acceptance after FTPS activation; an upload receipt alone is insufficient. Historical notes below are retained as context; [PUBLISH.md](PUBLISH.md) supersedes their ordinary-update procedure.
+
+## Historical deployment — 2026-09-29
 
 - Site: https://xuverse.freehosting.dev/ (InfinityFree, HTTPS).
 - Source: https://github.com/suiiigihub07/XuVerse, branch `main`.
@@ -12,7 +26,7 @@
 - Live experience create/edit/delete was subsequently verified using a temporary record, then removed; the five original records remain. Other CMS mutation/upload acceptance remains incomplete. Logged-out dashboard access redirects to login. Local isolated CMS tests do not certify every authenticated production workflow.
 - Contact currently uses the email fallback; no production mail sender is configured. The host's 10 MB file limit is lower than the application's optional 25 MB audio limit.
 
-For ordinary updates, follow the code-only procedure below. Never repeat the initial SQL/media transfer over existing live content.
+These September records are historical. Ordinary updates now use Publish below; never repeat the initial SQL/media transfer over existing live content.
 
 ## Responsive update — 2026-09-30
 
@@ -37,14 +51,11 @@ The existing repository is connected as `origin` on `main`. Commit and push norm
 
 ## Every subsequent update
 
-1. Develop/test in XAMPP, inspect the diff, stage intended files, commit and push.
-2. Back up the live database, uploads and private config outside the public document root. Confirm restoration is possible.
-3. Install Composer dependencies and build/review the code-only archive.
-4. Extract/upload over existing code, preserving other files. Do not use delete/mirror sync, fresh-folder replacement or FTP options that remove files absent from the archive.
-5. **Do not import SQL for ordinary updates. Do not overwrite live uploads with local uploads.** Schema changes need a separately reviewed migration and backup; a full SQL dump is not a migration.
-6. Test and verify pre-existing records/media survive. Restore the prior code archive if necessary. Restoring data is a separate operation, never a routine code rollback.
+Use the single Publish action documented in [PUBLISH.md](PUBLISH.md). Edit canonical JSON/Markdown, preview locally, then run `powershell -File scripts/Publish.ps1 -Message "Describe your edit"`. It normalizes canonical text to Git's LF bytes, validates content, regenerates affected PDFs, commits/pushes, checks the committed hashes, stages a complete FTPS release, verifies every uploaded file, and atomically activates the pointer. Complete browser acceptance after activation.
 
-The supplied archive cannot replace live database content or runtime media. Importing dumps or deleting the server directory can still destroy data; retain private backups.
+Do not import SQL, overlay the whole root, mirror directories, replace runtime uploads, or edit public records independently in live MySQL. Accounts/music remain in each environment's database. Shared configuration, uploads and dependencies are preserved. Back up before any future schema migration; none was required for this file-reader architecture.
+
+Rollback uses `python scripts/publish.py --rollback <retained-full-SHA>` followed by browser verification. Installation archives are reference/fresh-install tools, not the ordinary update workflow.
 
 ## Live acceptance checklist
 

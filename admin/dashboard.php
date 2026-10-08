@@ -48,7 +48,7 @@ include '../includes/navbar.php';
 <div class="dashboard-heading">
 <div>
 <h1>Control Center</h1>
-<p>Welcome back, <?= e($adminName) ?>. Manage the site, resume, media and settings from one place.</p>
+<p>Welcome back, <?= e($adminName) ?>. Account and music tools remain here. Public content is edited in the local content files and published as one revision; historical records are retained below.</p>
 </div>
 
 <div class="dashboard-actions">
@@ -149,7 +149,7 @@ include '../includes/navbar.php';
 
 <a href="../upload_avatar.php">
 <h2>Upload Avatar</h2>
-<p>Update your public profile photo</p>
+<p>Update your account photo</p>
 </a>
 
 </div>
