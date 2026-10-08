@@ -19,7 +19,7 @@
         toggle.type = 'button';
         toggle.className = 'xv-motion-toggle';
         toggle.setAttribute('aria-label', 'Background motion');
-        document.body.appendChild(toggle);
+        (document.querySelector('.footer-core') || document.body).appendChild(toggle);
         const context = canvas.getContext('2d', { alpha: true });
         let width = 0, height = 0, scale = 1, frame = 0, resizeFrame = 0;
         let previousTime = 0, elapsed = 0, paintedAt = 0;
