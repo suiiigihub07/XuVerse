@@ -15,7 +15,6 @@ $root = $release === '' ? $storage : $storage . '/.xuverse-releases/' . $release
 if ($release && !is_file($root.'/.ready')) { http_response_code(503); exit('Release unavailable'); }
 define('XUVERSE_STORAGE_ROOT',$storage);
 define('XUVERSE_RELEASE_ID',$release);
-putenv('XUVERSE_CONFIG_FILE='.$storage.'/config.local.php');
 if (str_starts_with($path,'assets/')) {
     $file=realpath($root.'/'.$path); $assetRoot=realpath($root.'/assets');
     if (!$file || !$assetRoot || !str_starts_with($file,$assetRoot.DIRECTORY_SEPARATOR) || !is_file($file)) { http_response_code(404); exit; }

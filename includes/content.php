@@ -1,6 +1,21 @@
 <?php
 require_once __DIR__ . '/functions.php';
 
+function xuverse_checkout_revision() {
+    if (defined('XUVERSE_RELEASE_ID')) { return XUVERSE_RELEASE_ID; }
+    $git = dirname(__DIR__) . '/.git';
+    $head = trim((string)@file_get_contents($git . '/HEAD'));
+    if (preg_match('/^[a-f0-9]{40}$/', $head)) { return $head; }
+    if (preg_match('#^ref: (refs/heads/[A-Za-z0-9._/-]+)$#', $head, $m) && !str_contains($m[1], '..')) {
+        $ref = trim((string)@file_get_contents($git . '/' . $m[1]));
+        if (preg_match('/^[a-f0-9]{40}$/', $ref)) { return $ref; }
+        foreach (preg_split('/\R/', (string)@file_get_contents($git . '/packed-refs')) as $line) {
+            if (preg_match('/^([a-f0-9]{40}) ' . preg_quote($m[1], '/') . '$/', $line, $match)) { return $match[1]; }
+        }
+    }
+    return '';
+}
+
 function xuverse_content($name) {
     static $cache = [];
     if (!preg_match('/^[a-z-]+$/', $name)) { throw new InvalidArgumentException('Invalid content name'); }

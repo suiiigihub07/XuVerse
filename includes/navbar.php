@@ -8,8 +8,8 @@ $navSettings = $conn->query(
      LIMIT 1"
 )->fetch_assoc();
 
-$siteTitle = $navSettings['site_title'] ?? 'XuVerse';
-$navCtaLabel = $navSettings['nav_cta_label'] ?? 'Connect';
+$siteTitle = 'XuVerse';
+$navCtaLabel = 'Connect';
 $currentScript = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
 $currentPage = basename($currentScript);
 $isAdminArea = strpos($currentScript, '/admin/') !== false;

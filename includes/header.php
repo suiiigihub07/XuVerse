@@ -100,7 +100,7 @@ name="description"
 content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 
 <meta name="robots" content="<?= e($robots) ?>">
-<?php if (defined('XUVERSE_RELEASE_ID')): ?><meta name="xuverse-revision" content="<?= e(XUVERSE_RELEASE_ID) ?>"><?php endif; ?>
+<meta name="xuverse-revision" content="<?= e(xuverse_checkout_revision()) ?>">
 <meta name="theme-color" content="#050507">
 <link rel="canonical" href="<?= e($canonicalUrl) ?>">
 

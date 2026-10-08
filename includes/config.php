@@ -10,7 +10,7 @@ function xuverse_config($key, $fallback = null)
 {
     static $config;
     if ($config === null) {
-        $file = getenv('XUVERSE_CONFIG_FILE') ?: dirname(__DIR__) . '/config.local.php';
+        $file = getenv('XUVERSE_CONFIG_FILE') ?: (defined('XUVERSE_STORAGE_ROOT') ? XUVERSE_STORAGE_ROOT : dirname(__DIR__)) . '/config.local.php';
         $config = is_file($file) ? require $file : [];
         if (!is_array($config)) {
             throw new RuntimeException('Invalid XuVerse configuration.');

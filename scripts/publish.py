@@ -5,6 +5,7 @@ from pathlib import Path, PurePosixPath
 import argparse, contextlib, datetime, ftplib, hashlib, io, json, os, ssl, subprocess, sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
+import secrets
 
 ROOT = Path(__file__).resolve().parents[1]
 PHP = os.environ.get('XUVERSE_PHP', r'C:\xampp\php\php.exe' if os.name == 'nt' else 'php')
@@ -35,6 +36,8 @@ class Host:
         self.root=config['root'].rstrip('/'); self.dirs=set()
     def close(self):
         with contextlib.suppress(Exception): self.ftp.quit()
+    def reconnect(self):
+        self.close(); self.__init__(self.config)
     def read(self,path):
         b=io.BytesIO()
         try: self.ftp.retrbinary('RETR '+path,b.write)
@@ -51,8 +54,11 @@ class Host:
             old=self.ftp.pwd(); self.ftp.cwd(path); self.ftp.cwd(old)
         self.dirs.add(path)
     def put(self,path,content):
-        self.mkdir(str(PurePosixPath(path).parent))
-        self.ftp.storbinary('STOR '+path,io.BytesIO(content))
+        parent=str(PurePosixPath(path).parent)
+        self.mkdir(parent)
+        temporary=parent+'/.xuverse-upload-'+secrets.token_hex(12)
+        self.ftp.storbinary('STOR '+temporary,io.BytesIO(content))
+        self.ftp.rename(temporary,path)
     def pointer(self,revision):
         tmp=self.root+'/.xuverse-active-next'
         self.put(tmp,(revision+'\n').encode()); self.ftp.rename(tmp,self.root+'/.xuverse-active')
@@ -80,8 +86,10 @@ def stage(host,revision,fail_after=0):
         if len(content)>10*1024*1024: raise RuntimeError('Host file limit exceeded: '+name)
         remote=target+'/'+name
         expected=hashlib.sha256(content).hexdigest()
-        connection.put(remote,content)
         actual=connection.read(remote)
+        if actual is None or hashlib.sha256(actual).hexdigest()!=expected:
+            connection.put(remote,content)
+            actual=connection.read(remote)
         if actual is None or hashlib.sha256(actual).hexdigest()!=expected: raise RuntimeError('Upload hash mismatch: '+name)
         return name,expected
     if fail_after:
@@ -101,6 +109,7 @@ def stage(host,revision,fail_after=0):
                 if i%25==0: print('Verified staged files:',i,'/',len(names),flush=True)
     finally:
         for connection in connections: connection.close()
+    host.reconnect() # Long staged uploads can outlast the host's idle-control timeout.
     host.put(target+'/release.json',json.dumps(manifest).encode())
     host.put(target+'/.ready',revision.encode())
     return manifest
@@ -109,8 +118,13 @@ def install_router(host,revision):
     # Both files are staged and read back before the atomic routing switch.
     router=blob(revision,'scripts/release-router.php')
     existing=host.read(host.root+'/xuverse-release.php')
-    if existing is not None and existing!=router: raise RuntimeError('Router upgrade needs separate review; existing router left unchanged')
+    if existing is not None and existing!=router:
+        active=(host.read(host.root+'/.xuverse-active') or b'').decode().strip()
+        if active: raise RuntimeError('Router upgrade needs separate review; existing active router left unchanged')
+        # Initial routing has not been accepted; original root code is still active.
+        host.put(host.root+'/xuverse-release.php',router)
     if existing is None: host.put(host.root+'/xuverse-release.php',router)
+    if host.read(host.root+'/xuverse-release.php')!=router: raise RuntimeError('Router upload mismatch')
     rules=blob(revision,'scripts/hosting.htaccess')
     old=host.read(host.root+'/.htaccess')
     if old!=rules:
@@ -156,6 +170,7 @@ def main():
                 with ThreadPoolExecutor(max_workers=4) as pool: list(pool.map(verify,manifest['files'].items()))
             finally:
                 for connection in connections: connection.close()
+            host.reconnect()
             host.pointer(revision)
         else:
             backup=Path.home()/'.codex/private-backups'/('xuverse-host-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
@@ -169,7 +184,7 @@ def main():
             else:
                 backup.mkdir(parents=True,exist_ok=True); (backup/'previous-release.txt').write_text(previous+'\n')
             stage(host,revision,args.fail_after); install_router(host,revision); host.pointer(revision)
-        receipt={'revision':revision,'previous_revision':previous,'activation':'FTPS pointer read-back passed','live_http_verification':'pending browser acceptance'}
+        receipt={'revision':revision,'previous_revision':previous,'activated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),'content_sha256':json.loads(blob(revision,'content/manifest.json'))['content_sha256'],'activation':'FTPS pointer read-back passed','live_http_verification':'pending browser acceptance'}
         (ROOT/'output').mkdir(exist_ok=True); (ROOT/'output/publish-receipt.json').write_text(json.dumps(receipt,indent=2))
         print(json.dumps(receipt,indent=2)); print('Verify release.json and rendered pages in the authorised browser before claiming publication success.')
     finally: host.close()

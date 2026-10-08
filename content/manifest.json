@@ -15,20 +15,20 @@
     },
     "writing": {
         "kage": {
-            "source_sha256": "0f2f6dbd4fb01a548468ec94434452259f989bbaa4b9b87c3796eb81c23b3e76",
-            "pdf_sha256": "1fccb53d118079c1711d9ad03695614d572e038bf26c9d82a1f88381b2b74583"
+            "source_sha256": "b448323cbd1340338f5f8cd9668e00b7f2d80ba53fddcdf45b7a52e2a71170d0",
+            "pdf_sha256": "2d70e4f99ffde607007d86d37df4637f71f0c104e49a8cc17c715c719810543a"
         },
         "before-the-next-cut": {
-            "source_sha256": "f444aba50ddedd606c67fd91508388d72f20c44d65202c0f0bd6419035a8c355",
-            "pdf_sha256": "e01dbdb3631e26fd317c7dfb67bc662eeb379f9a685bf6f1b6c1794b055187b0"
+            "source_sha256": "a9a2a5bb5c4aa542d0fff4f1d130a8abad192189fc536ff157124ee08e5452bc",
+            "pdf_sha256": "92242c1f5bf7de7e38e7046e2de1d68170c2ff2892a4e73be5b02d17d7aa7e58"
         },
         "what-the-frame-holds": {
-            "source_sha256": "e8ae176de93b6cb9753728d17062ac1ab1c4d3e552f1ef1f19cd14ca738257bc",
-            "pdf_sha256": "877229a459b7b78b0613a09805cc637036e2932f2bdc5b4bc20839bade42b8b0"
+            "source_sha256": "a0ca87d40f848c602e6cd5e48988b17dc5f71c2518a0e81c1522443335e3353b",
+            "pdf_sha256": "8101a389b882ef8def8c11f87625baa93ba5174ea1b2ec991d4efc1097b6168a"
         },
         "same-moment-different-meaning": {
-            "source_sha256": "2c49eda7d06b8c63befbf79759a897c99f6d27725f081bd685dfdb6cfb4832cd",
-            "pdf_sha256": "29c96bbbc25056216679c9007a3c869978562265b6a855d1f71def148a3f6856"
+            "source_sha256": "93e0852f225eadaaafe793328f60403051fb077bb0295386dc65c963fad55041",
+            "pdf_sha256": "fee47ba64133a1963f933adba9997a7f66526ce0725fcd91a1e4c5e4e49b0442"
         }
     }
 }
