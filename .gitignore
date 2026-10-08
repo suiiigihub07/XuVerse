@@ -23,6 +23,9 @@ auth.json
 /.vscode/
 .DS_Store
 Thumbs.db
+__pycache__/
+*.pyc
+/.xuverse-local-revision
 /*_backup.php
 *.sql
 !/database/xuverse.sql

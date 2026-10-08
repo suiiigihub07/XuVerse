@@ -1,78 +1,12 @@
 <?php
-
-require_once 'includes/db.php';
-require_once 'includes/functions.php';
-
-$id = (int)($_GET['id'] ?? 0);
-
-$stmt = $conn->prepare("SELECT * FROM articles WHERE id=? AND published=1 AND LOWER(TRIM(title)) <> 'hi'");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$article = $stmt->get_result()->fetch_assoc();
-
-if (!$article) {
-    http_response_code(404);
-    require '404.php';
-    exit;
-}
-
-$pageTitle = $article['title'] . ' | ' . xuverse_person_name($conn);
-$pageDescription = xuverse_excerpt($article['content'], 155);
-$pageType = 'article';
-$pageImage = $article['image_path'] ?: 'uploads/avatars/6a2184f69a336.webp';
-$canonicalUrl = xuverse_base_url() . '/articles/' . (int)$article['id'];
-$readingTime = xuverse_estimated_reading_time($article['content']);
-$schemaData = [
-    '@type' => 'Article',
-    'headline' => $article['title'],
-    'description' => $pageDescription,
-    'image' => xuverse_absolute_url($pageImage),
-    'datePublished' => date('c', strtotime($article['created_at'] ?? 'now')),
-    'author' => [
-        '@type' => 'Person',
-        'name' => xuverse_person_name($conn)
-    ],
-    'mainEntityOfPage' => $canonicalUrl
-];
-
-include 'includes/header.php';
-include 'includes/navbar.php';
-
+require_once 'includes/content.php';
+$a=xuverse_find_public('articles',$_GET['slug'] ?? '',(int)($_GET['id'] ?? 0));
+if(!$a){http_response_code(404);require '404.php';exit;}
+if(empty($_GET['slug'])){header('Location: '.xuverse_url('articles/'.$a['slug']),true,301);exit;}
+$pageType='article'; $schemaData=['@type'=>'Article','headline'=>$a['title'],'description'=>$a['summary'],'datePublished'=>$a['published_at'],'author'=>['@type'=>'Person','name'=>$a['author']]];
+xuverse_public_start($a['title'],$a['summary'],'articles/'.$a['slug']);
 ?>
-
-<section class="section article-detail-section">
-<div class="container">
-
-<article class="article-detail">
-<?php if(!empty($article['image_path'])): ?>
-<picture class="responsive-picture">
-<?= xuverse_avif_source($article['image_path'], '94vw') ?>
-<img
-src="<?= e(xuverse_asset($article['image_path'])) ?>"
-<?= xuverse_image_attributes($article['image_path']) ?>
-<?= xuverse_responsive_image_attributes($article['image_path'], '94vw') ?>
-class="article-detail-image"
-alt="<?= e($article['title']) ?>"
-loading="eager"
-decoding="async">
-</picture>
-<?php endif; ?>
-
-<p class="page-kicker">Article</p>
-<h1><?= e($article['title']) ?></h1>
-<div class="article-toolbar">
-<p class="article-date"><time datetime="<?= e(date('Y-m-d', strtotime($article['created_at'] ?? 'now'))) ?>"><?= e(date('M j, Y', strtotime($article['created_at'] ?? 'now'))) ?></time> · <?= $readingTime ?> min read</p>
-<button type="button" class="share-button" data-share-url="<?= e($canonicalUrl) ?>" data-share-title="<?= e($article['title']) ?>">Share</button>
-</div>
-
-<div class="article-body">
-<?= xuverse_prose($article['content']) ?>
-</div>
-
-<a href="<?= e(xuverse_url('articles')) ?>" class="text-link">Back to articles</a>
-</article>
-
-</div>
-</section>
-
+<section class="section container public-reading"><article><p class="eyebrow"><?= e($a['category']) ?></p><h1><?= e($a['title']) ?></h1><p class="lead"><?= e($a['subtitle']) ?></p><p><?= e($a['author']) ?> · <time datetime="<?= e($a['written_date']) ?>"><?= e($a['date_display']) ?></time> · <?= e($a['reading_time_minutes']) ?> min read</p><?php if(isset($a['study_type'])): ?><p class="research-note"><?= e($a['study_type']) ?>. <?= e($a['status']) ?>. <?= e($a['contribution']) ?>.</p><?php endif; ?><div class="public-actions"><a class="btn secondary-btn" href="<?= e(xuverse_url($a['pdf_path'])) ?>" download>Download PDF</a><button class="share-button" data-share-url="<?= e(xuverse_base_url().'/articles/'.$a['slug']) ?>" data-share-title="<?= e($a['title']) ?>">Share</button></div><div class="article-body prose"><?= xuverse_markdown(xuverse_body($a)) ?></div>
+<?php if(isset($a['references'])): ?><aside class="source-notes"><h2>Source access</h2><p>Seven sources; four full texts and three abstract or partial sources. Checked 8 October 2026.</p><ul><?php foreach($a['references'] as $ref): ?><li><a href="<?= e($ref['url']) ?>"><?= e($ref['citation']) ?></a><p><?= e($ref['access']) ?></p></li><?php endforeach; ?></ul></aside><?php endif; ?>
+<h2>Related reading</h2><ul><?php foreach(xuverse_content('articles') as $related): if($related['slug']===$a['slug'])continue; ?><li><a href="<?= e(xuverse_url('articles/'.$related['slug'])) ?>"><?= e($related['title']) ?></a></li><?php endforeach; ?></ul><a class="text-link" href="<?= e(xuverse_url('articles')) ?>">← Back to articles</a></article></section>
 <?php include 'includes/footer.php'; ?>

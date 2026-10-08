@@ -9,7 +9,7 @@ tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().
 files = []
 for name in filter(None, tracked):
     path = Path(name)
-    if path.parts[0] in {'admin', 'includes', 'assets'}:
+    if path.parts[0] in {'admin', 'includes', 'assets', 'content'}:
         files.append(path)
     elif name == '.htaccess' or (len(path.parts) == 1 and path.suffix == '.php'
                                   and not name.startswith('config.') and 'backup' not in name):

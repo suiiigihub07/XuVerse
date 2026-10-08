@@ -2,7 +2,7 @@
 
 function xuverse_project_root()
 {
-    return dirname(__DIR__);
+    return defined('XUVERSE_STORAGE_ROOT') ? XUVERSE_STORAGE_ROOT : dirname(__DIR__);
 }
 
 function xuverse_orient_image($image, $orientation)

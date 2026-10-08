@@ -47,4 +47,22 @@ if (
     http_response_code(403);
     exit('Your session could not be verified. Refresh the page and try again.');
 }
-?>
+
+// Public editorial records have one source; legacy rows stay private and untouched.
+$script = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+if (preg_match('#/admin/(articles|projects|media|experience|education|skills|highlights)/#', $script)
+    || preg_match('#/admin/settings/(index|edit|create|delete)\.php$#', $script)) {
+    if (!empty($_SESSION['user_id'])) {
+        require_once __DIR__ . '/content.php';
+        $pageTitle = 'Versioned public content | XuVerse';
+        $robots = xuverse_noindex();
+        header('Cache-Control: no-store');
+        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') { http_response_code(405); }
+        include __DIR__ . '/header.php';
+        include __DIR__ . '/navbar.php';
+        echo '<section class="section container"><h1>Public content is versioned</h1><p>Edit the JSON and Markdown files in content/ in the local checkout, then run Publish. This keeps the local preview, GitHub and hosted site on the same revision.</p><p>Historical database records are retained privately. These public-content fields are read-only in this CMS.</p><p>Account, password, avatar and music tools remain available.</p></section>';
+        echo '<p class="container"><a href="' . e(xuverse_url('admin/dashboard.php')) . '">Back to dashboard</a></p>';
+        include __DIR__ . '/footer.php';
+        exit;
+    }
+}

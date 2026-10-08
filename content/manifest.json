@@ -1,0 +1,34 @@
+{
+    "content_sha256": "a405584bcbbb73493eaf1ba8b9242f3c5150533cfd104143f81a70010d9cdb99",
+    "files": {
+        "content/articles.json": "7c131d6d7672809218aa10947e8313f538aa4021da3229372d9ad135bd5c4063",
+        "content/copy.json": "88a223103207dc0272e5a232c4cc0967a9cf10faf4af977ebdedc1286784c722",
+        "content/links.json": "4ee74f11040be2f34eccb4ae6a174171e1eaee1202d8d9eb47005da67514cc0b",
+        "content/media.json": "5c6b4c88fe6bd24b6f4f6d6aec2c4b555de159d67c563888fd9fb3a8c2160799",
+        "content/profile.json": "88c827d3b91f0181a066fe315f1995c9e62c9cf24ab2976871651ece7dccb81f",
+        "content/projects.json": "3421d9a121e1e2b7083c68f6f0c09e67f41a27031d265e8dfa545e1cd41e1b0e",
+        "content/skills.json": "1d98ec347ddcfcaa35a642eada13d41184c1e4616a1b458f3281fc9ed33ed4e2",
+        "content/writing/before-the-next-cut.md": "1490e1c84bb579702c5bf365b0a5608316c9eb1e702518989a800e7bc07588eb",
+        "content/writing/kage.md": "b5e442b453fe7d7fd4fa72da91ecdf64ffb744bf4357dc4e8437b00d869a6543",
+        "content/writing/same-moment-different-meaning.md": "4854abdcce73c11cd2598837f82f35e3337760b70c756659aadc1f59111c2057",
+        "content/writing/what-the-frame-holds.md": "be40ca3f42c4915d095e31fceb75f6641730cc48888149cb0f035dfcf16dce51"
+    },
+    "writing": {
+        "kage": {
+            "source_sha256": "0f2f6dbd4fb01a548468ec94434452259f989bbaa4b9b87c3796eb81c23b3e76",
+            "pdf_sha256": "1fccb53d118079c1711d9ad03695614d572e038bf26c9d82a1f88381b2b74583"
+        },
+        "before-the-next-cut": {
+            "source_sha256": "f444aba50ddedd606c67fd91508388d72f20c44d65202c0f0bd6419035a8c355",
+            "pdf_sha256": "e01dbdb3631e26fd317c7dfb67bc662eeb379f9a685bf6f1b6c1794b055187b0"
+        },
+        "what-the-frame-holds": {
+            "source_sha256": "e8ae176de93b6cb9753728d17062ac1ab1c4d3e552f1ef1f19cd14ca738257bc",
+            "pdf_sha256": "877229a459b7b78b0613a09805cc637036e2932f2bdc5b4bc20839bade42b8b0"
+        },
+        "same-moment-different-meaning": {
+            "source_sha256": "2c49eda7d06b8c63befbf79759a897c99f6d27725f081bd685dfdb6cfb4832cd",
+            "pdf_sha256": "29c96bbbc25056216679c9007a3c869978562265b6a855d1f71def148a3f6856"
+        }
+    }
+}

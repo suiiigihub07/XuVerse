@@ -28,6 +28,8 @@ if (!isset($settings) || !is_array($settings)) {
     )->fetch_assoc();
 }
 
+require_once __DIR__ . '/content.php';
+if (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/admin/') === false) { $settings = xuverse_public_settings($settings); }
 $siteTitle = xuverse_setting($settings, 'site_title', 'XuVerse');
 $documentTitle = $pageTitle ?? $siteTitle;
 $metaDescription = xuverse_setting(
@@ -37,7 +39,7 @@ $metaDescription = xuverse_setting(
 );
 $pageDescription = $pageDescription ?? $metaDescription;
 $canonicalUrl = $canonicalUrl ?? xuverse_current_url();
-$ownerAvatar = $conn->query("SELECT avatar_path FROM users WHERE role='admin' ORDER BY id LIMIT 1")->fetch_assoc()['avatar_path'] ?? '';
+$ownerAvatar = 'assets/images/public/portrait.webp';
 $pageImage = $pageImage ?? xuverse_setting($settings, 'og_image', $ownerAvatar);
 $absoluteImage = xuverse_absolute_url($pageImage);
 $pageType = $pageType ?? 'website';
@@ -98,6 +100,7 @@ name="description"
 content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 
 <meta name="robots" content="<?= e($robots) ?>">
+<?php if (defined('XUVERSE_RELEASE_ID')): ?><meta name="xuverse-revision" content="<?= e(XUVERSE_RELEASE_ID) ?>"><?php endif; ?>
 <meta name="theme-color" content="#050507">
 <link rel="canonical" href="<?= e($canonicalUrl) ?>">
 
@@ -117,28 +120,29 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 <?php if ($ownerAvatar !== ''): ?>
 <link rel="apple-touch-icon" href="<?= e(xuverse_asset($ownerAvatar)) ?>">
 <?php endif; ?>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="//fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="preload" href="<?= e(xuverse_url('assets/css/style.min.css')) ?>?v=20260918-consistency-5" as="style">
+
+
+
+<link rel="preload" href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260918-consistency-5" as="style">
 <?php if (session_status() === PHP_SESSION_ACTIVE && !empty($_SESSION['user_id'])): ?>
 <meta name="csrf-token" content="<?= e(xuverse_csrf_token()) ?>">
 <?php endif; ?>
 
 <link
 rel="stylesheet"
-href="<?= e(xuverse_url('assets/css/style.min.css')) ?>?v=20260918-consistency-5">
-<link rel="stylesheet" href="<?= e(xuverse_url('assets/css/responsive.css')) ?>?v=20260930-3">
+href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260918-consistency-5">
+<link rel="stylesheet" href="<?= e(xuverse_url('assets/css/responsive.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260930-3">
 
 <script
-src="<?= e(xuverse_url('assets/js/main.min.js')) ?>?v=20260930-1"
+src="<?= e(xuverse_url('assets/js/main.min.js')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260930-1"
 defer></script>
 
 <script type="application/ld+json">
 <?= json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP) ?>
 </script>
 
+<link rel="stylesheet" href="<?= e(xuverse_url('assets/css/public.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=<?= substr(hash_file('sha256', __DIR__ . '/../assets/css/public.css'),0,12) ?>">
+<meta name="xuverse-content-sha256" content="<?= e(xuverse_content('manifest')['content_sha256']) ?>">
 </head>
 
 <body>

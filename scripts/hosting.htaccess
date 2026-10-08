@@ -1,0 +1,13 @@
+Options -Indexes
+DirectoryIndex xuverse-release.php
+RewriteEngine On
+RewriteRule (^|/)\. - [F,L]
+RewriteRule ^(?:output|content|vendor|scripts|database|tmp|includes|dist|backups|presentation-output)(?:/|$) - [F,L,NC]
+RewriteRule ^admin/includes(?:/|$) - [F,L,NC]
+RewriteRule ^config(?:\.[a-z]+)?\.php$ - [F,L,NC]
+RewriteRule ^uploads/ - [L]
+RewriteRule ^xuverse-release\.php$ - [L]
+RewriteRule ^ xuverse-release.php [L,QSA]
+<FilesMatch "\.(sql|md|ini|log|bak|ps1|sh|zip)$">
+Require all denied
+</FilesMatch>

@@ -45,36 +45,4 @@ function xuverse_social_icon($name)
 </main>
 </div>
 
-<footer class="site-footer" aria-label="XuVerse closing signature">
-<div class="container footer-core">
-<div class="footer-mark">
-<a href="<?= e(xuverse_url()) ?>" class="footer-brand"><?= e($siteTitle) ?></a>
-<p><?= e(xuverse_setting($settings, 'footer_tagline', 'Software, media, creative work and community.')) ?></p>
-<?php if (trim($settings['footer_text'] ?? '') !== ''): ?>
-<p><?= nl2br(e($settings['footer_text'])) ?></p>
-<?php endif; ?>
-</div>
-
-<nav class="footer-icons" aria-label="Social links">
-<?php foreach($socialLinks as $key => $social): ?>
-<?php if(!empty($social['url'])): ?>
-<a
-href="<?= e($social['url']) ?>"
-target="_blank"
-rel="noopener noreferrer"
-aria-label="<?= e($social['label']) ?>"
-class="magnetic-card">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<?= xuverse_social_icon($key) ?>
-</svg>
-</a>
-<?php endif; ?>
-<?php endforeach; ?>
-</nav>
-
-<p class="footer-copy">&copy; <?= date('Y') ?> <?= e($siteTitle) ?></p>
-</div>
-</footer>
-
-</body>
-</html>
+<footer class="site-footer"><div class="container public-footer"><a href="<?= e(xuverse_url()) ?>">XuVerse · B K Suraj</a><nav aria-label="Footer"><a href="<?= e(xuverse_url('about')) ?>">About</a> <a href="<?= e(xuverse_url('articles')) ?>">Writing</a> <a href="<?= e(xuverse_url('contact')) ?>">Connect</a></nav><p>&copy; <?= gmdate('Y') ?></p></div></footer></body></html>

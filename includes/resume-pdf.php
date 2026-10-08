@@ -20,7 +20,8 @@ function xuverse_resume_pdf_paragraphs($value)
 
 function xuverse_resume_pdf($resume)
 {
-    $autoload = dirname(__DIR__) . '/vendor/autoload.php';
+    $dependencyRoot = defined('XUVERSE_STORAGE_ROOT') ? XUVERSE_STORAGE_ROOT : dirname(__DIR__);
+    $autoload = $dependencyRoot . '/vendor/autoload.php';
     if (!is_file($autoload)) {
         throw new RuntimeException('Run composer install to enable the resume PDF download.');
     }
@@ -32,7 +33,7 @@ function xuverse_resume_pdf($resume)
     $options->set('isPhpEnabled', false);
     $options->set('isJavascriptEnabled', false);
     $options->set('isFontSubsettingEnabled', true);
-    $options->set('chroot', [dirname(__DIR__) . '/vendor/dompdf/dompdf/lib/fonts']);
+    $options->set('chroot', [$dependencyRoot . '/vendor/dompdf/dompdf/lib/fonts']);
 
     ob_start();
     include __DIR__ . '/resume-pdf-template.php';

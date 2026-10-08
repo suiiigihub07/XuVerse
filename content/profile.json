@@ -1,0 +1,43 @@
+{
+  "name": "B K Suraj",
+  "location": "Busan, South Korea",
+  "education": {
+    "institution": "Dong-Eui University",
+    "program": "Intelligence Computing",
+    "level": "Undergraduate",
+    "start": "September 2024",
+    "end": "2028 (expected)"
+  },
+  "roles": [
+    {
+      "title": "Founder and President",
+      "organisation": "DAAM",
+      "dates": "2025–Present"
+    },
+    {
+      "title": "PR Ambassador",
+      "organisation": "Dong-Eui Global College",
+      "dates": "Present"
+    },
+    {
+      "title": "Supporter",
+      "organisation": "ANCHOR",
+      "dates": "Present"
+    },
+    {
+      "title": "Part-time restaurant work",
+      "organisation": "Pungwonjang Jipbap, Myeongji, Busan",
+      "dates": "Present"
+    }
+  ],
+  "achievement": {
+    "title": "Dong-Eui University promotional video competition — Award winner",
+    "note": "User-reported award; exact official competition title, placement and date are unverified. Do not add them."
+  },
+  "omit": [
+    "Best Buddy award",
+    "unverified semester number",
+    "unsupported numerical skill levels",
+    "unselected or conflicting old work dates"
+  ]
+}

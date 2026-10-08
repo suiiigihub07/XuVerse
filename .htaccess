@@ -14,7 +14,7 @@ RewriteRule (^|/)\. - [F,L]
 RewriteRule ^config(?:\.[a-z]+)?\.php$ - [F,L,NC]
 
 # Internal code and deployment artifacts are never public endpoints.
-RewriteRule ^(?:vendor|scripts|database|tmp|includes|output|dist|backups)(?:/|$) - [F,L,NC]
+RewriteRule ^(?:vendor|scripts|database|tmp|includes|output|dist|backups|content|presentation-output)(?:/|$) - [F,L,NC]
 RewriteRule ^admin/includes(?:/|$) - [F,L,NC]
 
 RewriteCond %{THE_REQUEST} \s/+((?:[^?\s/]+/)*)project\.php\?id=([0-9]+) [NC]
@@ -32,7 +32,12 @@ RewriteRule ^(projects|articles|resume|media|contact|now|login)\.php$ /%1%2 [R=3
 
 RewriteRule ^robots\.txt$ robots.php [L]
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
+RewriteRule ^release\.json$ revision.php [L]
 
+RewriteRule ^about/?$ about.php [L]
+RewriteRule ^articles/([a-z][a-z0-9-]*)/?$ article.php?slug=$1 [L,QSA]
+RewriteRule ^projects/([a-z][a-z0-9-]*)/?$ project.php?slug=$1 [L,QSA]
+RewriteRule ^videos/([a-z][a-z0-9-]*)/?$ video.php?slug=$1 [L,QSA]
 RewriteRule ^projects/([0-9]+)/?$ project.php?id=$1 [L,QSA]
 RewriteRule ^articles/([0-9]+)/?$ article.php?id=$1 [L,QSA]
 RewriteRule ^photos/([0-9]+)/?$ photo.php?id=$1 [L,QSA]

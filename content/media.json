@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Dong-Eui Global College 2026",
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=ItV0DbEebzg",
+    "summary": "Selected university promotional media work.",
+    "credit_note": "Selected university promotional media work; individual production credits are not confirmed.",
+    "slug": "global-college-2026",
+    "legacy_ids": [
+      1
+    ]
+  },
+  {
+    "title": "University Promotional Competition Video",
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=xCaKYaSjlq0",
+    "summary": "Selected competition video associated with the user-reported award.",
+    "slug": "promotional-competition",
+    "legacy_ids": [
+      2
+    ]
+  },
+  {
+    "title": "DAAM Introduction",
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=vPs7_L4hYEQ",
+    "summary": "Introduction to the DAAM student club.",
+    "slug": "daam-introduction",
+    "legacy_ids": [
+      3
+    ]
+  },
+  {
+    "title": "ANCHOR News: Eco Delta Smart City",
+    "type": "card series",
+    "summary": "Selected visual communication work from the supporter content collection.",
+    "credit_note": "Visual communication from the ANCHOR supporter collection. Original credits, including K-water photography, are retained on each card.",
+    "slug": "anchor-eco-delta",
+    "legacy_ids": [],
+    "cards": [
+      "assets/images/public/Busan-ANCHOR_Eco-Delta-Smart-City_Card-01.webp",
+      "assets/images/public/Busan-ANCHOR_Eco-Delta-Smart-City_Card-02.webp",
+      "assets/images/public/Busan-ANCHOR_Eco-Delta-Smart-City_Card-03.webp",
+      "assets/images/public/Busan-ANCHOR_Eco-Delta-Smart-City_Card-04.webp",
+      "assets/images/public/Busan-ANCHOR_Eco-Delta-Smart-City_Card-05.webp",
+      "assets/images/public/Busan-ANCHOR_Eco-Delta-Smart-City_Card-06.webp",
+      "assets/images/public/Busan-ANCHOR_Eco-Delta-Smart-City_Card-07.webp"
+    ]
+  }
+]

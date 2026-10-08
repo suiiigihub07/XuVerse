@@ -1,0 +1,62 @@
+[
+  {
+    "title": "XuVerse",
+    "summary": "A personal portfolio that brings software projects, writing, research, and media into one place.",
+    "description": "Built as a PHP and MySQL portfolio with content management, project records, writing, media, a resume, and contact options. The next revision turns the existing structure into a clearer record of practical work and ongoing exploration.",
+    "role": "Personal project: development and content curation",
+    "technology": [
+      "PHP",
+      "MySQL",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "status": "Live; evolving",
+    "repository": "https://github.com/suiiigihub07/XuVerse",
+    "live": "https://xuverse.freehosting.dev/",
+    "learning": "Connecting content, administration, responsive layouts, and deployment into one maintainable site.",
+    "slug": "xuverse",
+    "legacy_ids": [
+      6
+    ],
+    "image": "assets/images/public/xuverse-home-20260728b.webp"
+  },
+  {
+    "title": "Lost & Found Management System",
+    "summary": "An academic web prototype for recording and finding lost items.",
+    "description": "A PHP and MySQL application with authentication, item uploads, search, and administration. Present it as an academic prototype, with the actual implemented behaviour described from its source.",
+    "technology": [
+      "PHP",
+      "MySQL",
+      "Tailwind CSS"
+    ],
+    "status": "Academic prototype",
+    "repository": null,
+    "live": null,
+    "learning": "Designing useful records and access controls around a simple campus problem.",
+    "slug": "lost-and-found",
+    "legacy_ids": [
+      11
+    ],
+    "image": "assets/images/public/lostfound.webp"
+  },
+  {
+    "title": "Hotel Reservation Manager",
+    "summary": "A C++ console project for room availability, guest records, and reservations.",
+    "description": "An object-oriented academic project using room subclasses, reservation and guest records, simulated card payment handling, and text-file persistence. It demonstrates encapsulation, inheritance, polymorphism, and composition. Payment handling is a simulation; a payment gateway and working login system are not implemented.",
+    "technology": [
+      "C++",
+      "Object-oriented programming",
+      "Text-file persistence"
+    ],
+    "status": "Academic console project",
+    "repository": null,
+    "live": null,
+    "learning": "Turning a UML design into classes with clear responsibilities and working reservation flows.",
+    "slug": "hotel-reservation-manager",
+    "legacy_ids": [
+      12
+    ],
+    "image": ""
+  }
+]

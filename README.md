@@ -70,8 +70,12 @@ Environment variables accept these names and the existing XUVERSE_ prefix; the p
 
 Runtime uploads, dependencies, secrets, backups and temporary files are excluded from Git. Existing media stays on disk. Transfer required uploads privately during the first deployment; static assets remain in Git.
 
-Develop in XAMPP → test → git add → git commit → git push → build code archive → upload/extract without deleting existing files.
+Develop in XAMPP â†’ test â†’ git add â†’ git commit â†’ git push â†’ build code archive â†’ upload/extract without deleting existing files.
 
 Run `python scripts/build-release.py` after staging intended files and installing Composer dependencies. It packages current working files into ignored `dist/xuverse-code-*.zip`: code, assets, dependencies and upload security rules. It excludes SQL, private config and runtime media.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for deployment/backups and [READINESS-AUDIT.md](READINESS-AUDIT.md) for findings and verification limits.
+
+## October content and publishing revision
+
+Public content now lives in versioned JSON and Markdown under content/, including the three approved essays and independent research paper. Public pages read these files; legacy database records remain private. Use the single Publish action in [PUBLISH.md](PUBLISH.md) for validated PDF generation, GitHub push, FTPS release staging and pointer activation. Publication status is recorded in DEPLOYMENT.md; an archive alone is not deployment evidence.

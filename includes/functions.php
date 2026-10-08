@@ -86,7 +86,7 @@ function xuverse_url($path = '')
         return ($basePath === '' ? '' : $basePath) . '/';
     }
 
-    return ($basePath === '' ? '' : $basePath) . '/' . $path;
+    return ($basePath === '' ? '' : $basePath) . '/' . $path . (str_starts_with($path, 'assets/') && defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '?r=' . XUVERSE_RELEASE_ID : '');
 }
 
 function xuverse_is_production()
@@ -94,15 +94,7 @@ function xuverse_is_production()
     return filter_var(xuverse_config('PRODUCTION', false), FILTER_VALIDATE_BOOLEAN);
 }
 
-function xuverse_person_name($conn)
-{
-    static $name;
-    if ($name === null) {
-        $row = $conn->query('SELECT hero_title FROM settings LIMIT 1')->fetch_assoc();
-        $name = xuverse_setting($row, 'hero_title', 'B K Suraj');
-    }
-    return $name;
-}
+function xuverse_person_name($conn) { return 'B K Suraj'; }
 
 // A small, escaped text format shared by articles and project case studies.
 // Authors can use paragraphs, ## / ### headings and - bullet lists.
@@ -259,8 +251,8 @@ function xuverse_image_attributes($path)
     }
 
     $relative = preg_replace('#^' . preg_quote(trim(xuverse_app_path(), '/'), '#') . '/#', '', ltrim($path, '/'));
-    $root = realpath(dirname(__DIR__));
-    $file = realpath(dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $relative));
+    $root = realpath(str_starts_with($relative, 'uploads/') && defined('XUVERSE_STORAGE_ROOT') ? XUVERSE_STORAGE_ROOT : dirname(__DIR__));
+    $file = realpath($root . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $relative));
 
     if (!$root || !$file || strpos($file, $root) !== 0 || !is_file($file)) {
         return '';
@@ -284,7 +276,7 @@ function xuverse_responsive_image_attributes($path, $sizes = '(max-width: 720px)
     }
 
     $relative = preg_replace('#^' . preg_quote(trim(xuverse_app_path(), '/'), '#') . '/#', '', ltrim($path, '/'));
-    $root = dirname(__DIR__);
+    $root = str_starts_with($relative, 'uploads/') && defined('XUVERSE_STORAGE_ROOT') ? XUVERSE_STORAGE_ROOT : dirname(__DIR__);
     $candidates = [];
 
     foreach ([480, 800] as $variant) {
@@ -324,7 +316,7 @@ function xuverse_avif_source($path, $sizes = '(max-width: 720px) 94vw, 40vw')
     }
 
     $relative = preg_replace('#^' . preg_quote(trim(xuverse_app_path(), '/'), '#') . '/#', '', ltrim($path, '/'));
-    $root = dirname(__DIR__);
+    $root = str_starts_with($relative, 'uploads/') && defined('XUVERSE_STORAGE_ROOT') ? XUVERSE_STORAGE_ROOT : dirname(__DIR__);
     $candidates = [];
 
     foreach ([480, 800] as $variant) {

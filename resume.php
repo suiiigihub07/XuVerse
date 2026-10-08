@@ -154,12 +154,12 @@ decoding="async">
 
 <?php if($projects): ?>
 <div class="resume-block">
-<h2>Selected Projects</h2>
+<h2>Achievement</h2><p><?= e($resume['achievement']) ?></p><p class="meta">User-reported award; official title, placement and date are unverified.</p><h2>Selected Projects</h2>
 
 <ul class="resume-list">
 <?php foreach($projects as $row): ?>
 <li>
-<strong><a href="<?= e(xuverse_url('projects/' . (int)$row['id'])) ?>"><?= e($row['title']) ?></a></strong>
+<strong><a href="<?= e(xuverse_url('projects/' . $row['slug'])) ?>"><?= e($row['title']) ?></a></strong>
 <br>
 <span><?= htmlspecialchars($row['description']) ?></span>
 </li>

@@ -1,0 +1,25 @@
+{
+  "Communication": [
+    "Social Media Management"
+  ],
+  "Creative": [
+    "Content Creation",
+    "Photography",
+    "Videography"
+  ],
+  "Language": [
+    "English",
+    "Korean",
+    "Nepali"
+  ],
+  "Personal": [
+    "Adaptability",
+    "Self Learning"
+  ],
+  "Technology": [
+    "Backend Development",
+    "Database Design",
+    "UI/UX Design",
+    "Web Development"
+  ]
+}

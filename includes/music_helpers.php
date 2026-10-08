@@ -41,7 +41,7 @@ function xuverse_upload_audio($field, &$error, $required = true)
         return '';
     }
 
-    $uploadDir = __DIR__ . '/../uploads/music/';
+    $uploadDir = (defined('XUVERSE_STORAGE_ROOT') ? XUVERSE_STORAGE_ROOT : dirname(__DIR__)) . '/uploads/music/';
 
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0775, true);

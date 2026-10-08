@@ -71,10 +71,11 @@ a { color: #a71330; text-decoration: none; word-wrap: break-word; }
 <?php if ($resume['projects']): ?>
 <h2>Selected projects</h2>
 <?php foreach ($resume['projects'] as $entry): ?>
-<h3><a href="<?= xuverse_resume_pdf_text($resume['website'] . '/projects/' . (int)$entry['id']) ?>"><?= xuverse_resume_pdf_text($entry['title']) ?></a></h3>
+<h3><a href="<?= xuverse_resume_pdf_text($resume['website'] . '/projects/' . $entry['slug']) ?>"><?= xuverse_resume_pdf_text($entry['title']) ?></a></h3>
 <?= xuverse_resume_pdf_paragraphs($entry['description']) ?>
 <?php endforeach; endif; ?>
 
+<h2>Achievement</h2><p><?= xuverse_resume_pdf_text($resume['achievement']) ?></p><p class="meta">User-reported award; official title, placement and date are unverified.</p>
 <?php if ($resume['focus'] !== ''): ?>
 <h2>Current focus</h2>
 <?= xuverse_resume_pdf_paragraphs($resume['focus']) ?>

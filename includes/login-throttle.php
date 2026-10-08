@@ -3,7 +3,7 @@
 // Server-side limits cannot be reset by deleting the browser's session cookie.
 function xuverse_allow_login_attempt()
 {
-    $directory = dirname(__DIR__) . '/tmp/login-attempts';
+    $directory = (defined('XUVERSE_STORAGE_ROOT') ? XUVERSE_STORAGE_ROOT : dirname(__DIR__)) . '/tmp/login-attempts';
     if (!is_dir($directory) && !mkdir($directory, 0700, true) && !is_dir($directory)) {
         return false;
     }
