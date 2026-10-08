@@ -32,6 +32,10 @@ if ($path==='release.json') {
 }
 $routes=[''=>'index.php','about'=>'about.php','projects'=>'projects.php','articles'=>'articles.php','media'=>'media.php','resume'=>'resume.php','resume/download'=>'resume-download.php','contact'=>'contact.php','now'=>'now.php','login'=>'login.php','robots.txt'=>'robots.php','sitemap.xml'=>'sitemap.php'];
 $normalized=rtrim($path,'/'); $script=$routes[$normalized] ?? null;
+if (in_array($path,['index.php','about.php','projects.php','articles.php','media.php','resume.php','contact.php','now.php','login.php'],true)) {
+    $pretty=$path==='index.php'?'':substr($path,0,-4);
+    header('Location: '.$prefix.'/'.$pretty,true,301); exit;
+}
 if (preg_match('#^(articles|projects|videos|photos)/([a-z0-9-]+)$#',$normalized,$m)) {
     $script=['articles'=>'article.php','projects'=>'project.php','videos'=>'video.php','photos'=>'photo.php'][$m[1]];
     if (ctype_digit($m[2])) { $_GET['id']=(int)$m[2]; } else { $_GET['slug']=$m[2]; }

@@ -44,7 +44,7 @@ include 'includes/navbar.php';
 <div class="container">
 <a class="text-link admin-back-link" href="admin/dashboard.php">Back to dashboard</a>
 <h1>Profile Photo</h1>
-<p>Update the photo used on your profile and resume. The full image keeps its original proportions.</p>
+<p>Update your account photo. The public portrait is versioned in content and assets and changes through Publish.</p>
 
 <?php if ($message !== ''): ?>
 <p class="success" role="status"><?= e($message) ?></p>

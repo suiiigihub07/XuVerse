@@ -3,13 +3,15 @@ Private credentials are read outside the checkout. FTPS certificate checks stay 
 """
 from pathlib import Path, PurePosixPath
 import argparse, contextlib, datetime, ftplib, hashlib, io, json, os, ssl, subprocess, sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
 
 ROOT = Path(__file__).resolve().parents[1]
 PHP = os.environ.get('XUVERSE_PHP', r'C:\xampp\php\php.exe' if os.name == 'nt' else 'php')
 DEFAULT_CONFIG = Path.home()/'.codex/private-config/xuverse-deploy.json'
 
 def run(*args, capture=False):
-    return subprocess.check_output(args, cwd=ROOT, text=True).strip() if capture else subprocess.run(args,cwd=ROOT,check=True)
+    return subprocess.check_output(args, cwd=ROOT, text=True).rstrip() if capture else subprocess.run(args,cwd=ROOT,check=True)
 
 def allowed(name):
     p=PurePosixPath(name)
@@ -73,18 +75,32 @@ def stage(host,revision,fail_after=0):
     target=host.root+'/.xuverse-releases/'+revision
     names=release_files(revision)
     manifest={'revision':revision,'files':{}}
-    for i,name in enumerate(names,1):
+    def upload_one(connection,name):
         content=blob(revision,name)
         if len(content)>10*1024*1024: raise RuntimeError('Host file limit exceeded: '+name)
         remote=target+'/'+name
         expected=hashlib.sha256(content).hexdigest()
-        present=host.read(remote)
-        if present is None or hashlib.sha256(present).hexdigest()!=expected: host.put(remote,content)
-        actual=host.read(remote)
+        connection.put(remote,content)
+        actual=connection.read(remote)
         if actual is None or hashlib.sha256(actual).hexdigest()!=expected: raise RuntimeError('Upload hash mismatch: '+name)
-        manifest['files'][name]=expected
-        if i%25==0: print('Verified staged files:',i,'/',len(names),flush=True)
-        if fail_after and i>=fail_after: raise RuntimeError('Intentional staging failure; active release has not changed')
+        return name,expected
+    if fail_after:
+        for name in names[:fail_after]: upload_one(host,name)
+        raise RuntimeError('Intentional staging failure; active release has not changed')
+    connections=[]; local=threading.local(); lock=threading.Lock()
+    def upload(name):
+        if not hasattr(local,'connection'):
+            local.connection=Host(host.config)
+            with lock: connections.append(local.connection)
+        return upload_one(local.connection,name)
+    try:
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            futures=[pool.submit(upload,name) for name in names]
+            for i,future in enumerate(as_completed(futures),1):
+                name,digest=future.result(); manifest['files'][name]=digest
+                if i%25==0: print('Verified staged files:',i,'/',len(names),flush=True)
+    finally:
+        for connection in connections: connection.close()
     host.put(target+'/release.json',json.dumps(manifest).encode())
     host.put(target+'/.ready',revision.encode())
     return manifest
@@ -105,7 +121,7 @@ def install_router(host,revision):
         host.ftp.rename(host.root+'/.htaccess-next',host.root+'/.htaccess')
 
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--message',default='Publish XuVerse content'); p.add_argument('--prepare',action='store_true'); p.add_argument('--deploy',metavar='REVISION'); p.add_argument('--rollback',metavar='REVISION'); p.add_argument('--fail-after',type=int,default=0); p.add_argument('--config',type=Path,default=DEFAULT_CONFIG); args=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--message',default='Publish XuVerse content'); p.add_argument('--prepare',action='store_true'); p.add_argument('--deploy',metavar='REVISION'); p.add_argument('--rollback',metavar='REVISION'); p.add_argument('--fail-after',type=int,default=0); p.add_argument('--config',type=Path,default=DEFAULT_CONFIG); p.add_argument('--reuse-backup',type=Path); args=p.parse_args()
     if not args.deploy and not args.rollback:
         run(PHP,'scripts/build-content.php'); run(PHP,'scripts/verify-content.php')
         changed=run('git','status','--porcelain','--untracked-files=all',capture=True).splitlines()
@@ -129,13 +145,27 @@ def main():
             ready=host.read(host.root+'/.xuverse-releases/'+revision+'/.ready')
             if ready!=revision.encode(): raise RuntimeError('Rollback target is not a complete retained release')
             manifest=json.loads(host.read(host.root+'/.xuverse-releases/'+revision+'/release.json'))
-            for name,digest in manifest['files'].items():
-                actual=host.read(host.root+'/.xuverse-releases/'+revision+'/'+name)
+            connections=[]; local=threading.local(); lock=threading.Lock()
+            def verify(item):
+                if not hasattr(local,'connection'):
+                    local.connection=Host(config)
+                    with lock: connections.append(local.connection)
+                name,digest=item; actual=local.connection.read(host.root+'/.xuverse-releases/'+revision+'/'+name)
                 if actual is None or hashlib.sha256(actual).hexdigest()!=digest: raise RuntimeError('Rollback target hash mismatch')
+            try:
+                with ThreadPoolExecutor(max_workers=4) as pool: list(pool.map(verify,manifest['files'].items()))
+            finally:
+                for connection in connections: connection.close()
             host.pointer(revision)
         else:
             backup=Path.home()/'.codex/private-backups'/('xuverse-host-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
-            if not previous: host.backup_runtime(backup)
+            if not previous:
+                if args.reuse_backup:
+                    if not (args.reuse_backup/'uploads').is_dir(): raise RuntimeError('Incomplete prior backup')
+                    for name in ['.htaccess','config.local.php']:
+                        if (args.reuse_backup/name).read_bytes()!=host.read(host.root+'/'+name): raise RuntimeError('Host changed since prior backup')
+                    print('Reusing the explicitly selected private pre-release backup:',args.reuse_backup,flush=True)
+                else: host.backup_runtime(backup)
             else:
                 backup.mkdir(parents=True,exist_ok=True); (backup/'previous-release.txt').write_text(previous+'\n')
             stage(host,revision,args.fail_after); install_router(host,revision); host.pointer(revision)

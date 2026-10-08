@@ -3,6 +3,7 @@
 *.py text eol=lf
 *.sql text eol=lf
 *.md text eol=lf
+*.json text eol=lf
 .htaccess text eol=lf
 *.png binary
 *.jpg binary
