@@ -4,6 +4,14 @@ require_once __DIR__ . '/../includes/content.php';
 require_once __DIR__ . '/../includes/content-build.php';
 require_once __DIR__ . '/../includes/dashboard-content.php';
 function check($value,$message) { if (!$value) { throw new RuntimeException($message); } echo 'PASS: '.$message.PHP_EOL; }
+function verify_shared_asset_scope() {
+    // Header includes share their caller's PHP scope (Resume and legacy media forms).
+    $name='B K Suraj'; $type='photo'; $path='caller-path'; $url='caller-url'; $separator='caller-separator';
+    ob_start(); require __DIR__.'/../includes/ambient-motion.php'; $assets=ob_get_clean();
+    check([$name,$type,$path,$url,$separator]===['B K Suraj','photo','caller-path','caller-url','caller-separator'],'Shared asset loader preserves caller variables');
+    foreach(['ambient-motion.css','media-gallery.css','rounded.css','ambient-motion.js','media-gallery.js'] as $asset) check(str_contains($assets,$asset),'Shared asset '.$asset);
+}
+verify_shared_asset_scope();
 $root=dirname(__DIR__); $manifest=xuverse_content('manifest');
 foreach($manifest['files'] as $path=>$hash) check(hash_file('sha256',$root.'/'.$path)===$hash,'Canonical hash '.$path);
 foreach (array_keys(xuverse_editor_sections()) as $collection) { xuverse_editor_validate($collection,xuverse_content($collection)); check(true,'Content structure '.$collection); }

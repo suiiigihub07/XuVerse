@@ -1,5 +1,6 @@
 <?php
 // Kept separate so theme restoration and this motion layer can evolve independently.
+(static function () {
 foreach ([['css','ambient-motion.css'], ['css','media-gallery.css'], ['css','rounded.css'], ['js','ambient-motion.js'], ['js','media-gallery.js']] as [$type, $name]) {
     $path = 'assets/' . $type . '/' . $name;
     $separator = defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&' : '?';
@@ -10,3 +11,4 @@ foreach ([['css','ambient-motion.css'], ['css','media-gallery.css'], ['css','rou
         echo '<script src="' . e($url) . '" defer></script>' . "\n";
     }
 }
+})();
