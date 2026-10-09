@@ -1,6 +1,15 @@
 <?php
 require_once 'includes/content.php';
 require_once 'includes/media-gallery.php';
+$publishedPost = xuverse_find_public('published', $_GET['slug'] ?? '', (int)($_GET['id'] ?? 0));
+if ($publishedPost) {
+    if (empty($_GET['slug'])) {
+        header('Location: ' . xuverse_url('photos/' . $publishedPost['slug']), true, 301);
+        exit;
+    }
+    require 'published.php';
+    exit;
+}
 $photo = xuverse_find_public('media', $_GET['slug'] ?? '', (int)($_GET['id'] ?? 0));
 if (!$photo || !in_array($photo['type'], ['photograph','card series'], true)) {
     http_response_code(404);

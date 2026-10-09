@@ -3,9 +3,12 @@ from pathlib import Path
 from datetime import datetime, timezone
 import subprocess
 import zipfile
+from publish import assert_publishable, assert_public_paths
 
 root = Path(__file__).resolve().parents[1]
+assert_publishable(lambda name: (root/name).read_bytes(), lambda name: (root/name).is_file())
 tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0')
+assert_public_paths(filter(None, tracked))
 files = []
 for name in filter(None, tracked):
     path = Path(name)

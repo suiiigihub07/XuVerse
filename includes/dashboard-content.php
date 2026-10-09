@@ -24,10 +24,11 @@ function xuverse_editor_assert_writable() {
 }
 
 function xuverse_editor_sections() {
-    return ['media'=>'Photos, ANCHOR & videos','copy'=>'Page writing','profile'=>'Profile, education & experience','projects'=>'Projects','articles'=>'Articles & research','skills'=>'Skills','links'=>'Contact & social links','site'=>'Branding, images & page headings'];
+    return ['media'=>'Photographs & videos','published'=>'Published work & news','copy'=>'Page writing','profile'=>'Profile, education & experience','projects'=>'Projects','articles'=>'Articles & research','skills'=>'Skills','links'=>'Contact & social links','site'=>'Branding, images & page headings'];
 }
 
 function xuverse_editor_template($collection, $type = '') {
+    if ($collection === 'published') return ['title'=>'','slug'=>'','summary'=>'','description'=>'','article_body'=>'','cards'=>[],'video_urls'=>[],'alt'=>'','credit_note'=>'','publication_status'=>'draft'];
     if ($collection === 'media') {
         $entry = ['title'=>'','slug'=>'','type'=>$type ?: 'card series','summary'=>'','description'=>'','alt'=>'','credit_note'=>'','publication_status'=>'draft'];
         if ($type === 'video') { $entry['url'] = ''; }
@@ -76,7 +77,7 @@ function xuverse_editor_validate($collection, $data) {
             elseif ($expected) foreach ($value as $child) $shape($expected[0],$child);
         } elseif ($expected !== null && gettype($expected) !== gettype($value)) throw new RuntimeException('A content field has the wrong value type.');
     };
-    if (!in_array($collection,['media','projects','articles'],true)) $shape(xuverse_editor_read($collection),$data);
+    if (!in_array($collection,['media','published','projects','articles'],true)) $shape(xuverse_editor_read($collection),$data);
     $walk = function ($value, $key = '', $parent = '') use (&$walk,$collection) {
         if (is_array($value)) { foreach ($value as $k=>$child) $walk($child, (string)$k, $key); return; }
         if (!is_scalar($value) && $value !== null) throw new RuntimeException('Invalid field value.');
@@ -88,7 +89,7 @@ function xuverse_editor_validate($collection, $data) {
         }
     };
     $walk($data);
-    if (in_array($collection, ['media','projects','articles'], true)) {
+    if (in_array($collection, ['media','published','projects','articles'], true)) {
         if (!array_is_list($data)) throw new RuntimeException('Invalid collection.');
         $slugs = [];
         foreach ($data as $item) {
@@ -96,7 +97,7 @@ function xuverse_editor_validate($collection, $data) {
             if (!preg_match('/^[a-z][a-z0-9-]{0,99}$/', $item['slug']) || isset($slugs[$item['slug']])) throw new RuntimeException('Use a unique address with lowercase letters, numbers and hyphens.');
             $slugs[$item['slug']] = true;
             if (!in_array($item['publication_status'] ?? 'published', ['draft','published'], true)) throw new RuntimeException('Invalid publication status.');
-            foreach (['description','alt','credit_note','author','subtitle','date_display','source_note'] as $key) if (isset($item[$key]) && !is_string($item[$key])) throw new RuntimeException('Use text for ' . str_replace('_',' ',$key) . '.');
+            foreach (['description','article_body','alt','credit_note','author','subtitle','date_display','source_note'] as $key) if (isset($item[$key]) && !is_string($item[$key])) throw new RuntimeException('Use text for ' . str_replace('_',' ',$key) . '.');
             foreach (['technology','tags','related_links'] as $key) if (isset($item[$key])) {
                 if (!is_array($item[$key]) || !array_is_list($item[$key])) throw new RuntimeException('Invalid list: ' . $key);
                 foreach ($item[$key] as $value) if (!is_string($value)) throw new RuntimeException('Use text for each ' . $key . ' item.');
@@ -114,6 +115,16 @@ function xuverse_editor_validate($collection, $data) {
                 }
             }
             if ($collection === 'projects' && !empty($item['image']) && !xuverse_editor_asset_valid($item['image'])) throw new RuntimeException('The project image was not found.');
+            if ($collection === 'published') {
+                $images = $item['cards'] ?? [];
+                $videos = $item['video_urls'] ?? [];
+                foreach (['images'=>$images,'videos'=>$videos] as $kind=>$items) {
+                    if (!is_array($items) || !array_is_list($items) || count($items) > 10) throw new RuntimeException('Use a list of up to 10 ' . $kind . '.');
+                }
+                foreach ($images as $image) if (!xuverse_editor_asset_valid($image)) throw new RuntimeException('Choose an existing image or upload a JPG, PNG or WebP image.');
+                foreach ($videos as $url) if (!is_string($url) || xuverse_youtube_embed($url) === '') throw new RuntimeException('Enter a valid YouTube link for each video.');
+                if (!$images && !$videos && trim($item['article_body'] ?? '') === '' && trim($item['description'] ?? '') === '') throw new RuntimeException('Add images, a YouTube video, or article text to this published post.');
+            }
             if ($collection === 'articles') {
                 if (!in_array($item['date_precision'] ?? '', ['year','month','day'], true) || trim($item['author'] ?? '') === '' || trim($item['date_display'] ?? '') === '') throw new RuntimeException('An author, displayed date and date precision are required.');
                 $datePatterns = ['year'=>'/^\d{4}$/','month'=>'/^\d{4}-(0[1-9]|1[0-2])$/','day'=>'/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/'];
@@ -163,8 +174,8 @@ function xuverse_editor_upload($files) {
             if (!$image) throw new RuntimeException('Could not process the image.');
             if ($mime === 'image/jpeg' && function_exists('exif_read_data')) { $exif = @exif_read_data($temporary,'IFD0'); $image = xuverse_orient_image($image,$exif['Orientation'] ?? 1); }
             $optimized = xuverse_resize_upload_image($image);
-            $relative = 'assets/images/content/' . bin2hex(random_bytes(16)) . '.webp';
-            $folder = dirname(__DIR__) . '/assets/images/content';
+            $relative = 'assets/images/editor/' . bin2hex(random_bytes(16)) . '.webp';
+            $folder = dirname(__DIR__) . '/assets/images/editor';
             if (!is_dir($folder) && !mkdir($folder,0755,true)) throw new RuntimeException('The image folder is not writable.');
             $ok = imagewebp($optimized, dirname(__DIR__) . '/' . $relative, 88);
             imagedestroy($optimized); imagedestroy($image);
@@ -207,7 +218,7 @@ function xuverse_editor_save($collection, $itemKey, $entity, $body, $expected, $
         if ($collection === 'media') $entity = xuverse_editor_media_defaults($entity);
         $existingImages = $entity['cards'] ?? [];
         $uploadCount = isset($files['error']) && is_array($files['error']) ? count(array_filter($files['error'], fn($error) => $error !== UPLOAD_ERR_NO_FILE)) : 0;
-        $multiple = $collection === 'media' && ($entity['type'] ?? '') === 'card series';
+        $multiple = $collection === 'published' || ($collection === 'media' && ($entity['type'] ?? '') === 'card series');
         if (($multiple && count($existingImages)+$uploadCount > 10) || (!$multiple && $uploadCount > 1)) throw new RuntimeException($multiple ? 'A gallery can hold up to 10 images. Remove an image before adding more.' : 'Choose one image for this entry.');
         require_once __DIR__ . '/media_helpers.php';
         $uploaded = xuverse_editor_upload($files);

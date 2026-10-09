@@ -59,16 +59,16 @@ include '../includes/navbar.php';
 <?php
 require_once '../includes/dashboard-content.php';
 $publicMedia=xuverse_content('media');
-$publicStats=['Projects'=>count(xuverse_content('projects')),'Articles'=>count(xuverse_content('articles')),'Photographs'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='photograph')),'Gallery posts'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='card series')),'Videos'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='video'))];
+$publicStats=['Projects'=>count(xuverse_content('projects')),'Articles'=>count(xuverse_content('articles')),'Photographs'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='photograph')),'Published posts'=>count(xuverse_content('published')),'Videos'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='video'))];
 ?>
 <div class="dashboard-grid">
-<a class="stat-card" href="content/index.php"><h2>Website content</h2><p>Photos, ANCHOR galleries, videos, writing and every public content section</p></a>
+<a class="stat-card" href="website/index.php"><h2>Website content</h2><p>Photos, ANCHOR galleries, videos, writing and every public content section</p></a>
 <?php foreach($publicStats as $label=>$total): ?><div class="stat-card"><h2><?= $total ?></h2><p><?= e($label) ?></p></div><?php endforeach; ?>
 </div>
 
 <div class="quick-links">
 <?php require_once '../includes/dashboard-content.php'; foreach (xuverse_editor_sections() as $key=>$label): ?>
-<a href="content/index.php?collection=<?= e($key) ?>"><h2><?= e($label) ?></h2><p>Edit the content displayed on your public pages</p></a>
+<a href="website/index.php?collection=<?= e($key) ?>"><h2><?= e($label) ?></h2><p>Edit the content displayed on your public pages</p></a>
 <?php endforeach; ?>
 </div>
 <details class="section"><summary>Historical records and account tools</summary>

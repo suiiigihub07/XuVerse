@@ -27,4 +27,15 @@
 .public-return-nav a { color:#c5c5cc; text-decoration:none; }
 .public-return-nav a:hover { color:#ff334e; }
 .media-detail-section .media-detail-info .prose { max-width:65ch; }
+.published-article-cover { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; aspect-ratio:3 / 4; background:radial-gradient(ellipse at 75% 15%,#e11d3820,transparent 65%),#0a0a0d; color:#dfdfe5; text-decoration:none; }
+.published-article-cover svg { width:80px; fill:none; stroke:var(--accent-light,#ff334e); stroke-width:1.5; transition:transform .5s ease; }
+.published-article-cover:hover svg { transform:translateY(-5px); }
+.published-article-cover span { font-size:.85rem; }
+.published-detail { display:block; }
+.published-detail-images,.published-detail-videos { max-width:900px; margin:0 auto 32px; }
+.published-detail-videos { display:grid; gap:24px; }
+.published-detail .media-detail-info { max-width:760px; margin-inline:auto; }
+.published-detail .prose { text-align:left; margin-inline:auto; }
+.published-article-body { margin-top:32px; }
+@media (prefers-reduced-motion:reduce) { .published-article-cover svg { transition:none; } }
 @media (prefers-reduced-motion:reduce) { .gallery-post-cover img { transition:none; } }

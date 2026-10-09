@@ -6,7 +6,7 @@ $site = xuverse_content('site');
 $media = xuverse_published('media');
 $photos = array_filter($media, fn($item) => $item['type'] === 'photograph');
 $videos = array_filter($media, fn($item) => $item['type'] === 'video');
-$cardSeries = array_filter($media, fn($item) => $item['type'] === 'card series');
+$published = xuverse_published('published');
 xuverse_public_start('Media', $copy['media_intro'], 'media');
 ?>
 
@@ -41,21 +41,15 @@ xuverse_public_start('Media', $copy['media_intro'], 'media');
 </div>
 </article>
 <?php endforeach; ?>
-<?php foreach ($cardSeries as $series): $images = xuverse_gallery_images($series); $modalId = 'gallery-' . $series['slug']; ?>
-<article class="media-card gallery-post compact-media-card reveal" id="<?= e($series['slug']) ?>">
-<a href="<?= e(xuverse_url('photos/' . $series['slug'])) ?>" class="gallery-post-cover" data-open-gallery="<?= e($modalId) ?>" aria-label="Browse <?= count($images) ?> images: <?= e($series['title']) ?>">
-<img src="<?= e(xuverse_asset($images[0])) ?>" <?= xuverse_image_attributes($images[0]) ?> alt="<?= e(!empty($series['alt']) ? $series['alt'] : $series['title']) ?>" loading="lazy" decoding="async">
-<span class="gallery-count" aria-hidden="true">1 / <?= count($images) ?></span>
-</a>
-<div class="media-content"><h3><a href="<?= e(xuverse_url('photos/' . $series['slug'])) ?>"><?= e($series['title']) ?></a></h3></div>
-</article>
-<dialog class="gallery-modal" id="<?= e($modalId) ?>" aria-label="<?= e($series['title']) ?> gallery">
-<div class="gallery-modal-toolbar"><a href="<?= e(xuverse_url('photos/' . $series['slug'])) ?>"><?= e($series['title']) ?> →</a><button class="gallery-close" type="button">Close</button></div>
-<?php xuverse_gallery($series, $modalId . '-track'); ?>
-<a class="text-link" href="<?= e(xuverse_url()) ?>">Home</a>
-</dialog>
-<?php endforeach; ?>
 </div>
+<?php if ($published): ?>
+<div class="published-subsection" id="published" aria-labelledby="published-title">
+<div class="section-heading reveal anchor-series-heading"><h3 id="published-title"><?= e($site['published_heading']) ?></h3></div>
+<div class="media-grid published-grid">
+<?php foreach ($published as $post) xuverse_published_card($post); ?>
+</div>
+</div>
+<?php endif; ?>
 </div>
 </section>
 

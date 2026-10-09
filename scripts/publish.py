@@ -2,7 +2,7 @@
 Private credentials are read outside the checkout. FTPS certificate checks stay enabled.
 """
 from pathlib import Path, PurePosixPath
-import argparse, contextlib, datetime, ftplib, hashlib, io, json, os, ssl, subprocess, sys
+import argparse, contextlib, datetime, ftplib, hashlib, io, json, os, re, ssl, subprocess, sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 import secrets
@@ -26,9 +26,13 @@ def release_files(revision):
 def blob(revision,name):
     return subprocess.check_output(['git','show',revision+':'+name],cwd=ROOT)
 
-def assert_publishable(read):
+def assert_publishable(read, exists):
     # Canonical source is versioned publicly. Do not push unfinished private work.
-    for collection in ('articles', 'projects', 'media'):
+    collections = ['articles', 'projects', 'media']
+    # Older retained releases predate Published; keep rollback verification compatible.
+    if exists('content/published.json'):
+        collections.append('published')
+    for collection in collections:
         entries = json.loads(read('content/' + collection + '.json'))
         drafts = [entry.get('slug', '(unnamed)') for entry in entries
                   if entry.get('publication_status', 'published') != 'published']
@@ -36,6 +40,51 @@ def assert_publishable(read):
             raise RuntimeError('Publish stopped before GitHub/hosting: review local drafts in '
                                + collection + ': ' + ', '.join(drafts)
                                + '. Keep unfinished work in a private backup outside canonical content.')
+
+def workspace_snapshot():
+    # Git's inventory excludes ignored private/output files. Only Publish inputs count.
+    names = run('git','ls-files','-z','--cached','--others','--exclude-standard',capture=True).split('\0')
+    snapshot = {}
+    for name in sorted(set(name for name in names if name and allowed(name))):
+        path = ROOT/name
+        try:
+            before = path.stat()
+            if not path.is_file(): continue
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            after = path.stat()
+        except FileNotFoundError:
+            snapshot[name] = None
+            continue
+        if (before.st_size,before.st_mtime_ns) != (after.st_size,after.st_mtime_ns):
+            raise RuntimeError('Source changed while Publish was reading it: '+name)
+        snapshot[name] = (digest,after.st_size,after.st_mtime_ns)
+    return snapshot
+
+def assert_workspace_unchanged(expected, phase):
+    actual = workspace_snapshot()
+    changed = sorted(name for name in expected.keys() | actual.keys()
+                     if expected.get(name) != actual.get(name))
+    if changed:
+        raise RuntimeError('Source changed '+phase+': '+', '.join(changed[:8])
+                           + '. Review the newer edits and run Publish again; GitHub has not been updated.')
+
+def assert_index_matches_workspace(revision=None):
+    diff_args = ['git','diff','-z','--name-only'] + ([revision] if revision else [])
+    unstaged = run(*diff_args,capture=True).split('\0')
+    untracked = run('git','ls-files','-z','--others','--exclude-standard',capture=True).split('\0')
+    changed = sorted(set(name for name in unstaged+untracked if name and allowed(name)))
+    if changed:
+        raise RuntimeError('Publish inputs differ from the staged source: '+', '.join(changed[:8])
+                           + '. Review staging before publishing.')
+
+def assert_public_paths(names):
+    # Match the stable host router's private-path protection before publishing.
+    blocked = re.compile(r'(^|/)(\.|content|output|backups|scripts|includes|database|vendor|tmp|dist|presentation-output)', re.I)
+    for name in names:
+        if name.startswith('admin/includes/'):
+            continue
+        if name.startswith(('assets/', 'admin/')) and blocked.search(name):
+            raise RuntimeError('Public asset or admin route is blocked by hosting privacy rules: ' + name)
 
 class Host:
     def __init__(self,config):
@@ -148,25 +197,43 @@ def install_router(host,revision):
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--message',default='Publish XuVerse content'); p.add_argument('--prepare',action='store_true'); p.add_argument('--deploy',metavar='REVISION'); p.add_argument('--rollback',metavar='REVISION'); p.add_argument('--fail-after',type=int,default=0); p.add_argument('--config',type=Path,default=DEFAULT_CONFIG); p.add_argument('--reuse-backup',type=Path); args=p.parse_args()
     if not args.deploy and not args.rollback:
-        assert_publishable(lambda name: (ROOT/name).read_bytes())
+        source_exists = lambda name: (ROOT/name).is_file()
+        assert_publishable(lambda name: (ROOT/name).read_bytes(),source_exists)
         # Git stores canonical text with LF. Hash and build those exact bytes on Windows too.
         for source in list((ROOT/'content').glob('*.json')) + list((ROOT/'content/writing').glob('*.md')):
             raw=source.read_bytes()
             normalized=raw.replace(b'\r\n',b'\n')
             if normalized!=raw: source.write_bytes(normalized)
-        run(PHP,'scripts/build-content.php'); run(PHP,'scripts/verify-content.php')
+        run(PHP,'scripts/build-content.php')
+        validated_source = workspace_snapshot()
+        run(PHP,'scripts/verify-content.php')
+        assert_publishable(lambda name: (ROOT/name).read_bytes(),source_exists)
+        assert_workspace_unchanged(validated_source,'during validation')
         changed=run('git','status','--porcelain','--untracked-files=all',capture=True).splitlines()
         names=[line[3:] for line in changed if allowed(line[3:])]
         for name in names: run('git','add','--',name)
+        assert_workspace_unchanged(validated_source,'during staging')
+        assert_index_matches_workspace()
         staged=run('git','diff','--cached','--name-only',capture=True).splitlines()
         if any(not allowed(name) for name in staged): raise RuntimeError('Unrelated staged files; review staging before Publish')
+        assert_public_paths(run('git','ls-files',capture=True).splitlines())
         if args.prepare: print('Validated and staged; no commit, push or deployment'); return
+        assert_workspace_unchanged(validated_source,'before committing')
         if staged: run('git','commit','-m',args.message)
-        (ROOT/'.xuverse-local-revision').write_text(run('git','rev-parse','HEAD',capture=True)+'\n')
-        run('git','push','origin','HEAD:main')
+        assert_workspace_unchanged(validated_source,'during committing')
+        committed_revision = run('git','rev-parse','HEAD',capture=True)
+        assert_index_matches_workspace(committed_revision)
+        committed_files = set(run('git','ls-tree','-r','--name-only',committed_revision,capture=True).splitlines())
+        assert_publishable(lambda name: blob(committed_revision,name),lambda name: name in committed_files)
+        (ROOT/'.xuverse-local-revision').write_text(committed_revision+'\n')
+        assert_workspace_unchanged(validated_source,'before pushing to GitHub')
+        run('git','push','origin',committed_revision+':main')
     revision=run('git','rev-parse',args.rollback or args.deploy or 'HEAD',capture=True)
     if len(revision)!=40: raise RuntimeError('Expected full commit SHA')
-    assert_publishable(lambda name: blob(revision, name))
+    revision_files = set(run('git','ls-tree','-r','--name-only',revision,capture=True).splitlines())
+    assert_publishable(lambda name: blob(revision, name),lambda name: name in revision_files)
+    # Private admin/includes modules are loaded by PHP; they are not HTTP routes.
+    assert_public_paths(name for name in release_files(revision) if not name.startswith('admin/includes/'))
     manifest=json.loads(blob(revision,'content/manifest.json'))
     for name,digest in manifest['files'].items():
         if hashlib.sha256(blob(revision,name)).hexdigest()!=digest:

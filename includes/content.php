@@ -99,7 +99,7 @@ function xuverse_public_start($title, $description, $path = '') {
     if ($publicReturnPath !== '') {
         echo '<nav class="container public-return-nav" aria-label="Return navigation">';
         $section = explode('/', $publicReturnPath)[0];
-        $parents = ['photos'=>'media#photographs','videos'=>'media#videos','articles'=>'articles','projects'=>'projects'];
+        $parents = ['photos'=>'media#photographs','videos'=>'media#videos','published'=>'media#published','articles'=>'articles','projects'=>'projects'];
         if (str_contains($publicReturnPath, '/') && isset($parents[$section])) { echo '<a href="'.e(xuverse_url($parents[$section])).'">← Back to '.e($section === 'photos' || $section === 'videos' ? 'media' : $section).'</a>'; }
         echo '<a href="'.e(xuverse_url()).'">← Home</a></nav>';
     }

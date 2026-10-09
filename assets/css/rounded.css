@@ -1,0 +1,45 @@
+/* Shared rounded geometry; preserve the original black/red theme and motion. */
+:root { --radius:24px; --radius-control:14px; --radius-pill:999px; }
+
+body :is(.project-card,.article-card,.media-card,.public-card,.deck-card,.snap-card,
+  .contact-card,.card,.login-card,.empty-state,.stat-card,.admin-row,.admin-media-item,
+  .form-panel,.content-card,.bento-card,.proof-card,.process-card,.connect-email,
+  .social-card,.inquiry-panel,.resume-paper,.about-copy,.detail-layout,.media-detail,
+  .article-detail,.research-note,.source-notes,.collection-tools,.collection-empty,
+  .cms-group,.cms-publish-note,.table-scroll,.quick-links>a) { border-radius:var(--radius); }
+
+body :is(.btn,.vx-btn,.text-link,.nav-links>a,.profile-dropdown>a,.cms-section-nav>a,
+  .article-contents>a,.command-results>a,.resume-chip,.skill-pill,.hero-tags span,
+  .evidence-chip,.gallery-count,.xv-motion-toggle,.music-track),
+body button,body .cms-array-actions button,body .cms-add,
+body .music-controls button,body .post-gallery-controls button,body .gallery-close {
+  border-radius:var(--radius-pill);
+}
+body :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+  textarea,select) { border-radius:var(--radius-control); }
+body input::file-selector-button { border-radius:var(--radius-pill); }
+body :is(.footer-icons>a,.profile-trigger,.avatar-trigger,.back-to-top,.share-button) { border-radius:50%; }
+body :is(.profile-trigger img,.avatar-trigger img,.user-avatar,.profile-avatar) { border-radius:50%; }
+
+body dialog,body :is(.profile-dropdown,.music-panel,.command-panel,.confirmation-dialog,.gallery-modal),
+body .navbar .nav-links { border-radius:var(--radius); }
+body .navbar,body footer { border-radius:var(--radius); }
+
+/* Replace the portrait's cut corner with a curved red frame, keeping its glow. */
+body .identity-panel { clip-path:none; border-radius:var(--radius); }
+body .identity-panel::after { border-top-right-radius:calc(var(--radius) - 1px); }
+body .identity-panel img { border-radius:calc(var(--radius) - 10px); }
+
+body :is(.resume-photo,.admin-media-item img,.media-preview img,.cms-image-preview,
+  .project-evidence,.case-gallery figure,.card-series img,.gallery-post-cover,
+  .published-article-cover,.post-gallery-track,.post-gallery-slide img,.media-lightbox img,
+  .video-detail-frame,.media-player,.photograph-detail-frame,.photo-card .media-link,
+  .responsive-picture>img,.public-card>a:first-child) { border-radius:20px; }
+body :is(.video-detail-frame,.media-player,.photograph-detail-frame,.case-gallery figure) { overflow:hidden; }
+body :is(.btn,.vx-btn,.public-card,.social-card,.deck-card,.snap-card)::before,
+body :is(.btn,.vx-btn,.public-card,.social-card,.deck-card,.snap-card)::after { border-radius:inherit; }
+
+@media(max-width:720px) {
+  :root { --radius:20px; --radius-control:12px; }
+  body .navbar .nav-links { border-radius:20px; }
+}

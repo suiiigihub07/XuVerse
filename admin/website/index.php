@@ -10,6 +10,10 @@ $collection = $_GET['collection'] ?? 'media';
 if (!isset($sections[$collection])) { http_response_code(404); exit('Unknown content section.'); }
 $data = xuverse_editor_read($collection);
 $itemKey = $_GET['item'] ?? null;
+if ($collection === 'media' && $itemKey === 'new' && ($_GET['type'] ?? '') === 'card series') {
+    header('Location: ' . xuverse_url('admin/website/index.php') . '?collection=published&item=new', true, 302);
+    exit;
+}
 $isList = array_is_list($data);
 $editing = !$isList || $itemKey !== null;
 $entity = $data; $body = ''; $error = '';
@@ -17,13 +21,13 @@ $revision = (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && is_string($_POS
 if ($isList && $editing) {
     $entity = null;
     if ($itemKey === 'new') {
-        $type = $_GET['type'] ?? 'card series';
+        $type = $_GET['type'] ?? 'photograph';
         if (!in_array($type,['card series','photograph','video'],true)) $type='card series';
         $entity = xuverse_editor_template($collection,$type);
     } else foreach ($data as $entry) if ($entry['slug'] === $itemKey) { $entity = $entry; break; }
     if (!$entity) { http_response_code(404); exit('Entry not found.'); }
     if ($itemKey !== 'new') $entity['publication_status'] ??= 'published';
-    if (in_array($collection,['media','projects'],true)) $entity = array_merge(xuverse_editor_template($collection,$entity['type'] ?? ''),$entity);
+    if (in_array($collection,['media','published','projects'],true)) $entity = array_merge(xuverse_editor_template($collection,$entity['type'] ?? ''),$entity);
     if ($collection === 'media') $entity = xuverse_editor_media_defaults($entity);
     if ($collection === 'articles') {
         if ($itemKey !== 'new') $body = xuverse_body($entity);
@@ -43,12 +47,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         if (!is_array($submitted)) throw new RuntimeException('Invalid content submission.');
         $body = (string)($_POST['body'] ?? '');
         $savedSlug = xuverse_editor_save($collection,$itemKey ?? '',$submitted,$body,(string)($_POST['revision'] ?? ''),$_FILES['images'] ?? []);
-        header('Location: ' . xuverse_url('admin/content/index.php') . '?collection=' . urlencode($collection) . ($isList ? '&item=' . urlencode($savedSlug) : '') . '&saved=1'); exit;
+        header('Location: ' . xuverse_url('admin/website/index.php') . '?collection=' . urlencode($collection) . ($isList ? '&item=' . urlencode($savedSlug) : '') . '&saved=1'); exit;
     } catch (Throwable $exception) { $error = $exception->getMessage(); if (isset($submitted) && is_array($submitted)) $entity=$submitted; }
 }
 $pageTitle = 'Website content - XuVerse'; $robots = xuverse_noindex();
 include '../../includes/header.php'; include '../../includes/navbar.php';
-$editorAsset = 'assets/js/content-editor.js'; $styleAsset='assets/css/content-editor.css';
+$editorAsset = 'assets/js/website-editor.js'; $styleAsset='assets/css/website-editor.css';
 ?>
 <link rel="stylesheet" href="<?= e(xuverse_url($styleAsset)) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=<?= substr(hash_file('sha256','../../'.$styleAsset),0,12) ?>">
 <section class="section admin-page"><div class="container">
@@ -61,7 +65,8 @@ $editorAsset = 'assets/js/content-editor.js'; $styleAsset='assets/css/content-ed
 <div class="section-heading with-actions"><h2><?= e($sections[$collection]) ?></h2><div class="project-buttons">
 <?php if ($editorWritable): ?>
 <?php if ($collection === 'media'): ?>
-<a class="btn" href="?collection=media&amp;item=new&amp;type=card%20series">New ANCHOR / gallery post</a><a class="btn secondary-btn" href="?collection=media&amp;item=new&amp;type=photograph">New photo</a><a class="btn secondary-btn" href="?collection=media&amp;item=new&amp;type=video">New video</a>
+<a class="btn" href="?collection=media&amp;item=new&amp;type=photograph">New photo</a><a class="btn secondary-btn" href="?collection=media&amp;item=new&amp;type=video">New video</a>
+<?php elseif ($collection === 'published'): ?><a class="btn" href="?collection=published&amp;item=new">New published post</a>
 <?php else: ?><a class="btn" href="?collection=<?= e($collection) ?>&amp;item=new">New entry</a><?php endif; ?>
 <?php endif; ?>
 </div></div>
@@ -69,6 +74,7 @@ $editorAsset = 'assets/js/content-editor.js'; $styleAsset='assets/css/content-ed
 <?php else: ?>
 <?php if ($isList): ?><a class="text-link" href="?collection=<?= e($collection) ?>">← Back to entries</a><?php endif; ?>
 <h2><?= e($isList ? ($itemKey === 'new' ? 'New entry' : $entity['title']) : $sections[$collection]) ?></h2>
+<?php if ($collection === 'published'): ?><p class="admin-help">Create ANCHOR, news or other published work here. Combine up to 10 images, YouTube videos and article text in one post. The public listing shows one cover and your heading; readers open the heading for the full post.</p><?php endif; ?>
 <form class="admin-form cms-form" method="post" enctype="multipart/form-data" data-content-editor>
 <?php if (!$editorWritable): ?><fieldset disabled><legend>Read-only content</legend><?php endif; ?>
 <input type="hidden" name="csrf_token" value="<?= e(xuverse_csrf_token()) ?>">
@@ -77,8 +83,8 @@ $editorAsset = 'assets/js/content-editor.js'; $styleAsset='assets/css/content-ed
 <script type="application/json" data-editor-config><?= json_encode(['collection'=>$collection,'existing'=>$itemKey !== 'new','data'=>$entity,'imageBase'=>xuverse_url(),'rowTemplates'=>['roles'=>['title'=>'','organisation'=>'','dates'=>''],'references'=>['citation'=>'','url'=>'','access'=>'']]],JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_UNESCAPED_UNICODE) ?></script>
 <div data-editor-fields></div>
 <?php if ($collection === 'articles'): ?><div class="input-group"><label for="article-body">Article body</label><textarea id="article-body" name="body" rows="24" required><?= e($body) ?></textarea><p class="admin-help">Write the full article here. Paragraphs, ## headings, - lists, **bold** text and links are supported. Saving a published article updates its PDF from the same writing. Draft writing does not create a new public PDF.</p></div><?php endif; ?>
-<?php if ($collection === 'site' || $collection === 'projects' || ($collection === 'media' && ($entity['type'] ?? '') !== 'video')): ?>
-<div class="input-group"><label for="content-images"><?= $collection === 'media' && ($entity['type'] ?? '') === 'card series' ? 'Add images to this post' : 'Replace image' ?></label><input id="content-images" type="file" name="images[]" accept="image/jpeg,image/png,image/webp" <?= $collection === 'media' && ($entity['type'] ?? '') === 'card series' ? 'multiple' : '' ?>><p class="admin-help">JPG, PNG or WebP, up to 4 MB each. Gallery posts hold up to 10 images in total. Reorder or remove existing images above before saving. Server total upload limit: <?= e(ini_get('post_max_size')) ?>.</p></div>
+<?php if ($collection === 'site' || $collection === 'projects' || $collection === 'published' || ($collection === 'media' && ($entity['type'] ?? '') !== 'video')): $multipleImages = $collection === 'published' || ($collection === 'media' && ($entity['type'] ?? '') === 'card series'); ?>
+<div class="input-group"><label for="content-images"><?= $multipleImages ? 'Add images to this post' : 'Replace image' ?></label><input id="content-images" type="file" name="images[]" accept="image/jpeg,image/png,image/webp" <?= $multipleImages ? 'multiple' : '' ?>><p class="admin-help">JPG, PNG or WebP, up to 4 MB each. Gallery posts hold up to 10 images in total. Reorder or remove existing images above before saving. Server total upload limit: <?= e(ini_get('post_max_size')) ?>.</p></div>
 <?php endif; ?>
 <div class="admin-form-actions"><button class="btn" type="submit"<?= $editorWritable ? '' : ' disabled' ?>>Save changes</button><a class="btn secondary-btn" href="<?= e(xuverse_url('admin/dashboard.php')) ?>">Back to dashboard</a></div>
 <noscript><p class="error">Enable JavaScript to use the structured content editor.</p></noscript>
