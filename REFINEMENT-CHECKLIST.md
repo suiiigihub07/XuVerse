@@ -41,6 +41,18 @@ This is the item-by-item record for the supplied 32-section brief, rechecked aga
 
 The user screenshots exposed defects the earlier audit missed: a bottom-aligned wordmark and unequal cards. Both are corrected. Responsive QA now explicitly asserts logo vertical centering and equal card heights, and interaction QA measures changing XS stroke offset plus pause behavior. See `tmp/refinement-qa/alignment-edge-audit.json` for this run.
 
+## Complete brief and follow-up audit
+
+Re-read all 32 sections and each subsequent correction. The later directions take priority: red leads the palette; cards share equal heights; the navbar wordmark is centered; and restrained light traces the XS edges. The original request to remove decorative background noise still applies elsewhere. Search, resume hierarchy, spacing, canonical facts and working routes are retained.
+
+This pass found and corrected remaining charcoal surfaces in the mobile menu, gallery frame and gallery controls, plus old Media hover colors. No assets, facts, routes or frameworks were replaced.
+
+- `tmp/refinement-qa/top-to-bottom-audit.json`: passed all 21 routes, 540 layout measurements at the 11 requested widths and intermediate resizing, plus search, navigation, Media/history, gallery, PDF, print and motion interactions. No application JavaScript or first-party console errors.
+- `scripts/refinement-extra-qa.cjs` / `tmp/refinement-qa/extra-audit.json`: passed normal-motion bounds at all 11 widths on all seven main pages, short landscape viewports, 200% text scaling, usable gallery/photo viewing space, red overlay surfaces, animated link feedback and keyboard focus.
+- `tmp/refinement-qa/final-normal-*.png`: fresh desktop, tablet and mobile screenshots reviewed for all seven main pages. Content validation, generated PDF hashes, PHP/JavaScript syntax, portability and whitespace checks pass.
+
+These checks document implementation and observed behavior; visual preference remains subject to the user's review. Third-party playback is not claimed beyond the preserved embeds and destination checks described below.
+
 ## Red-priority palette
 
 The latest user direction makes red dominant. Deep crimson page backgrounds, burgundy cards, red navbar/footer surfaces, warmer secondary text and brighter rose text accents replace the former charcoal-heavy surfaces. Black remains for depth and media. Layout, equal card geometry and existing motion are preserved. See `tmp/refinement-qa/red-priority-audit.json`; desktop and mobile screenshots were reviewed.
