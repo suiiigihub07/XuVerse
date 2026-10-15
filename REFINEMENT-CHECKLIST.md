@@ -1,6 +1,6 @@
 # XuVerse refinement checklist
 
-This is the item-by-item record for the supplied 32-section brief, rechecked against the current red-themed site. All 31 local implementation/design requirements have been reviewed or tested. Requirement 30 is explicitly blocked at the remote-push step; it is not marked complete. The existing PHP application, content and atmospheric animations are preserved.
+This is the item-by-item record for the supplied 32-section brief, rechecked against the current red-themed site. All 31 local implementation/design requirements have been reviewed or tested. Requirement 30 is complete for local/GitHub synchronization following explicit user approval of origin/main. The existing PHP application, content and atmospheric animations are preserved.
 
 | # | Status | Requirement | Implementation and verification |
 | --- | --- | --- | --- |
@@ -33,7 +33,7 @@ This is the item-by-item record for the supplied 32-section brief, rechecked aga
 | 27 | Verified locally | No over-engineering | No new application dependency, framework, route architecture or repository. Used PHP partials, the existing content model, CSS, native SVG, native browser history and small JavaScript. Browser QA uses the already available Playwright runtime, not a new production dependency. |
 | 28 | Verified locally | Preserve good work | Kept the original routes, assets, credits, social order, article bodies, project records, database/admin systems and public site character. Changes target the requested presentation, category behavior and resume hierarchy. |
 | 29 | Verified locally | Data integrity | Existing names, organizations, achievements, skill labels, publications and social URLs are retained. Education uses only the user's supplied facts. Award uncertainty remains visible. No fake projects or media were added. Canonical content/PDF manifest checks pass. |
-| 30 | Push blocked | Local + GitHub synchronization | Local XAMPP implementation and browser checks completed. Commit/push verification is recorded below. Unrelated .presentation-build/ and presentation-output/ folders remain untouched and are excluded from the commit. |
+| 30 | Verified and pushed | Local + GitHub synchronization | Local XAMPP implementation and browser checks completed. Commit/push verification is recorded below. Unrelated .presentation-build/ and presentation-output/ folders remain untouched and are excluded from the commit. |
 | 31 | Verified locally | Final QA | Reviewed Home, Projects, Articles, Media, About, Resume, Connect, both search utilities, current project/article/photo/video/published detail pages, sign-in and the 404 layout. Checked navigation, hashes/history, keyboard/focus, galleries, PDF download, print, normal/reduced motion, no-JS fallback and first-party links. |
 | 32 | Verified locally | Final design standard | Final visual review emphasizes a quiet custom typographic signature, smaller utilities, compact headers/cards/footer and a structured CV. Subjective appearance is documented by local screenshots rather than treated as an automated guarantee. |
 
@@ -52,7 +52,7 @@ The latest user direction makes red dominant. Deep crimson page backgrounds, bur
 - Fresh normal-motion desktop/mobile visual review: `tmp/refinement-qa/visual-reaudit-*.png`. The original red atmosphere, headers/footer, glows and motion remain.
 - Resume download remains one A4 page; its fresh render is `tmp/refinement-qa/reaudit-resume-1.png`.
 - Generated content, PDF/source hashes, PHP syntax, JavaScript syntax and portability checks pass. Public facts, credits and publication bodies are unchanged.
-- The only blocked requirement is the GitHub push portion of #30. No hosted-site deployment is claimed.
+- The approved GitHub push completed and origin/main was verified at implementation commit 294392f. No hosted-site deployment is claimed.
 
 ## Verification evidence
 
@@ -71,4 +71,4 @@ Third-party playback is separate from application correctness: YouTube iframe so
 
 ## Git synchronization
 
-The refinement is committed to the existing local `main` branch. Automatic approval review blocked the push to shared `origin/main` and requires explicit authorization naming that branch. GitHub has not been updated by this pass. Local/remote status is saved in `tmp/refinement-qa/git-verification.json`; the local commit is also reported in the chat. Unrelated presentation directories are excluded. No separate repository or implementation was created.
+The user explicitly approved pushing to `origin/main`. The completed refinements, including the red-priority palette, were pushed to the existing GitHub repository and verified remotely at implementation commit `294392f33d858be3c145ceb50c7303444380fa10`. This audit receipt is committed afterward. Local/remote status is saved in `tmp/refinement-qa/git-verification.json`; the local commit is also reported in the chat. Unrelated presentation directories are excluded. No separate repository or implementation was created.
