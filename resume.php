@@ -85,7 +85,7 @@ decoding="async">
 
 <?php if($skillsByCategory): ?>
 <div class="resume-block">
-<h2>Skills</h2>
+<h2>Skills / Areas of Work</h2>
 
 <?php foreach($skillsByCategory as $category => $skills): ?>
 <h3><?= htmlspecialchars($category) ?></h3>
@@ -110,27 +110,6 @@ decoding="async">
 
 <div class="resume-main">
 
-<?php if($experience): ?>
-<div class="resume-block">
-<h2>Experience</h2>
-
-<?php foreach($experience as $row): ?>
-<article class="resume-item">
-<h3><?= htmlspecialchars($row['job_title']) ?></h3>
-<p class="meta">
-<?= htmlspecialchars($row['company_name']) ?>
-<?php if (!empty($row['start_date'])): ?>
- |
-<?= e(xuverse_resume_date($row['start_date'], '')) ?> - <?= e(xuverse_resume_date($row['end_date'] ?? '')) ?>
-<?php endif; ?>
-</p>
-<p><?= nl2br(htmlspecialchars($row['description'])) ?></p>
-</article>
-<?php endforeach; ?>
-
-</div>
-<?php endif; ?>
-
 <?php if($education): ?>
 <div class="resume-block">
 <h2>Education</h2>
@@ -152,9 +131,30 @@ decoding="async">
 </div>
 <?php endif; ?>
 
+<?php foreach (['Leadership & Creative Roles' => array_slice($experience, 0, 3), 'Experience / Work' => array_slice($experience, 3)] as $heading => $roles): if (!$roles) continue; ?>
+<div class="resume-block">
+<h2><?= e($heading) ?></h2>
+
+<?php foreach($roles as $row): ?>
+<article class="resume-item">
+<h3><?= htmlspecialchars($row['job_title']) ?></h3>
+<p class="meta">
+<?= htmlspecialchars($row['company_name']) ?>
+<?php if (!empty($row['start_date'])): ?>
+ |
+<?= e(xuverse_resume_date($row['start_date'], '')) ?> - <?= e(xuverse_resume_date($row['end_date'] ?? '')) ?>
+<?php endif; ?>
+</p>
+<p><?= nl2br(htmlspecialchars($row['description'])) ?></p>
+</article>
+<?php endforeach; ?>
+
+</div>
+<?php endforeach; ?>
+
 <?php if($projects): ?>
 <div class="resume-block">
-<h2>Achievement</h2><p><?= e($resume['achievement']) ?></p><p class="meta">User-reported award; official title, placement and date are unverified.</p><h2>Selected Projects</h2>
+<h2>Selected Achievements</h2><p><?= e($resume['achievement']) ?></p><p class="meta">User-reported award; official title, placement and date are unverified.</p><h2>Selected Projects</h2>
 
 <ul class="resume-list">
 <?php foreach($projects as $row): ?>

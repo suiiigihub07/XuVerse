@@ -26,9 +26,9 @@ body .navbar .nav-links { border-radius:var(--radius); }
 body .navbar,body footer { border-radius:var(--radius); }
 
 /* Replace the portrait's cut corner with a curved red frame, keeping its glow. */
-body .identity-panel { clip-path:none; border-radius:var(--radius); }
+body .identity-panel { clip-path:none; border-radius:17%; overflow:hidden; }
 body .identity-panel::after { border-top-right-radius:calc(var(--radius) - 1px); }
-body .identity-panel img { border-radius:calc(var(--radius) - 10px); }
+body .identity-panel img { border-radius:inherit; }
 
 body :is(.resume-photo,.admin-media-item img,.media-preview img,.cms-image-preview,
   .project-evidence,.case-gallery figure,.card-series img,.gallery-post-cover,

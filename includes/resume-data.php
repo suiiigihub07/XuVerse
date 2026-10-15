@@ -28,7 +28,7 @@ function xuverse_resume_data($conn)
         'settings'=>$settings, 'user'=>['full_name'=>$copy['name'], 'avatar_path'=>$site['portrait']],
         'name'=>$copy['name'], 'headline'=>$site['headline'], 'summary'=>$copy['resume_summary'],
         'email'=>$settings['contact_email'], 'location'=>$copy['location'], 'focus'=>$copy['current_focus'], 'website'=>xuverse_base_url(),
-        'experience'=>$experience, 'education'=>[['institution'=>$profile['education']['institution'], 'degree'=>$profile['education']['program'], 'start_year'=>$profile['education']['start'], 'end_year'=>$profile['education']['end'], 'description'=>$profile['education']['level']]],
+        'experience'=>$experience, 'education'=>[['institution'=>$profile['education']['institution'], 'degree'=>$profile['education']['program'], 'start_year'=>$profile['education']['start'], 'end_year'=>$profile['education']['end'], 'description'=>$profile['education']['level'] . ' · ' . $profile['education']['location'] . "\n" . $profile['education']['focus']]],
         'skills'=>xuverse_content('skills'), 'projects'=>$projects, 'achievement'=>$profile['achievement']['title']
     ];
 }

@@ -39,3 +39,21 @@
     modal.addEventListener('click', event => {if (event.target === modal) close();});
   });
 })();
+
+/* Hash links remain usable without JavaScript; selection follows the visible category. */
+(() => {
+ const links = [...document.querySelectorAll('.media-categories a')];
+ if (!links.length) return;
+ const select = id => links.forEach(link => {
+   if (link.hash === '#' + id) link.setAttribute('aria-current','true');
+   else link.removeAttribute('aria-current');
+ });
+ links.forEach(link => link.addEventListener('click', () => select(link.hash.slice(1))));
+ if (location.hash) select(location.hash.slice(1));
+ if ('IntersectionObserver' in window) {
+   const observer = new IntersectionObserver(entries => {
+     entries.forEach(entry => { if (entry.isIntersecting) select(entry.target.id); });
+   }, {rootMargin:'-100px 0px -55% 0px', threshold:0});
+   links.forEach(link => { const panel = document.querySelector(link.hash); if(panel) observer.observe(panel); });
+ }
+})();

@@ -15,10 +15,11 @@ xuverse_public_start('Media', $copy['media_intro'], 'media');
 <p class="page-kicker"><?= e($site['media_page_kicker']) ?></p>
 <h1><?= e($site['media_page_heading']) ?></h1>
 <p><?= e($copy['media_intro']) ?></p>
-<div class="project-buttons">
-<a class="btn" href="#photographs"><?= e($site['photographs_heading']) ?></a>
-<a class="text-link" href="#videos"><?= e($site['videos_heading']) ?></a>
-</div>
+<nav class="media-categories" aria-label="Media categories">
+<a href="#photographs" aria-current="true">Photographs</a>
+<a href="#videos">Videos</a>
+<a href="#published">Published Work</a>
+</nav>
 </div>
 </section>
 
@@ -42,14 +43,7 @@ xuverse_public_start('Media', $copy['media_intro'], 'media');
 </article>
 <?php endforeach; ?>
 </div>
-<?php if ($published): ?>
-<div class="published-subsection" id="published" aria-labelledby="published-title">
-<div class="section-heading reveal anchor-series-heading"><h3 id="published-title"><?= e($site['published_heading']) ?></h3></div>
-<div class="media-grid published-grid">
-<?php foreach ($published as $post) xuverse_published_card($post); ?>
-</div>
-</div>
-<?php endif; ?>
+
 </div>
 </section>
 
@@ -75,4 +69,11 @@ xuverse_public_start('Media', $copy['media_intro'], 'media');
 </div>
 </section>
 
+
+<section class="section" id="published" aria-labelledby="published-title">
+<div class="container"><div class="section-heading reveal"><h2 id="published-title">Published Work</h2></div>
+<div class="media-grid published-grid">
+<?php foreach ($published as $post) xuverse_published_card($post); ?>
+</div>
+</div></section>
 <?php include 'includes/footer.php'; ?>

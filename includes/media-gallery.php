@@ -44,14 +44,14 @@ function xuverse_published_card($post) {
     <?php else: ?>
       <a href="<?= e($url) ?>" class="published-article-cover" aria-label="Read <?= e($post['title']) ?>">
         <svg viewBox="0 0 80 80" aria-hidden="true"><path d="M20 12h30l10 10v46H20zM50 12v12h10M29 34h22M29 43h22M29 52h14"/></svg>
-        <span>Read article →</span>
+        <span>Read article</span>
       </a>
     <?php endif; ?>
       <div class="media-content"><h3><a href="<?= e($url) ?>"><?= e($post['title']) ?></a></h3></div>
     </article>
     <?php if ($images): ?>
     <dialog class="gallery-modal" id="<?= e($modalId) ?>" aria-label="<?= e($post['title']) ?> gallery">
-      <div class="gallery-modal-toolbar"><a href="<?= e($url) ?>"><?= e($post['title']) ?> →</a><button class="gallery-close" type="button">Close</button></div>
+      <div class="gallery-modal-toolbar"><a href="<?= e($url) ?>"><?= e($post['title']) ?></a><button class="gallery-close" type="button">Close</button></div>
       <?php xuverse_gallery($post, $modalId . '-track'); ?>
       <a class="text-link" href="<?= e(xuverse_url()) ?>">Home</a>
     </dialog>

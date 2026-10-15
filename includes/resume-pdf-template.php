@@ -42,16 +42,6 @@ a { color: #a71330; text-decoration: none; word-wrap: break-word; }
 <div class="profile"><?= xuverse_resume_pdf_paragraphs($resume['summary']) ?></div>
 <?php endif; ?>
 
-<?php if ($resume['experience']): ?>
-<h2>Experience</h2>
-<?php foreach ($resume['experience'] as $entry): ?>
-<div class="entry-heading">
-<h3><?= xuverse_resume_pdf_text($entry['job_title']) ?></h3>
-<p class="meta"><?= xuverse_resume_pdf_text($entry['company_name']) ?><?php if (!empty($entry['start_date'])): ?> | <?= xuverse_resume_pdf_text(xuverse_resume_date($entry['start_date'], '')) ?> - <?= xuverse_resume_pdf_text(xuverse_resume_date($entry['end_date'] ?? '')) ?><?php endif; ?></p>
-</div>
-<?= xuverse_resume_pdf_paragraphs($entry['description']) ?>
-<?php endforeach; endif; ?>
-
 <?php if ($resume['education']): ?>
 <h2>Education</h2>
 <?php foreach ($resume['education'] as $entry): ?>
@@ -62,8 +52,18 @@ a { color: #a71330; text-decoration: none; word-wrap: break-word; }
 <?= xuverse_resume_pdf_paragraphs($entry['description']) ?>
 <?php endforeach; endif; ?>
 
+<?php foreach (['Leadership & Creative Roles' => array_slice($resume['experience'], 0, 3), 'Experience / Work' => array_slice($resume['experience'], 3)] as $heading => $roles): if (!$roles) continue; ?>
+<h2><?= xuverse_resume_pdf_text($heading) ?></h2>
+<?php foreach ($roles as $entry): ?>
+<div class="entry-heading">
+<h3><?= xuverse_resume_pdf_text($entry['job_title']) ?></h3>
+<p class="meta"><?= xuverse_resume_pdf_text($entry['company_name']) ?><?php if (!empty($entry['start_date'])): ?> | <?= xuverse_resume_pdf_text(xuverse_resume_date($entry['start_date'], '')) ?> - <?= xuverse_resume_pdf_text(xuverse_resume_date($entry['end_date'] ?? '')) ?><?php endif; ?></p>
+</div>
+<?= xuverse_resume_pdf_paragraphs($entry['description']) ?>
+<?php endforeach; endforeach; ?>
+
 <?php if ($resume['skills']): ?>
-<h2>Skills</h2>
+<h2>Skills / Areas of Work</h2>
 <?php foreach ($resume['skills'] as $category => $skills): ?>
 <p class="skill"><strong><?= xuverse_resume_pdf_text($category) ?>:</strong> <?= xuverse_resume_pdf_text(implode(', ', $skills)) ?></p>
 <?php endforeach; endif; ?>
@@ -75,7 +75,7 @@ a { color: #a71330; text-decoration: none; word-wrap: break-word; }
 <?= xuverse_resume_pdf_paragraphs($entry['description']) ?>
 <?php endforeach; endif; ?>
 
-<h2>Achievement</h2><p><?= xuverse_resume_pdf_text($resume['achievement']) ?></p><p class="meta">User-reported award; official title, placement and date are unverified.</p>
+<h2>Selected Achievements</h2><p><?= xuverse_resume_pdf_text($resume['achievement']) ?></p><p class="meta">User-reported award; official title, placement and date are unverified.</p>
 <?php if ($resume['focus'] !== ''): ?>
 <h2>Current focus</h2>
 <?= xuverse_resume_pdf_paragraphs($resume['focus']) ?>
