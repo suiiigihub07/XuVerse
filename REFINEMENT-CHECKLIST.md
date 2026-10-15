@@ -53,6 +53,12 @@ Independent visual review found gaps the earlier checklist missed and verified t
 
 The user clarified that these comments concern localhost. The independently observed hosted-site revision is older; this pass does not claim to activate hosting.
 
+### Three-environment synchronization
+
+The subsequent user instruction explicitly requests matching localhost, GitHub and FreeHosting. The actual open localhost tab was still displaying revision `b99c116`, even though the checkout had advanced to `ea9fb07`; reloading the user's tab confirmed the newer palette, card markup and running background animation. Verification must include the actual open browser, not only fresh automated sessions. The single-column navigation cards also no longer reserve an unused second title line.
+
+Use the existing Publish workflow for hosted activation and verify the rendered revision, canonical content and versioned assets afterward. The final private receipt records the actual activated revision and browser acceptance; a GitHub push alone is not hosting synchronization.
+
 The user screenshots exposed defects the earlier audit missed: a bottom-aligned wordmark and unequal cards. Both are corrected. Responsive QA now explicitly asserts logo vertical centering and equal card heights, and interaction QA measures changing XS stroke offset plus pause behavior. See `tmp/refinement-qa/alignment-edge-audit.json` for this run.
 
 ## Complete brief and follow-up audit

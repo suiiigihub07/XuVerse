@@ -241,6 +241,7 @@
         .navbar .nav-links { max-height:calc(100dvh - var(--nav-height) - 24px); }
         .landing-grid .identity-panel,.about-layout .identity-panel { justify-self:center; margin-inline:auto; }
         .landing-grid { gap:24px; }
+        .deck-card { grid-template-rows:auto auto 1fr; }
         .action-row { justify-content:center; }
         .section-head-compact h2,.section-heading h2 { font-size:clamp(1.6rem,6.5vw,2rem); }
         .media-categories { gap:5px; }
