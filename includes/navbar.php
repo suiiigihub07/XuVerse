@@ -57,7 +57,7 @@ $profileInitial = strtoupper(substr(trim($profileName) ?: 'X', 0, 1));
 <a class="<?= nav_active('index.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('')) ?>"> <?= e($navCopy['nav_home']) ?></a>
 <a class="<?= nav_active(['projects.php','project.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('projects')) ?>"> <?= e($navCopy['nav_projects']) ?></a>
 <a class="<?= nav_active(['articles.php','article.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('articles')) ?>"> <?= e($navCopy['nav_articles']) ?></a>
-<a class="<?= nav_active(['media.php','photo.php','video.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('media')) ?>"> <?= e($navCopy['nav_media']) ?></a>
+<a class="<?= nav_active(['media.php','photo.php','video.php','published.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('media')) ?>"> <?= e($navCopy['nav_media']) ?></a>
 <a class="<?= nav_active('about.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('about')) ?>"> <?= e($navCopy['nav_about']) ?></a>
 <a class="<?= nav_active('resume.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('resume')) ?>"> <?= e($navCopy['nav_resume']) ?></a>
 <a class="nav-action <?= nav_active('contact.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('contact')) ?>"> <?= e($navCopy['nav_contact']) ?></a>

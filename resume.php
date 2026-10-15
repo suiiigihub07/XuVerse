@@ -6,7 +6,6 @@ require_once 'includes/resume-data.php';
 $resume = xuverse_resume_data($conn);
 $settings = $resume['settings'];
 $user = $resume['user'];
-$experience = $resume['experience'];
 $education = $resume['education'];
 $projects = $resume['projects'];
 $skillsByCategory = $resume['skills'];
@@ -24,7 +23,7 @@ include 'includes/navbar.php';
 
 ?>
 
-<section class="section">
+<section class="section resume-section">
 <div class="container">
 
 <div class="resume-paper">
@@ -52,6 +51,8 @@ decoding="async">
 <p class="resume-title"><?= e($headline) ?></p>
 <?php endif; ?>
 
+<?php if ($summary !== ''): ?><p class="resume-summary"><?= e($summary) ?></p><?php endif; ?>
+
 <div class="resume-meta">
 <?php if($contactEmail !== ''): ?>
 <a href="mailto:<?= e($contactEmail) ?>"><?= e($contactEmail) ?></a>
@@ -76,33 +77,23 @@ decoding="async">
 
 <aside class="resume-side">
 
-<?php if ($summary !== ''): ?>
-<div class="resume-block">
-<h2>Profile</h2>
-<p><?= nl2br(htmlspecialchars($summary)) ?></p>
-</div>
-<?php endif; ?>
-
 <?php if($skillsByCategory): ?>
 <div class="resume-block">
 <h2>Skills / Areas of Work</h2>
 
+<div class="resume-skill-groups">
 <?php foreach($skillsByCategory as $category => $skills): ?>
+<div class="resume-skill-group">
 <h3><?= htmlspecialchars($category) ?></h3>
 <div class="skills-grid">
 <?php foreach($skills as $skillName): ?>
 <span class="resume-chip"><?= htmlspecialchars($skillName) ?></span>
 <?php endforeach; ?>
 </div>
-<?php endforeach; ?>
-
 </div>
-<?php endif; ?>
+<?php endforeach; ?>
+</div>
 
-<?php if ($resume['focus'] !== ''): ?>
-<div class="resume-block">
-<h2>Focus</h2>
-<p><?= nl2br(e($resume['focus'])) ?></p>
 </div>
 <?php endif; ?>
 
@@ -117,13 +108,9 @@ decoding="async">
 <?php foreach($education as $row): ?>
 <article class="resume-item">
 <h3><?= htmlspecialchars($row['institution']) ?></h3>
-<p class="meta">
-<?= htmlspecialchars($row['degree']) ?>
-<?php if (!empty($row['start_year'])): ?>
- |
-<?= htmlspecialchars($row['start_year']) ?> - <?= !empty($row['end_year']) ? htmlspecialchars($row['end_year']) : 'Present' ?>
-<?php endif; ?>
-</p>
+<p class="resume-program"><?= e($row['degree']) ?></p>
+<p class="meta resume-entry-meta"><span><?= e($row['location']) ?></span><span><?= e($row['start_year']) ?> – <?= e($row['end_year'] ?: 'Present') ?></span></p>
+<p class="resume-semester"><?= e($row['semester']) ?></p>
 <p><?= nl2br(htmlspecialchars($row['description'])) ?></p>
 </article>
 <?php endforeach; ?>
@@ -131,30 +118,32 @@ decoding="async">
 </div>
 <?php endif; ?>
 
-<?php foreach (['Leadership & Creative Roles' => array_slice($experience, 0, 3), 'Experience / Work' => array_slice($experience, 3)] as $heading => $roles): if (!$roles) continue; ?>
-<div class="resume-block">
+<?php foreach ($resume['role_groups'] as $heading => $roles): if (!$roles) continue; ?>
+<div class="resume-block <?= $heading === 'Experience / Work' ? 'resume-work' : 'resume-leadership' ?>">
 <h2><?= e($heading) ?></h2>
 
 <?php foreach($roles as $row): ?>
 <article class="resume-item">
 <h3><?= htmlspecialchars($row['job_title']) ?></h3>
-<p class="meta">
-<?= htmlspecialchars($row['company_name']) ?>
-<?php if (!empty($row['start_date'])): ?>
- |
-<?= e(xuverse_resume_date($row['start_date'], '')) ?> - <?= e(xuverse_resume_date($row['end_date'] ?? '')) ?>
-<?php endif; ?>
-</p>
-<p><?= nl2br(htmlspecialchars($row['description'])) ?></p>
+<p class="meta resume-entry-meta"><span><?= e($row['company_name']) ?></span><span><?= e($row['dates']) ?></span></p>
+<?php if ($row['description'] !== ''): ?><p><?= nl2br(e($row['description'])) ?></p><?php endif; ?>
 </article>
 <?php endforeach; ?>
 
 </div>
 <?php endforeach; ?>
 
+<?php if ($resume['achievement'] !== ''): ?>
+<div class="resume-block">
+<h2>Selected Achievements</h2>
+<p><?= e($resume['achievement']) ?></p>
+<p class="resume-note"><?= e($resume['achievement_note']) ?></p>
+</div>
+<?php endif; ?>
+
 <?php if($projects): ?>
 <div class="resume-block">
-<h2>Selected Achievements</h2><p><?= e($resume['achievement']) ?></p><p class="meta">User-reported award; official title, placement and date are unverified.</p><h2>Selected Projects</h2>
+<h2>Selected Projects</h2>
 
 <ul class="resume-list">
 <?php foreach($projects as $row): ?>

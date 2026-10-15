@@ -19,11 +19,11 @@
     "nav_resume": "Resume",
     "nav_contact": "Connect",
     "deck_projects": "Projects & ideas",
-    "deck_media": "Photo & video",
+    "deck_media": "Media & published work",
     "deck_articles": "Writing & learning",
     "deck_about": "About & exploration",
-    "featured_kicker": "Selected Work",
-    "featured_heading": "Ideas taking shape.",
+    "featured_kicker": "Projects · writing · media",
+    "featured_heading": "Selected Works",
     "writing_kicker": "Writing",
     "writing_heading": "Looking a little closer.",
     "media_kicker": "Selected Media",
@@ -32,7 +32,7 @@
     "photo_heading": "From the photo collection.",
     "photo_intro": "Photographs, selected videos, and credited ANCHOR visual communication work.",
     "about_heading": "About me",
-    "about_resume_action": "Read the fuller resume",
+    "about_resume_action": "View resume",
     "contact_email_label": "Email",
     "contact_inquiry_kicker": "Project inquiry",
     "contact_inquiry_heading": "Tell me what you have in mind.",
@@ -53,5 +53,5 @@
     "articles_page_heading": "Articles",
     "source_access_heading": "Source access",
     "research_source_note": "Seven sources; four full texts and three abstract or partial sources. Checked 8 October 2026.",
-    "published_heading": "Published"
+    "published_heading": "Published Work"
 }

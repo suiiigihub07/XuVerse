@@ -134,6 +134,13 @@ function xuverse_editor_validate($collection, $data) {
             }
         }
     }
+    if ($collection === 'profile') {
+        foreach ($data['roles'] as $role) {
+            if (!in_array($role['category'] ?? '', ['leadership','work'], true)) {
+                throw new RuntimeException('Set each resume role category to leadership or work.');
+            }
+        }
+    }
     if ($collection === 'copy') {
         if (count($data['hero_actions']) !== 3) throw new RuntimeException('Keep all three home action labels.');
         foreach ($data['hero_actions'] as $label) if (trim($label) === '') throw new RuntimeException('Home action labels cannot be empty.');

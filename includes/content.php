@@ -88,7 +88,7 @@ function xuverse_public_settings($settings = []) {
     return $settings;
 }
 
-function xuverse_public_start($title, $description, $path = '') {
+function xuverse_public_start($title, $description, $path = '', $returnSection = '') {
     global $settings, $pageTitle, $pageDescription, $canonicalUrl, $conn, $schemaData, $pageType, $pageImage;
     require_once __DIR__ . '/db.php';
     $settings = xuverse_public_settings();
@@ -98,10 +98,11 @@ function xuverse_public_start($title, $description, $path = '') {
     include __DIR__ . '/header.php'; include __DIR__ . '/navbar.php';
     if ($publicReturnPath !== '') {
         echo '<nav class="container public-return-nav" aria-label="Return navigation">';
-        $section = explode('/', $publicReturnPath)[0];
+        $section = $returnSection ?: explode('/', $publicReturnPath)[0];
         $parents = ['photos'=>'media#photographs','videos'=>'media#videos','published'=>'media#published','articles'=>'articles','projects'=>'projects'];
-        if (str_contains($publicReturnPath, '/') && isset($parents[$section])) { echo '<a href="'.e(xuverse_url($parents[$section])).'">← Back to '.e($section === 'photos' || $section === 'videos' ? 'media' : $section).'</a>'; }
-        echo '<a href="'.e(xuverse_url()).'">← Home</a></nav>';
+        $labels = ['photos'=>'Photographs','videos'=>'Videos','published'=>'Published Work','articles'=>'Articles','projects'=>'Projects'];
+        if (str_contains($publicReturnPath, '/') && isset($parents[$section])) { echo '<a href="'.e(xuverse_url($parents[$section])).'">'.e($labels[$section]).'</a>'; }
+        echo '<a href="'.e(xuverse_url()).'">Home</a></nav>';
     }
 }
 

@@ -151,5 +151,6 @@ defer></script>
 </head>
 
 <body>
+<?php require __DIR__ . '/background-signature.php'; ?>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="top-progress" aria-hidden="true"></div>

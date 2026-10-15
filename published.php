@@ -2,7 +2,7 @@
 require_once 'includes/content.php';
 require_once 'includes/media-gallery.php';
 if (empty($_GET['slug'])) {
-    header('Location: ' . xuverse_url('media#photographs'), true, 301);
+    header('Location: ' . xuverse_url('media#published'), true, 301);
     exit;
 }
 $post = $publishedPost ?? xuverse_find_public('published', $_GET['slug']);
@@ -10,7 +10,7 @@ if (!$post) { http_response_code(404); require '404.php'; exit; }
 $images = xuverse_gallery_images($post);
 if ($images) $pageImage = $images[0];
 $schemaData = ['@type'=>'CreativeWork','name'=>$post['title'],'description'=>$post['summary'],'url'=>xuverse_absolute_url('photos/' . $post['slug'])];
-xuverse_public_start($post['title'], $post['summary'], 'photos/' . $post['slug']);
+xuverse_public_start($post['title'], $post['summary'], 'photos/' . $post['slug'], 'published');
 ?>
 <section class="section media-detail-section">
 <div class="container">
@@ -25,7 +25,7 @@ xuverse_public_start($post['title'], $post['summary'], 'photos/' . $post['slug']
 <?php if (!empty($post['article_body'])): ?><div class="prose published-article-body"><?= xuverse_markdown($post['article_body']) ?></div><?php endif; ?>
 <?php if (!empty($post['credit_note'])): ?><p class="media-credit"><?= e($post['credit_note']) ?></p><?php endif; ?>
 <div class="project-buttons">
-<a class="text-link" href="<?= e(xuverse_url('media#published')) ?>">← Back to published</a>
+<a class="text-link" href="<?= e(xuverse_url('media#published')) ?>">Back to Published Work</a>
 <a class="text-link" href="<?= e(xuverse_url()) ?>">Home</a>
 </div>
 </div>

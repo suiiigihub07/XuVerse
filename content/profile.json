@@ -4,32 +4,37 @@
   "education": {
     "institution": "Dong-Eui University",
     "program": "Intelligence Computing",
-    "level": "Undergraduate · 5th semester",
+    "level": "Undergraduate",
     "start": "September 2024",
     "end": "2028 (expected)",
     "location": "Busan, South Korea",
-    "focus": "Software development and computing"
+    "focus": "Software development and computing",
+    "semester": "5th semester"
   },
   "roles": [
     {
       "title": "Founder and President",
       "organisation": "DAAM",
-      "dates": "2025–Present"
+      "dates": "2025–Present",
+      "category": "leadership"
     },
     {
       "title": "PR Ambassador",
       "organisation": "Dong-Eui Global College",
-      "dates": "Present"
+      "dates": "Present",
+      "category": "leadership"
     },
     {
       "title": "Supporter",
       "organisation": "ANCHOR",
-      "dates": "Present"
+      "dates": "Present",
+      "category": "leadership"
     },
     {
       "title": "Part-time restaurant work",
       "organisation": "Pungwonjang Jipbap, Myeongji, Busan",
-      "dates": "Present"
+      "dates": "Present",
+      "category": "work"
     }
   ],
   "achievement": {

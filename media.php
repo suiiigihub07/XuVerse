@@ -23,7 +23,7 @@ xuverse_public_start('Media', $copy['media_intro'], 'media');
 </div>
 </section>
 
-<section class="section" id="photographs" aria-labelledby="photographs-title">
+<section class="section media-category" id="photographs" aria-labelledby="photographs-title">
 <div class="container">
 <div class="section-heading reveal">
 <h2 id="photographs-title"><?= e($site['photographs_heading']) ?></h2>
@@ -47,7 +47,7 @@ xuverse_public_start('Media', $copy['media_intro'], 'media');
 </div>
 </section>
 
-<section class="section dark-band" id="videos" aria-labelledby="videos-title">
+<section class="section media-category" id="videos" aria-labelledby="videos-title">
 <div class="container">
 <div class="section-heading reveal">
 <div>
@@ -70,8 +70,8 @@ xuverse_public_start('Media', $copy['media_intro'], 'media');
 </section>
 
 
-<section class="section" id="published" aria-labelledby="published-title">
-<div class="container"><div class="section-heading reveal"><h2 id="published-title">Published Work</h2></div>
+<section class="section media-category" id="published" aria-labelledby="published-title">
+<div class="container"><div class="section-heading reveal"><h2 id="published-title"><?= e($site['published_heading']) ?></h2></div>
 <div class="media-grid published-grid">
 <?php foreach ($published as $post) xuverse_published_card($post); ?>
 </div>
