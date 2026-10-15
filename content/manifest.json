@@ -1,14 +1,14 @@
 {
-    "content_sha256": "afd1b21533fd19bc2ed8b946da1b6b198936d652f9f307fd6cc3d0cb4fbb2420",
+    "content_sha256": "b4fb9c4e96d26980698521f3e796cbe1efbd3987b2e07398b6f8d091556a5c49",
     "files": {
         "content/articles.json": "23253654e8d01f4e061ad35ee6712480d8e14c17ee0d5526f9a7c6e448247f8c",
         "content/copy.json": "88a223103207dc0272e5a232c4cc0967a9cf10faf4af977ebdedc1286784c722",
         "content/links.json": "4ee74f11040be2f34eccb4ae6a174171e1eaee1202d8d9eb47005da67514cc0b",
         "content/media.json": "5e14a4b5d5dfaa5153c985dbbe0eb72fc4fa1ddc37539222a61486603320b575",
-        "content/profile.json": "985d4266b7bbeb636b5a3bf894cdaee4358e6c52b8151b29936667437de090e4",
+        "content/profile.json": "426a12cfc628aeb88c431dd7409fbc0087840db0f948d8f550ecfe1b82349e16",
         "content/projects.json": "8cfab4e9e3dbc35e49b3f5e36913b295bce8d4bfddfd744c903f6d307ef070f1",
         "content/published.json": "e9bdd1dde48b7c26fe94c14d3145cce2a710765a3466ffd48af19c206300a785",
-        "content/site.json": "0a4a7bece212f0f634bd4534d7fa7086ba0b6201c82fc165113c96798507a933",
+        "content/site.json": "4cd90136972e5ae71b6abb67427011142314e0b63949913fbbaf0e8d77f6193f",
         "content/skills.json": "1d98ec347ddcfcaa35a642eada13d41184c1e4616a1b458f3281fc9ed33ed4e2",
         "content/writing/before-the-next-cut.md": "1490e1c84bb579702c5bf365b0a5608316c9eb1e702518989a800e7bc07588eb",
         "content/writing/kage.md": "b5e442b453fe7d7fd4fa72da91ecdf64ffb744bf4357dc4e8437b00d869a6543",
