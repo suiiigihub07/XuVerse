@@ -267,10 +267,17 @@ async function capture(page, route, width) {
     await page.goto(base); await settleImages(page); await page.waitForTimeout(700);
     assert.equal(await page.locator('.reveal:not(.is-visible)').count(),0,'Every scrolled reveal becomes visible');
     assert.equal(await page.locator('.xv-ambient canvas').count(),0);
+    assert.ok(await page.evaluate(()=>getComputedStyle(document.body).backgroundImage.includes('225, 29, 56')), 'Original red atmosphere retained');
+    await page.locator('.xv-motion-toggle').click();
+    assert.equal(await page.evaluate(()=>getComputedStyle(document.querySelector('.xv-ambient'),'::before').animationPlayState),'paused');
+    await page.locator('.xv-motion-toggle').click();
+    assert.equal(await page.evaluate(()=>getComputedStyle(document.querySelector('.xv-ambient'),'::before').animationPlayState),'running');
+    record('Original red atmosphere and working background pause/resume control');
     await page.goto(base+'media'); await page.getByRole('tab').nth(2).click();
     await page.waitForTimeout(400); await category(page,'published');
     await page.emulateMedia({reducedMotion:'reduce'});
     assert.equal(await page.locator('#published').evaluate(element=>getComputedStyle(element).animationName),'none');
+    assert.equal(await page.locator('.xv-motion-toggle').isVisible(),false);
     await page.goto(base+'resume'); await page.emulateMedia({media:'print'});
     assert.equal(await page.locator('.navbar').isVisible(),false);
     await assertVisible(page.locator('.resume-main'));

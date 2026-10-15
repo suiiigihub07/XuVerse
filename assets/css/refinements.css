@@ -1,8 +1,8 @@
 /* Final public-site polish. Loaded last so shared geometry has one authority. */
 @media screen {
     :root { --section-space:clamp(28px,3.2vw,44px); --nav-inset:clamp(10px,1.5vw,24px); }
-    body { background:#08080b; }
-    body::before,body::after,.landing::before,.identity-panel::after,.top-progress { display:none; }
+    /* Keep the original red atmosphere; remove only the grid/diagonal noise. */
+    body::before,body::after { display:none; }
     .page-shell,.detail-section,.media-detail-section,.article-detail-section,.login-page,.error-space { min-height:0; }
     .login-page { padding-block:var(--section-space); }
     .login-card { width:min(430px,calc(100% - var(--page-gutter) * 2)); }
@@ -25,12 +25,12 @@
     .landing-line { margin-bottom:14px; }
     .hero-proof { margin-bottom:20px; }
     .focus-line { margin-top:20px; }
-    .focus-line::before { width:16px; box-shadow:none; }
+    .focus-line::before { width:16px; }
     .action-row { display:flex; flex-wrap:wrap; gap:10px; }
     .action-row .vx-btn,.action-row .vx-btn:nth-child(3) { width:auto; grid-column:auto; }
     .section,.detail-section,.media-detail-section,.article-detail-section { padding-block:var(--section-space); }
     .nav-deck-section { padding-top:12px; }
-    .page-hero { padding-block:24px; background:rgba(8,8,11,.78); }
+    .page-hero { padding-block:24px; }
     .page-hero h1 { margin-bottom:10px; font-size:clamp(2rem,3.6vw,3rem); line-height:1.13; letter-spacing:-.035em; }
     .page-hero p { margin-bottom:0; }
     .page-hero .eyebrow,.page-hero .page-kicker { margin-bottom:8px; font-size:.72rem; }
@@ -61,11 +61,10 @@
     .public-return-nav { padding-top:10px; gap:18px; }
     .public-return-nav a { display:inline-flex; align-items:center; min-height:36px; text-decoration:underline; text-decoration-color:transparent; text-underline-offset:4px; transition:text-decoration-color .18s; }
     .public-return-nav a:hover { text-decoration-color:var(--hot); }
-    .public-card::before,.media-card::before,.social-card::before { display:none; }
-    .public-card:hover,.media-card:hover,.social-card:hover { transform:translateY(-2px); box-shadow:0 12px 28px #0004; }
+    .public-card:hover,.media-card:hover,.social-card:hover { transform:translateY(-2px); }
     .public-card img { transition:transform .3s var(--ease); }
     .public-card:hover img { transform:scale(1.015); }
-    .motion-ready .reveal { transition-duration:.36s; }
+    .motion-ready .reveal { transition:opacity .72s cubic-bezier(.16,1,.3,1) var(--reveal-delay,0ms),transform .82s cubic-bezier(.16,1,.3,1) var(--reveal-delay,0ms); }
     body.is-leaving .page-shell { filter:none; transform:none; }
 
     /* Search is one compact utility, with a 44px input and clear action. */
@@ -131,7 +130,6 @@
     .social-orbit { align-items:start; }
     .social-card { min-height:0; padding:18px; gap:16px; justify-content:flex-start; }
     .social-card span { letter-spacing:.08em; line-height:1.5; }
-    .social-card:hover { background:rgba(255,255,255,.045); }
     .inquiry-panel { padding:clamp(20px,2.5vw,30px); }
     .contact-admin-access { margin-top:20px; }
 
@@ -165,7 +163,7 @@
     .resume-block .resume-note { color:var(--muted); font-size:.8rem; }
     .resume-skill-groups { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px 24px; }
     .resume-block .skills-grid { margin:6px 0 0; gap:6px; }
-    .resume-chip { min-height:0; padding:5px 8px; background:rgba(255,255,255,.025); border-color:var(--line); font-size:.76rem; font-weight:500; }
+    .resume-chip { min-height:0; padding:5px 8px; font-size:.76rem; font-weight:500; }
     .resume-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; gap:20px; }
     .resume-list li { padding:0; border:0; line-height:1.6; font-size:.92rem; }
     .resume-list li:first-child { padding-top:0; }
@@ -173,11 +171,10 @@
     .resume-list a { min-height:0; padding-block:4px; font-weight:600; }
 
     /* Keep the established footer positions; remove padding and empty tracks. */
-    .site-footer { margin-top:20px; padding-block:22px; background:rgba(5,5,7,.92); }
+    .site-footer { margin-top:20px; padding-block:22px; }
     .footer-core { min-height:0; gap:18px; }
     .footer-icons { gap:4px; }
     .footer-icons a { width:44px; height:44px; }
-    .footer-icons a:hover { box-shadow:none; }
 
     @media(max-width:1060px) {
         .resume-layout { gap:24px; }
@@ -225,6 +222,7 @@
     html { scroll-behavior:auto!important; }
     *,*::before,*::after { animation:none!important; transition:none!important; }
     .skip-link:not(:focus) { transform:translateY(-150%)!important; }
+    .top-progress { display:none; }
 }
 @media print {
     .media-category[hidden] { display:block!important; }
