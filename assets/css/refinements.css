@@ -1,6 +1,22 @@
 /* Final public-site polish. Loaded last so shared geometry has one authority. */
 @media screen {
     :root { --section-space:clamp(28px,3.2vw,44px); --nav-inset:clamp(10px,1.5vw,24px); }
+    /* Red leads the palette; black supplies depth beneath the crimson surfaces. */
+    :root { --bg:#26080f; --bg-2:#310a14; --panel:#420d1b; --panel-2:#501021; --panel-3:#601126; --muted:#d6b7bd; --soft:#f0dfe3; --line:#783044; --line-red:#ac2945; --hot:#ff8aa0; }
+    body :is(.eyebrow,.page-kicker,.logo small,.resume-title) { color:var(--hot); }
+    body { background:radial-gradient(ellipse at 85% 10%,rgba(225,29,56,.38),transparent 48%),radial-gradient(ellipse at 8% 72%,rgba(153,27,27,.36),transparent 48%),linear-gradient(135deg,#420b1a,#240910 52%,#4b0b1c); }
+    body .navbar { background:linear-gradient(110deg,rgba(71,9,25,.96),rgba(29,6,12,.96)); }
+    .navbar .nav-links>a.active { background:rgba(225,29,56,.24); border-color:var(--hot); }
+    body :is(.public-card,.media-card,.deck-card,.social-card,.connect-email,.inquiry-panel,.about-copy,.resume-paper,.detail-layout,.media-detail,.article-detail,.login-card) {
+        background:linear-gradient(145deg,rgba(119,20,46,.76),rgba(47,9,20,.94));
+        border-color:var(--line);
+    }
+    body :is(.public-card,.media-card,.deck-card,.social-card):hover { border-color:#eb4668; background:linear-gradient(145deg,rgba(145,23,54,.84),rgba(58,9,24,.96)); }
+    .page-hero { background:linear-gradient(110deg,rgba(177,19,54,.2),rgba(98,12,36,.08)); }
+    .site-footer { background:linear-gradient(115deg,rgba(105,13,38,.8),rgba(37,6,15,.94)); border-top-color:var(--line-red); }
+    .collection-search input { background-color:#340b18; border-color:var(--line); }
+    .collection-search input::placeholder { color:#d6b7bd; opacity:1; }
+    .research-note,.source-notes { background:linear-gradient(130deg,rgba(159,25,55,.3),rgba(47,9,20,.94)); }
     /* Keep the original red atmosphere; remove only the grid/diagonal noise. */
     body::before,body::after { display:none; }
     .page-shell,.detail-section,.media-detail-section,.article-detail-section,.login-page,.error-space { min-height:0; }

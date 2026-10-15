@@ -41,6 +41,10 @@ This is the item-by-item record for the supplied 32-section brief, rechecked aga
 
 The user screenshots exposed defects the earlier audit missed: a bottom-aligned wordmark and unequal cards. Both are corrected. Responsive QA now explicitly asserts logo vertical centering and equal card heights, and interaction QA measures changing XS stroke offset plus pause behavior. See `tmp/refinement-qa/alignment-edge-audit.json` for this run.
 
+## Red-priority palette
+
+The latest user direction makes red dominant. Deep crimson page backgrounds, burgundy cards, red navbar/footer surfaces, warmer secondary text and brighter rose text accents replace the former charcoal-heavy surfaces. Black remains for depth and media. Layout, equal card geometry and existing motion are preserved. See `tmp/refinement-qa/red-priority-audit.json`; desktop and mobile screenshots were reviewed.
+
 ## Latest re-audit
 
 - Full current-site run: `tmp/refinement-qa/complete-reaudit.json`, including all 21 public routes at all 11 named widths, all three Media layouts, intermediate resizing and interactions.
@@ -68,4 +72,3 @@ Third-party playback is separate from application correctness: YouTube iframe so
 ## Git synchronization
 
 The refinement is committed to the existing local `main` branch. Automatic approval review blocked the push to shared `origin/main` and requires explicit authorization naming that branch. GitHub has not been updated by this pass. Local/remote status is saved in `tmp/refinement-qa/git-verification.json`; the local commit is also reported in the chat. Unrelated presentation directories are excluded. No separate repository or implementation was created.
-
