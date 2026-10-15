@@ -13,10 +13,10 @@ if (!isset($resume)) {
 @page { margin: 36pt 42pt 48pt; }
 body { font-family: "DejaVu Sans", sans-serif; font-size: 9.1pt; line-height: 1.35; color: #242428; }
 h1 { font-size: 22pt; line-height: 1.13; margin: 0 0 5pt; color: #17171a; }
-h2 { font-size: 10.3pt; line-height: 1.25; color: #b31535; letter-spacing: .4pt; text-transform: uppercase; margin: 8pt 0 5pt; padding-bottom: 3pt; border-bottom: .7pt solid #e1d5d8; page-break-after: avoid; }
+h2 { font-size: 10.3pt; line-height: 1.25; color: #8f170f; letter-spacing: .4pt; text-transform: uppercase; margin: 8pt 0 5pt; padding-bottom: 3pt; border-bottom: .7pt solid #ddd6d2; page-break-after: avoid; }
 h3 { font-size: 9.5pt; line-height: 1.3; margin: 5pt 0 2pt; color: #17171a; page-break-after: avoid; }
 p { margin: 0 0 3pt; orphans: 3; widows: 3; word-wrap: break-word; }
-a { color: #a71330; text-decoration: none; word-wrap: break-word; }
+a { color: #971b12; text-decoration: none; word-wrap: break-word; }
 .headline { font-size: 10.3pt; color: #45454c; margin-bottom: 5pt; }
 .contact { font-size: 8.5pt; line-height: 1.5; color: #52525b; margin-bottom: 2pt; }
 .profile { margin-top: 8pt; }
@@ -29,7 +29,7 @@ a { color: #a71330; text-decoration: none; word-wrap: break-word; }
 </head>
 <body>
 <h1><?= xuverse_resume_pdf_text($resume['name']) ?></h1>
-<?php if ($resume['headline'] !== ''): ?><p class="headline"><?= xuverse_resume_pdf_text($resume['headline']) ?></p><?php endif; ?>
+<?php if ($resume['headline'] !== '' && !str_starts_with(mb_strtolower($resume['summary']), mb_strtolower($resume['headline']))): ?><p class="headline"><?= xuverse_resume_pdf_text($resume['headline']) ?></p><?php endif; ?>
 <p class="contact">
 <?php if ($resume['location'] !== ''): ?><?= xuverse_resume_pdf_text($resume['location']) ?> &nbsp; | &nbsp; <?php endif; ?>
 <?php if (filter_var($resume['email'], FILTER_VALIDATE_EMAIL)): ?><a href="mailto:<?= xuverse_resume_pdf_text($resume['email']) ?>"><?= xuverse_resume_pdf_text($resume['email']) ?></a><br><?php endif; ?>

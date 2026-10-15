@@ -84,7 +84,9 @@ async function measure(page, route, width) {
         };
         const x = glyphBounds('.xv-signature-x'), s = glyphBounds('.xv-signature-s');
         const signature = rect(document.querySelector('.xv-signature'));
-        const shortHeadings = [...document.querySelectorAll('.home-featured .section-head-compact h2,#published-title,.home-connect h2')].filter(visible).map(element => ({text:element.textContent.trim(),height:rect(element).height,lineHeight:parseFloat(getComputedStyle(element).lineHeight)}));
+        const shortHeadings = [...document.querySelectorAll('.home-featured .section-head-compact h2,#published-title,.home-connect h2')].filter(element => visible(element) && !element.closest('.media-category[role="tabpanel"] .section-heading')).map(element => ({text:element.textContent.trim(),height:rect(element).height,lineHeight:parseFloat(getComputedStyle(element).lineHeight)}));
+        const mediaTabs = [...document.querySelectorAll('.media-categories a')].filter(visible).map(element => {const range=document.createRange(); range.selectNodeContents(element); return {top:rect(element).top,width:rect(element).width,textLines:range.getClientRects().length};});
+        const featuredHeights = [...document.querySelectorAll('.home-featured .public-card')].map(element => rect(element).height);
         const mismatchedRows = [...document.querySelectorAll('.public-grid,.media-grid,.nav-deck,.social-orbit')].filter(visible).flatMap(grid => {
             const rows = new Map();
             [...grid.children].filter(visible).forEach(card => {
@@ -97,6 +99,8 @@ async function measure(page, route, width) {
         return {outside,images,scrollOverflow:document.documentElement.scrollWidth>innerWidth,
             nav:{left:nav.left,top:nav.top,right:nav.right},navCollision:logo.right>neighbor.left+1,
             logoCenterDelta:Math.abs(logo.top+logo.height/2-(nav.top+nav.height/2)),mismatchedRows,
+            mediaTabs,featuredHeights,returnNav:!!document.querySelector('.public-return-nav'),
+            footerIconTops:[...document.querySelectorAll('.footer-icons a')].map(element=>Math.round(rect(element).top)),
             searchWidth:search?rect(search).width:null,inputHeight:input?rect(input).height:null,portraitDelta:centerDelta,
             signature:{centerDelta:Math.hypot(x.cx-s.cx,x.cy-s.cy),ratio:s.height/x.height,clipped:signature.left<0||signature.top<0||signature.right>limit||signature.bottom>innerHeight},
             shortHeadings,footerHeight:rect(document.querySelector('footer')).height};
@@ -108,6 +112,14 @@ async function measure(page, route, width) {
     assert.equal(data.navCollision, false, 'Navbar collision: ' + context);
     assert.ok(data.logoCenterDelta < 1.5, 'Navbar logo vertical center: ' + context);
     assert.deepEqual(data.mismatchedRows, [], 'Equal card heights: ' + context);
+    if(data.mediaTabs.length) {
+        assert.ok(Math.max(...data.mediaTabs.map(tab=>tab.top))-Math.min(...data.mediaTabs.map(tab=>tab.top))<1,'Media tabs share one row: '+context);
+        assert.ok(Math.max(...data.mediaTabs.map(tab=>tab.width))-Math.min(...data.mediaTabs.map(tab=>tab.width))<1,'Equal primary Media tabs: '+context);
+        assert.equal(data.mediaTabs[0].textLines,1,'Do not split Photographs within the word: '+context);
+    }
+    assert.ok(data.featuredHeights.every(height=>height<400),'Compact Featured cards: '+context);
+    assert.ok(new Set(data.footerIconTops).size<=1,'Footer social icons stay on one row: '+context);
+    if(['projects','articles','media','about','contact'].includes(route)) assert.equal(data.returnNav,false,'No redundant Home navigation strip: '+context);
     assert.ok(data.nav.left >= 8 && data.nav.top >= 7, 'Navbar edge inset: ' + context);
     assert.ok(data.searchWidth === null || data.searchWidth <= 520.5, 'Search width: ' + context);
     assert.ok(data.inputHeight === null || data.inputHeight >= 44 && data.inputHeight <= 48, 'Search height: ' + context);

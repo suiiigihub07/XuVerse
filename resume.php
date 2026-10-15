@@ -47,7 +47,7 @@ decoding="async">
 <div>
 <p class="page-kicker">Resume</p>
 <h1 class="resume-name"><?= e($name) ?></h1>
-<?php if ($headline !== ''): ?>
+<?php if ($headline !== '' && !str_starts_with(mb_strtolower($summary), mb_strtolower($headline))): ?>
 <p class="resume-title"><?= e($headline) ?></p>
 <?php endif; ?>
 
@@ -100,6 +100,8 @@ decoding="async">
 </aside>
 
 <div class="resume-main">
+<div class="resume-columns">
+<div class="resume-column">
 
 <?php if($education): ?>
 <div class="resume-block">
@@ -118,7 +120,7 @@ decoding="async">
 </div>
 <?php endif; ?>
 
-<?php foreach ($resume['role_groups'] as $heading => $roles): if (!$roles) continue; ?>
+<?php foreach ($resume['role_groups'] as $heading => $roles): if (!$roles || $heading !== 'Experience / Work') continue; ?>
 <div class="resume-block <?= $heading === 'Experience / Work' ? 'resume-work' : 'resume-leadership' ?>">
 <h2><?= e($heading) ?></h2>
 
@@ -133,6 +135,21 @@ decoding="async">
 </div>
 <?php endforeach; ?>
 
+</div>
+<div class="resume-column">
+<?php foreach ($resume['role_groups'] as $heading => $roles): if (!$roles || $heading !== 'Leadership & Creative Roles') continue; ?>
+<div class="resume-block resume-leadership">
+<h2><?= e($heading) ?></h2>
+<?php foreach($roles as $row): ?>
+<article class="resume-item">
+<h3><?= e($row['job_title']) ?></h3>
+<p class="meta resume-entry-meta"><span><?= e($row['company_name']) ?></span><span><?= e($row['dates']) ?></span></p>
+<?php if ($row['description'] !== ''): ?><p><?= nl2br(e($row['description'])) ?></p><?php endif; ?>
+</article>
+<?php endforeach; ?>
+</div>
+<?php endforeach; ?>
+
 <?php if ($resume['achievement'] !== ''): ?>
 <div class="resume-block">
 <h2>Selected Achievements</h2>
@@ -140,6 +157,8 @@ decoding="async">
 <p class="resume-note"><?= e($resume['achievement_note']) ?></p>
 </div>
 <?php endif; ?>
+</div>
+</div>
 
 <?php if($projects): ?>
 <div class="resume-block">

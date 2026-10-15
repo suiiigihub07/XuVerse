@@ -7,6 +7,15 @@ $media = xuverse_published('media');
 $photos = array_filter($media, fn($item) => $item['type'] === 'photograph');
 $videos = array_filter($media, fn($item) => $item['type'] === 'video');
 $published = xuverse_published('published');
+// Older CMS card series keep their photo URLs, but belong alongside publications.
+// Prefer the dedicated collection when both sources share an existing address.
+$publishedSlugs = array_column($published, 'slug');
+foreach ($media as $item) {
+    if ($item['type'] === 'card series' && !in_array($item['slug'], $publishedSlugs, true)) {
+        $published[] = $item;
+        $publishedSlugs[] = $item['slug'];
+    }
+}
 xuverse_public_start('Media', $copy['media_intro'], 'media');
 ?>
 

@@ -96,7 +96,7 @@ function xuverse_public_start($title, $description, $path = '', $returnSection =
     $canonicalUrl = xuverse_base_url() . '/' . $path;
     $publicReturnPath = $path;
     include __DIR__ . '/header.php'; include __DIR__ . '/navbar.php';
-    if ($publicReturnPath !== '') {
+    if ($publicReturnPath !== '' && str_contains($publicReturnPath, '/')) {
         echo '<nav class="container public-return-nav" aria-label="Return navigation">';
         $section = $returnSection ?: explode('/', $publicReturnPath)[0];
         $parents = ['photos'=>'media#photographs','videos'=>'media#videos','published'=>'media#published','articles'=>'articles','projects'=>'projects'];
@@ -113,11 +113,15 @@ function xuverse_find_public($collection, $slug, $id = 0) {
     return null;
 }
 
-function xuverse_public_card($item, $route, $image = '') {
+function xuverse_public_card($item, $route, $image = '', $showCover = true) {
     $url = xuverse_url($route . '/' . $item['slug']);
     $cardClass = $route === 'projects' ? 'project-card' : 'article-card';
     $searchTerms = array_merge([$item['title'], $item['summary'], $item['category'] ?? $item['status'] ?? ''], $item['technology'] ?? [], $item['tags'] ?? []);
     echo '<article class="public-card ' . $cardClass . ' reveal magnetic-card" data-search="' . e(implode(' ', $searchTerms)) . '">';
-    if ($image) { echo '<a href="' . e($url) . '"><img src="' . e(xuverse_url($image)) . '" alt="' . e($item['title']) . '" loading="lazy" decoding="async"></a>'; }
+    if ($showCover && $image) { echo '<a href="' . e($url) . '"><img src="' . e(xuverse_url($image)) . '" alt="' . e($item['title']) . '" loading="lazy" decoding="async"></a>'; }
+    elseif ($showCover && $route === 'projects') {
+        // A factual technology cover for projects without a screenshot.
+        echo '<a class="project-cover-text" href="' . e($url) . '" aria-label="' . e('View ' . $item['title']) . '"><span aria-hidden="true">' . e($item['technology'][0] ?? $item['title']) . '</span></a>';
+    }
     echo '<p class="eyebrow">' . e($item['category'] ?? $item['status'] ?? '') . '</p><h2><a href="' . e($url) . '">' . e($item['title']) . '</a></h2><p>' . e($item['summary']) . '</p><a class="text-link" href="' . e($url) . '">Read more</a></article>';
 }

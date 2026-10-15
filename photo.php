@@ -27,7 +27,7 @@ $schemaData = [
     'description' => $photo['summary'],
     'contentUrl' => xuverse_absolute_url($pageImage)
 ];
-xuverse_public_start($photo['title'], $photo['summary'], 'photos/' . $photo['slug']);
+xuverse_public_start($photo['title'], $photo['summary'], 'photos/' . $photo['slug'], $photo['type'] === 'card series' ? 'published' : 'photos');
 ?>
 
 <section class="section media-detail-section">
@@ -48,7 +48,7 @@ xuverse_public_start($photo['title'], $photo['summary'], 'photos/' . $photo['slu
 <?php if (!empty($photo['credit_note'])): ?><p class="media-credit"><?= e($photo['credit_note']) ?></p><?php endif; ?>
 <div class="project-buttons">
 <a href="<?= e(xuverse_asset($pageImage)) ?>" class="btn">View full size</a>
-<a href="<?= e(xuverse_url('media#photographs')) ?>" class="text-link">Back to photographs</a>
+<a href="<?= e(xuverse_url($photo['type'] === 'card series' ? 'media#published' : 'media#photographs')) ?>" class="text-link"><?= $photo['type'] === 'card series' ? 'Back to Published Work' : 'Back to photographs' ?></a>
 </div>
 </div>
 </article>
