@@ -11,7 +11,7 @@ This is the item-by-item record for the supplied 32-section brief, rechecked aga
 | 5 | Verified locally | Navbar positioning | Desktop top inset 12px, mobile 8px, side insets 10–24px. Visible rounded corners remain inset when sticky. The wordmark and its smaller name are vertically centered inside their 44px target. Inner navigation aligns with the page gutter. No compensating blank section below it. Checked collisions and mobile menu behavior. |
 | 6 | Verified locally | Global spacing audit | Shared section padding is 28–44px; landing padding 28–52px. Removed viewport minimums from the page shell, all detail-section types, sign-in and 404. Audited grids, cards, About, Connect, search, footer and resume rather than just the named sections. |
 | 7 | Verified locally | Compact page headers | Page heroes use 20px padding on mobile and 24px on larger screens, plus content height. Titles use a 2–3rem responsive scale and compact label/description spacing. Resume identity is grouped with its summary and actions. |
-| 8 | Verified locally | Remove decorative arrows | Disabled the shared text-link `->` pseudo-element and removed arrow text from reading actions, return navigation, project details and published details. A short red underline grows to the label width on hover/keyboard focus; title-color changes, focus borders and a restrained 2px card lift provide feedback. Reduced motion keeps feedback immediate. Previous/next arrows remain only in functional image navigation. |
+| 8 | Verified locally | Remove decorative arrows and dashes | Removed decorative arrow text and, following the latest correction, the short action-link underlines, navbar underline, focus-text dash and card hover bar. Color changes, focus borders and a restrained 2px card lift provide feedback. Semantic prose links and functional image-navigation arrows remain. |
 | 9 | Verified locally | Selected Works on one line | The landing section now actually reads Selected Works. Its heading uses the full available container, without the old character-width constraint. Selected Works, Published Work and Let's Connect passed single-line checks down to 320px. |
 | 10 | Verified locally | Heading audit | Tightened title scale, line-height and tracking; removed narrow layout constraints on short section headings. Retained natural wrapping for long publication/project titles. Corrected the oversized About eyebrow and shortened the resume action to View resume. |
 | 11 | Verified locally | Three primary Media categories | Photographs, Videos, Published Work are equal sibling sections and equal primary controls, in precisely that order. Published Work is no longer inside Photographs. |
@@ -53,9 +53,13 @@ This pass found and corrected remaining charcoal surfaces in the mobile menu, ga
 
 These checks document implementation and observed behavior; visual preference remains subject to the user's review. Third-party playback is not claimed beyond the preserved embeds and destination checks described below.
 
-## Red-priority palette
+## Current dark-red / black balance
 
-The latest user direction makes red dominant. Deep crimson page backgrounds, burgundy cards, red navbar/footer surfaces, warmer secondary text and brighter rose text accents replace the former charcoal-heavy surfaces. Black remains for depth and media. Layout, equal card geometry and existing motion are preserved. See `tmp/refinement-qa/red-priority-audit.json`; desktop and mobile screenshots were reviewed.
+The latest direction supersedes the earlier all-crimson pass: aim for approximately 60% dark red and 40% black. Dark-red atmosphere contrasts with black cards, a consistently black navbar, black footer and neutral text. Pink/rose accents are removed. The ratio is an overall visual balance, not an exact pixel percentage at every viewport or animation frame.
+
+Broad, soft red light and black shadow fields now move independently. There are no new background lines, particles or geometric objects. XS remains centered with its restrained contour light. Both ambient layers and XS motion pause together and respect reduced motion. A rendered-frame comparison at 900×600 showed visible background change across 64.9% of pixels over four seconds; desktop/mobile frames were inspected.
+
+The navbar keeps the same background and border colors before and after scrolling. Tests cover this explicitly. See `tmp/refinement-qa/dark-red-balance-audit.json`, `tmp/refinement-qa/extra-audit.json`, `dark-red-home-*.png` and `cloud-motion-*.png` for current evidence. Earlier red-priority screenshots describe a superseded palette.
 
 ## Latest re-audit
 

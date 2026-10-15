@@ -1,4 +1,4 @@
-/* Normal-motion, short viewport, text scaling and red surface checks.
+/* Normal-motion, short viewport, text scaling and dark red/black surface checks.
    Uses the same preinstalled Playwright runtime as refinement-qa.cjs. */
 const { chromium } = require('playwright');
 const fs = require('node:fs');
@@ -12,9 +12,9 @@ const results = { status:'running', checks:[], errors:[] };
 let browser;
 const record = label => { results.checks.push(label); console.log('PASS:',label); };
 async function redSurface(locator, label) {
-    const gradient = await locator.evaluate(element => getComputedStyle(element).backgroundImage);
+    const gradient = await locator.evaluate(element => { const style=getComputedStyle(element); return style.backgroundImage==='none'?style.backgroundColor:style.backgroundImage; });
     const colors = [...gradient.matchAll(/rgba?\((\d+),\s*(\d+),\s*(\d+)/g)];
-    assert.ok(colors.length && colors.every(color => Number(color[1]) > Number(color[2])*2 && Number(color[1]) > Number(color[3])*1.5),label);
+    assert.ok(colors.length && colors.every(color => Math.max(...color.slice(1).map(Number))<=24 || Number(color[1])>Number(color[2])*2 && Number(color[3])<=Number(color[2])+2),label);
 }
 async function bounds(page, label) {
     const violations = await page.evaluate(() => {
@@ -36,8 +36,13 @@ async function bounds(page, label) {
     page.on('pageerror',error => results.errors.push(error.message));
     for (const route of routes) {
         await page.goto(base+route,{waitUntil:'domcontentloaded'});
-        await redSurface(page.locator('.navbar'),'Red navbar');
-        await redSurface(page.locator('footer'),'Red footer');
+        await redSurface(page.locator('.navbar'),'Black navbar');
+        await redSurface(page.locator('footer'),'Dark red/black footer');
+        const navbarBefore=await page.locator('.navbar').evaluate(element=>getComputedStyle(element).backgroundColor);
+        await page.evaluate(()=>scrollTo({top:800,behavior:'instant'}));
+        await page.waitForTimeout(350);
+        assert.equal(await page.locator('.navbar').evaluate(element=>getComputedStyle(element).backgroundColor),navbarBefore,'Navbar keeps its color on scroll');
+        await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
         for (const width of widths) {
             await page.setViewportSize({width,height:900});
             await bounds(page,`Normal motion bounds: ${route} ${width}`);
@@ -50,7 +55,7 @@ async function bounds(page, label) {
             const box = await page.locator('.xv-signature').boundingBox();
             assert.ok(box.x >= 0 && box.y >= 0 && box.y+box.height <= viewport.height,'Uncropped XS');
             await page.locator('.nav-toggle').click();
-            await redSurface(page.locator('.nav-links'),'Red mobile menu');
+            await redSurface(page.locator('.nav-links'),'Dark red/black mobile menu');
             const menu = await page.locator('.nav-links').boundingBox();
             assert.ok(menu.y+menu.height <= viewport.height+1,'Mobile menu fits short viewport');
             await page.locator('.nav-links a').last().scrollIntoViewIfNeeded();
@@ -81,7 +86,7 @@ async function bounds(page, label) {
     for (const viewport of [{width:320,height:568},{width:667,height:320},{width:1440,height:900}]) {
         await page.setViewportSize(viewport);
         const dialog = page.locator('.gallery-modal[open]');
-        await redSurface(dialog,'Red gallery frame');
+        await redSurface(dialog,'Dark red/black gallery frame');
         const box = await dialog.boundingBox();
         assert.ok(box.x >= 0 && box.y >= 0 && box.x+box.width <= viewport.width && box.y+box.height <= viewport.height);
         await page.locator('dialog[open] .gallery-close').scrollIntoViewIfNeeded();
@@ -101,10 +106,10 @@ async function bounds(page, label) {
     await page.waitForTimeout(1000);
     await link.hover();
     await page.waitForTimeout(300);
-    assert.equal(await link.evaluate(element => getComputedStyle(element).backgroundSize),'100% 1px','Animated link underline reaches full width');
+    assert.equal(await link.evaluate(element => getComputedStyle(element).backgroundImage),'none','No decorative underscore');
     await link.focus();
     assert.equal(await link.evaluate(element => getComputedStyle(element).outlineStyle),'solid','Keyboard focus remains visible');
-    record('Red shared surfaces, animated underline and visible keyboard focus');
+    record('Dark red/black surfaces, stable navbar, no decorative underscores and visible keyboard focus');
     assert.deepEqual(results.errors,[]);
     results.status='passed';
 })().catch(error => { results.status='failed'; results.failure=error.stack; console.error(error); process.exitCode=1; })

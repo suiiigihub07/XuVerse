@@ -1,22 +1,24 @@
 /* A carved typographic signature, centered by geometry rather than font metrics. */
 body { isolation:isolate; }
 .xv-ambient { position:fixed; inset:0; z-index:-1; pointer-events:none; display:grid; place-items:center; overflow:hidden; }
-.xv-ambient::before { content:""; position:absolute; inset:-15%; background:radial-gradient(ellipse at 82% 22%,rgba(225,29,56,.22),transparent 38%),radial-gradient(ellipse at 12% 80%,rgba(153,27,27,.2),transparent 35%); animation:xv-light-drift 16s cubic-bezier(.45,0,.55,1) infinite alternate; }
-.xv-signature { position:relative; }
-@keyframes xv-light-drift { from { transform:translate3d(-2%,-1%,0) scale(.97); } to { transform:translate3d(3%,2%,0) scale(1.04); } }
+.xv-ambient::before { content:""; position:absolute; inset:-25%; background:radial-gradient(ellipse at 70% 35%,rgba(184,22,22,.82),rgba(118,13,13,.45) 24%,transparent 54%),radial-gradient(ellipse at 35% 78%,rgba(142,14,14,.6),transparent 48%); animation:xv-light-drift 14s cubic-bezier(.45,0,.55,1) -4s infinite alternate; }
+.xv-ambient::after { content:""; position:absolute; inset:-25%; background:radial-gradient(ellipse at 25% 45%,rgba(0,0,0,.88) 8%,rgba(0,0,0,.54) 30%,transparent 65%); animation:xv-shadow-flow 18s cubic-bezier(.45,0,.55,1) -7s infinite alternate; }
+.xv-signature { position:relative; z-index:1; }
+@keyframes xv-light-drift { from { transform:translate3d(-14%,8%,0) scale(.93); } to { transform:translate3d(10%,-8%,0) scale(1.08); } }
+@keyframes xv-shadow-flow { from { transform:translate3d(12%,-7%,0) scale(1.04); opacity:.72; } to { transform:translate3d(-10%,9%,0) scale(.94); opacity:.95; } }
 .identity-panel::after { animation:xv-frame-light 5s ease-in-out infinite alternate; }
 @keyframes xv-frame-light { from { opacity:.55; } to { opacity:1; } }
-.xv-motion-paused .xv-ambient::before,.xv-motion-paused .landing::before,.xv-motion-paused .identity-panel::after { animation-play-state:paused; }
-.xv-motion-toggle { justify-self:start; min-height:44px; padding:8px 12px; border:1px solid var(--line-red); background:rgba(225,29,56,.08); color:var(--soft); font:600 .72rem/1.2 var(--font-body); cursor:pointer; }
+.xv-motion-paused .xv-ambient::before,.xv-motion-paused .xv-ambient::after,.xv-motion-paused .landing::before,.xv-motion-paused .identity-panel::after { animation-play-state:paused; }
+.xv-motion-toggle { justify-self:start; min-height:44px; padding:8px 12px; border:1px solid var(--line-red); background:rgba(150,16,16,.12); color:var(--soft); font:600 .72rem/1.2 var(--font-body); cursor:pointer; }
 .xv-motion-toggle:hover { border-color:var(--hot); color:var(--text); }
 .footer-mark { grid-template-columns:max-content max-content; align-items:center; column-gap:12px; }
 .footer-mark p { grid-column:1/-1; }
-@media(prefers-reduced-motion:reduce) { .xv-ambient::before,.landing::before,.identity-panel::after { animation:none!important; } .xv-motion-toggle { display:none; } }
+@media(prefers-reduced-motion:reduce) { .xv-ambient::before,.xv-ambient::after,.landing::before,.identity-panel::after { animation:none!important; } .xv-motion-toggle { display:none; } }
 .xv-signature { display:block; width:min(68vw,72svh,660px); height:auto; aspect-ratio:1; overflow:visible; }
-.xv-signature-x { fill:rgba(225,29,56,.012); stroke:rgba(225,29,56,.2); stroke-width:1.3; stroke-linejoin:round; }
-.xv-signature-s { fill:rgba(225,29,56,.12); }
+.xv-signature-x { fill:rgba(164,22,22,.014); stroke:rgba(171,30,30,.26); stroke-width:1.3; stroke-linejoin:round; }
+.xv-signature-s { fill:rgba(156,18,18,.16); }
 /* Light follows the contours; the centered letters never shift or rotate. */
-.xv-edge { fill:none; stroke:#ff4865; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; pointer-events:none; filter:drop-shadow(0 0 5px rgba(255,51,78,.6)); }
+.xv-edge { fill:none; stroke:#c3322c; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; pointer-events:none; filter:drop-shadow(0 0 4px rgba(166,22,22,.4)); }
 .xv-edge-x { stroke-dasharray:120 2700; animation:xv-edge-trace 14s linear infinite; opacity:.6; }
 .xv-edge-s { stroke-dasharray:65 1500; animation:xv-edge-trace-s 11s linear infinite; animation-delay:-4s; opacity:.7; }
 @keyframes xv-edge-trace { to { stroke-dashoffset:-2820; } }
@@ -25,8 +27,8 @@ body { isolation:isolate; }
 @media(prefers-reduced-motion:reduce) { .xv-edge { display:none; } }
 @media(max-width:720px) {
     .xv-signature { width:min(78vw,58svh,400px); }
-    .xv-signature-x { stroke:rgba(225,29,56,.13); }
-    .xv-signature-s { fill:rgba(225,29,56,.09); }
+    .xv-signature-x { stroke:rgba(171,30,30,.18); }
+    .xv-signature-s { fill:rgba(156,18,18,.12); }
 }
 @media print { .xv-ambient { display:none; } }
 /* Landscape players never inherit the old 420px media-frame minimum. */
