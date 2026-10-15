@@ -171,8 +171,13 @@ async function capture(page, route, width) {
         assert.equal(await page.locator('[data-collection] article:visible').count(),published(route).length);
         await input.fill(published(route)[0].title.split(' ')[0]);
         assert.ok(await page.locator('[data-collection] article:visible').count()>0);
+        const keyword = published(route)[0][route === 'projects' ? 'technology' : 'tags']?.[0];
+        if (keyword) {
+            await input.fill(keyword);
+            assert.equal(await page.locator('[data-collection] article').first().isVisible(),true,'Canonical technology/tag search: '+keyword);
+        }
     }
-    record('Project/article search matches, no-result states, clearing and counts');
+    record('Project/article search matches, canonical technology/tags, no-result states, clearing and counts');
 
     await page.setViewportSize({width:320,height:640});
     await page.goto(base);
@@ -270,9 +275,11 @@ async function capture(page, route, width) {
     assert.ok(await page.evaluate(()=>getComputedStyle(document.body).backgroundImage.includes('225, 29, 56')), 'Original red atmosphere retained');
     await page.locator('.xv-motion-toggle').click();
     assert.equal(await page.evaluate(()=>getComputedStyle(document.querySelector('.xv-ambient'),'::before').animationPlayState),'paused');
+    await page.reload();
+    assert.equal(await page.evaluate(()=>getComputedStyle(document.querySelector('.xv-ambient'),'::before').animationPlayState),'paused','Motion preference survives reload');
     await page.locator('.xv-motion-toggle').click();
     assert.equal(await page.evaluate(()=>getComputedStyle(document.querySelector('.xv-ambient'),'::before').animationPlayState),'running');
-    record('Original red atmosphere and working background pause/resume control');
+    record('Original red atmosphere, working background pause/resume and persisted preference');
     await page.goto(base+'media'); await page.getByRole('tab').nth(2).click();
     await page.waitForTimeout(400); await category(page,'published');
     await page.emulateMedia({reducedMotion:'reduce'});

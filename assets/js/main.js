@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const count = toolbar.querySelector('.collection-count');
         const clear = toolbar.querySelector('[data-clear-search]');
         const normalize = (value) => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase().trim();
-        const searchable = cards.map((card) => normalize(card.textContent));
+        const searchable = cards.map((card) => normalize(card.textContent + ' ' + (card.dataset.search || '')));
         let announceTimer;
         const filter = (announce = true) => {
             const words = normalize(input.value).split(/\s+/).filter(Boolean);

@@ -138,7 +138,7 @@ href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= defined('XUVERSE_RELE
 <link rel="stylesheet" href="<?= e(xuverse_url('assets/css/responsive.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260930-3">
 
 <script
-src="<?= e(xuverse_url('assets/js/main.min.js')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260930-1"
+src="<?= e(xuverse_url('assets/js/main.min.js')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=<?= substr(hash_file('sha256', __DIR__ . '/../assets/js/main.min.js'),0,12) ?>"
 defer></script>
 
 <script type="application/ld+json">
