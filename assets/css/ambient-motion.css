@@ -15,6 +15,14 @@ body { isolation:isolate; }
 .xv-signature { display:block; width:min(68vw,72svh,660px); height:auto; aspect-ratio:1; overflow:visible; }
 .xv-signature-x { fill:rgba(225,29,56,.012); stroke:rgba(225,29,56,.2); stroke-width:1.3; stroke-linejoin:round; }
 .xv-signature-s { fill:rgba(225,29,56,.12); }
+/* Light follows the contours; the centered letters never shift or rotate. */
+.xv-edge { fill:none; stroke:#ff4865; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; pointer-events:none; filter:drop-shadow(0 0 5px rgba(255,51,78,.6)); }
+.xv-edge-x { stroke-dasharray:120 2700; animation:xv-edge-trace 14s linear infinite; opacity:.6; }
+.xv-edge-s { stroke-dasharray:65 1500; animation:xv-edge-trace-s 11s linear infinite; animation-delay:-4s; opacity:.7; }
+@keyframes xv-edge-trace { to { stroke-dashoffset:-2820; } }
+@keyframes xv-edge-trace-s { to { stroke-dashoffset:-1565; } }
+.xv-motion-paused .xv-edge { animation-play-state:paused; }
+@media(prefers-reduced-motion:reduce) { .xv-edge { display:none; } }
 @media(max-width:720px) {
     .xv-signature { width:min(78vw,58svh,400px); }
     .xv-signature-x { stroke:rgba(225,29,56,.13); }

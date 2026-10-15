@@ -85,8 +85,18 @@ async function measure(page, route, width) {
         const x = glyphBounds('.xv-signature-x'), s = glyphBounds('.xv-signature-s');
         const signature = rect(document.querySelector('.xv-signature'));
         const shortHeadings = [...document.querySelectorAll('.home-featured .section-head-compact h2,#published-title,.home-connect h2')].filter(visible).map(element => ({text:element.textContent.trim(),height:rect(element).height,lineHeight:parseFloat(getComputedStyle(element).lineHeight)}));
+        const mismatchedRows = [...document.querySelectorAll('.public-grid,.media-grid,.nav-deck,.social-orbit')].filter(visible).flatMap(grid => {
+            const rows = new Map();
+            [...grid.children].filter(visible).forEach(card => {
+                const box = rect(card), key = Math.round(box.top / 4) * 4;
+                if (!rows.has(key)) rows.set(key, []);
+                rows.get(key).push(box.height);
+            });
+            return [...rows.values()].filter(row => row.length > 1 && Math.max(...row) - Math.min(...row) > 1);
+        });
         return {outside,images,scrollOverflow:document.documentElement.scrollWidth>innerWidth,
             nav:{left:nav.left,top:nav.top,right:nav.right},navCollision:logo.right>neighbor.left+1,
+            logoCenterDelta:Math.abs(logo.top+logo.height/2-(nav.top+nav.height/2)),mismatchedRows,
             searchWidth:search?rect(search).width:null,inputHeight:input?rect(input).height:null,portraitDelta:centerDelta,
             signature:{centerDelta:Math.hypot(x.cx-s.cx,x.cy-s.cy),ratio:s.height/x.height,clipped:signature.left<0||signature.top<0||signature.right>limit||signature.bottom>innerHeight},
             shortHeadings,footerHeight:rect(document.querySelector('footer')).height};
@@ -96,6 +106,8 @@ async function measure(page, route, width) {
     assert.deepEqual(data.images, [], 'Broken or pending images: ' + context);
     assert.equal(data.scrollOverflow, false, 'Horizontal overflow: ' + context);
     assert.equal(data.navCollision, false, 'Navbar collision: ' + context);
+    assert.ok(data.logoCenterDelta < 1.5, 'Navbar logo vertical center: ' + context);
+    assert.deepEqual(data.mismatchedRows, [], 'Equal card heights: ' + context);
     assert.ok(data.nav.left >= 8 && data.nav.top >= 7, 'Navbar edge inset: ' + context);
     assert.ok(data.searchWidth === null || data.searchWidth <= 520.5, 'Search width: ' + context);
     assert.ok(data.inputHeight === null || data.inputHeight >= 44 && data.inputHeight <= 48, 'Search height: ' + context);
@@ -273,7 +285,11 @@ async function capture(page, route, width) {
     assert.equal(await page.locator('.reveal:not(.is-visible)').count(),0,'Every scrolled reveal becomes visible');
     assert.equal(await page.locator('.xv-ambient canvas').count(),0);
     assert.ok(await page.evaluate(()=>getComputedStyle(document.body).backgroundImage.includes('225, 29, 56')), 'Original red atmosphere retained');
+    const edgeBefore = await page.locator('.xv-edge-s').evaluate(element => getComputedStyle(element).strokeDashoffset);
+    await page.waitForTimeout(180);
+    assert.notEqual(await page.locator('.xv-edge-s').evaluate(element => getComputedStyle(element).strokeDashoffset),edgeBefore,'XS edge light moves');
     await page.locator('.xv-motion-toggle').click();
+    assert.equal(await page.locator('.xv-edge-s').evaluate(element => getComputedStyle(element).animationPlayState),'paused','XS edge light pauses');
     assert.equal(await page.evaluate(()=>getComputedStyle(document.querySelector('.xv-ambient'),'::before').animationPlayState),'paused');
     await page.reload();
     assert.equal(await page.evaluate(()=>getComputedStyle(document.querySelector('.xv-ambient'),'::before').animationPlayState),'paused','Motion preference survives reload');
