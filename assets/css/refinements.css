@@ -19,7 +19,7 @@
     }
     body :is(.public-card,.media-card,.deck-card,.social-card):hover { border-color:#a73120; background:linear-gradient(145deg,#38100b,#110a09); }
     .page-hero { background:linear-gradient(110deg,rgba(103,14,8,.18),transparent); }
-    .site-footer { background:#100909; border-top-color:var(--line-red); }
+    .site-footer { background:#0c0909; border:1px solid var(--line-red); }
     .collection-search input { background-color:#100a09; border-color:var(--line); }
     .collection-search input::placeholder { color:var(--muted); opacity:1; }
     .research-note,.source-notes { background:linear-gradient(130deg,#2c0c08,#110909); }
@@ -50,7 +50,7 @@
         margin:12px var(--nav-inset) 0;
         border:1px solid var(--line-red);
     }
-    .navbar>.container { width:min(1200px,calc(100% - var(--page-gutter) * 2 + var(--nav-inset) * 2)); }
+    .navbar>.container,.site-footer>.container { width:min(1200px,calc(100% - var(--page-gutter) * 2 + var(--nav-inset) * 2)); }
     .nav-wrapper { min-height:56px; gap:12px; }
     .navbar .logo { align-items:center; align-self:center; }
     .navbar .logo { font-size:1.3rem; }
@@ -225,8 +225,8 @@
     .resume-list li:last-child { padding-bottom:0; border:0; }
     .resume-list a { min-height:0; padding-block:4px; font-weight:600; }
 
-    /* Keep the established footer positions; remove padding and empty tracks. */
-    .site-footer { margin-top:20px; padding-block:22px; }
+    /* Match the navbar's detached frame while preserving the footer content positions. */
+    .site-footer { margin:20px var(--nav-inset) 12px; padding-block:22px; }
     .footer-core { min-height:0; gap:18px; }
     .footer-icons { gap:4px; }
     .footer-icons a { width:44px; height:44px; }
@@ -266,7 +266,7 @@
         .resume-entry-meta { flex-direction:column; gap:2px; }
         .connect-email { gap:16px; }
         .social-card { padding:16px 18px; gap:8px; }
-        .site-footer { padding-block:20px; }
+        .site-footer { margin-bottom:8px; padding-block:20px; }
         .footer-core { gap:14px; }
     }
     @media(max-width:480px) {
