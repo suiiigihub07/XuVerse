@@ -1,11 +1,11 @@
 /* A carved typographic signature, centered by geometry rather than font metrics. */
 body { isolation:isolate; }
 .xv-ambient { position:fixed; inset:0; z-index:-1; pointer-events:none; display:grid; place-items:center; overflow:hidden; }
-.xv-ambient::before { content:""; position:absolute; inset:-25%; background:radial-gradient(ellipse at 70% 35%,rgba(184,22,22,.82),rgba(118,13,13,.45) 24%,transparent 54%),radial-gradient(ellipse at 35% 78%,rgba(142,14,14,.6),transparent 48%); animation:xv-light-drift 14s cubic-bezier(.45,0,.55,1) -4s infinite alternate; }
-.xv-ambient::after { content:""; position:absolute; inset:-25%; background:radial-gradient(ellipse at 25% 45%,rgba(0,0,0,.88) 8%,rgba(0,0,0,.54) 30%,transparent 65%); animation:xv-shadow-flow 18s cubic-bezier(.45,0,.55,1) -7s infinite alternate; }
+.xv-ambient::before { content:""; position:absolute; inset:-18%; background:radial-gradient(ellipse 46% 65% at 72% 34%,rgba(180,18,10,.9) 0% 18%,rgba(125,10,5,.85) 42%,rgba(64,5,4,.35) 56%,transparent 70%),radial-gradient(ellipse 42% 60% at 28% 78%,rgba(124,11,7,.74) 0%,rgba(74,6,4,.4) 38%,transparent 70%); animation:xv-light-drift 11s cubic-bezier(.45,0,.55,1) -2s infinite alternate; }
+.xv-ambient::after { content:""; position:absolute; inset:-18%; background:radial-gradient(ellipse 40% 72% at 52% 50%,rgba(0,0,0,.94) 0% 20%,rgba(0,0,0,.84) 35%,rgba(0,0,0,.42) 50%,transparent 70%); animation:xv-shadow-flow 10s cubic-bezier(.45,0,.55,1) -3s infinite alternate; }
 .xv-signature { position:relative; z-index:1; }
-@keyframes xv-light-drift { from { transform:translate3d(-14%,8%,0) scale(.93); } to { transform:translate3d(10%,-8%,0) scale(1.08); } }
-@keyframes xv-shadow-flow { from { transform:translate3d(12%,-7%,0) scale(1.04); opacity:.72; } to { transform:translate3d(-10%,9%,0) scale(.94); opacity:.95; } }
+@keyframes xv-light-drift { from { transform:translate3d(-10%,6%,0) scale(1.04); } to { transform:translate3d(12%,-6%,0) scale(1.06); } }
+@keyframes xv-shadow-flow { from { transform:translate3d(-12%,6%,0) scale(1.04); } to { transform:translate3d(12%,-7%,0) scale(1.06); } }
 .identity-panel::after { animation:xv-frame-light 5s ease-in-out infinite alternate; }
 @keyframes xv-frame-light { from { opacity:.55; } to { opacity:1; } }
 .xv-motion-paused .xv-ambient::before,.xv-motion-paused .xv-ambient::after,.xv-motion-paused .landing::before,.xv-motion-paused .identity-panel::after { animation-play-state:paused; }
