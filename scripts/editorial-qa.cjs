@@ -109,24 +109,16 @@ async function collectLinks(page) {
 }
 
 async function settleImages(page) {
-    const imageProblems = await page.evaluate(async () => {
-        const images = [...document.images].filter(image =>
-            image.getClientRects().length && getComputedStyle(image).visibility !== 'hidden'
-        );
-        await Promise.all(images.map(async image => {
-            image.loading = 'eager';
-            let timer;
-            try {
-                await Promise.race([
-                    image.decode(),
-                    new Promise((_, reject) => { timer = setTimeout(reject, 6000); })
-                ]);
-            } catch (_) {
-                // Report the actual image below, after every decoding attempt finishes.
-            } finally {
-                clearTimeout(timer);
-            }
-        }));
+    const images = page.locator('img:visible');
+    await images.evaluateAll(async elements => {
+        elements.forEach(image => { image.loading = 'eager'; });
+        // After a viewport resize, Chromium can still be selecting a new srcset candidate.
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
+    await page.waitForFunction(() => [...document.images].every(image =>
+        !image.getClientRects().length || getComputedStyle(image).visibility !== 'visible' || image.complete
+    ), null, { timeout: 6000 }).catch(() => {});
+    const imageProblems = await images.evaluateAll(images => {
         return images.filter(image => !image.complete || !image.naturalWidth || !image.hasAttribute('alt'))
             .map(image => image.currentSrc || image.getAttribute('src') || '(missing source)');
     });
@@ -336,7 +328,10 @@ async function largerText(page) {
     ]);
     for (const [route, selector] of targets) {
         await openPage(page, route);
-        await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
+        await page.evaluate(async () => {
+            document.documentElement.style.fontSize = '200%';
+            await document.fonts.ready;
+        });
         try {
             for (const width of [320, 390, 768]) {
                 await page.setViewportSize({ width, height: 900 });
