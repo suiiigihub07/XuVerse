@@ -329,6 +329,34 @@ async function verifyPdf(context, route, expectedHash) {
     }
 }
 
+async function largerText(page) {
+    const targets = new Map([
+        ['', '.xu-hero-copy h1, .xu-feature-head h2, .xu-feature-head a'],
+        ['media', '.media-categories a']
+    ]);
+    for (const [route, selector] of targets) {
+        await openPage(page, route);
+        await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
+        try {
+            for (const width of [320, 390, 768]) {
+                await page.setViewportSize({ width, height: 900 });
+                const clipped = await page.locator(selector).evaluateAll(elements => elements.filter(element => {
+                    const bounds = element.getBoundingClientRect();
+                    const range = document.createRange();
+                    range.selectNodeContents(element);
+                    return [...range.getClientRects()].some(rect => rect.left < bounds.left - 2
+                        || rect.right > bounds.right + 2 || rect.right > document.documentElement.clientWidth + 1);
+                }).map(element => element.textContent.trim()));
+                assert.deepEqual(clipped, [], 'Text clipping at 200% size: ' + (route || 'home') + ' ' + width);
+                await layout(page, route, width);
+            }
+        } finally {
+            await page.evaluate(() => { document.documentElement.style.removeProperty('font-size'); });
+        }
+    }
+    report.interactions.push('Home and Media text resizing at 200%');
+}
+
 async function crawlLinks(context) {
     const links = [...checkedLinks].sort();
     for (const url of links) {
@@ -396,6 +424,7 @@ async function main() {
         await check('keyboard navigation and Media interactions', () => keyboardNavigation(page));
         await check('project and article search', () => collectionSearch(page));
         await check('contact access and reduced motion', () => contactAndMotion(page));
+        await check('home and Media at 200% text size', () => largerText(page));
         await check('resume PDF', () => verifyPdf(context, 'resume/download'));
         const manifest = canonical('manifest');
         for (const article of articles) {

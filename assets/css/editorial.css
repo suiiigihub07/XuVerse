@@ -173,7 +173,7 @@ body.xu-public .navbar .nav-links > .nav-action:hover { border-color: var(--xu-p
     line-height: .89;
     letter-spacing: -.078em;
     word-spacing: .055em;
-    text-wrap: nowrap;
+    text-wrap: balance;
 }
 
 .xu-hero-line {
@@ -244,6 +244,7 @@ body.xu-public .navbar .nav-links > .nav-action:hover { border-color: var(--xu-p
     display: flex;
     align-items: end;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 12px 24px;
     padding-bottom: clamp(18px, 3vw, 36px);
     border-bottom: 1px solid var(--xu-paper-line);
@@ -253,7 +254,7 @@ body.xu-public .navbar .nav-links > .nav-action:hover { border-color: var(--xu-p
     margin: 0;
     font: 700 clamp(1.75rem, 4vw, 4.25rem) / .98 var(--xu-sans);
     letter-spacing: -.075em;
-    text-wrap: nowrap;
+    text-wrap: balance;
 }
 
 .xu-writing-grid {
@@ -364,11 +365,6 @@ body.xu-public .navbar .nav-links > .nav-action:hover { border-color: var(--xu-p
     .xu-feature-head .xu-link { font-size: .79rem; }
     .xu-essay-list { padding: 22px 0 0; border-inline-start: 0; border-top: 1px solid var(--xu-paper-line); }
     .xu-video-feature .xu-work-copy { grid-row: 1; }
-}
-
-@media screen and (max-width: 350px) {
-    .xu-feature-head { flex-wrap: wrap; }
-    .xu-hero-copy h1, .xu-feature-head h2 { text-wrap: wrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {

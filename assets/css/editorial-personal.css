@@ -349,6 +349,7 @@
 
 .personal-media .media-categories {
     width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 5.5rem), 1fr));
     gap: 0;
     margin-top: clamp(20px, 4vw, 40px);
     border-bottom: 1px solid var(--xu-line, #393631);
@@ -365,6 +366,7 @@
     color: var(--xu-muted, #b8b3ac);
     font-weight: 650;
     white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .personal-media .media-categories a:hover {
