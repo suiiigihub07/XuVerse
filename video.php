@@ -1,5 +1,6 @@
 <?php
-require_once 'includes/content.php';
+require_once __DIR__ . '/includes/content.php';
+require_once __DIR__ . '/includes/media-gallery.php';
 $video = xuverse_find_public('media', $_GET['slug'] ?? '', (int)($_GET['id'] ?? 0));
 if (!$video || $video['type'] !== 'video') {
     http_response_code(404);
@@ -12,24 +13,22 @@ if (empty($_GET['slug'])) {
 }
 $embedUrl = xuverse_youtube_embed($video['url']);
 $videoId = basename(parse_url($embedUrl, PHP_URL_PATH) ?? '');
-$pageImage = 'https://i.ytimg.com/vi/' . $videoId . '/hqdefault.jpg';
+$pageImage = $video['poster'] ?? ('https://i.ytimg.com/vi/' . $videoId . '/hqdefault.jpg');
 $schemaData = [
     '@type' => 'VideoObject',
     'name' => $video['title'],
     'description' => $video['summary'],
-    'thumbnailUrl' => [$pageImage],
+    'thumbnailUrl' => [xuverse_absolute_url($pageImage)],
     'contentUrl' => $video['url'],
     'embedUrl' => $embedUrl
 ];
 xuverse_public_start($video['title'], $video['summary'], 'videos/' . $video['slug']);
 ?>
 
-<section class="section media-detail-section">
+<section class="personal-page personal-media-detail media-detail-section">
 <div class="container">
 <article class="media-detail reveal">
-<div class="media-detail-frame video-detail-frame media-player">
-<iframe src="<?= e($embedUrl) ?>" title="<?= e($video['title']) ?>" width="1600" height="900" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</div>
+<?php xuverse_inline_video($video, $video['url'], '(max-width: 1040px) 94vw, 980px'); ?>
 <div class="media-detail-info">
 <h1><?= e($video['title']) ?></h1>
 <div class="prose"><?= xuverse_markdown(!empty($video['description']) ? $video['description'] : $video['summary']) ?></div>

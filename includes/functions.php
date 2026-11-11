@@ -206,14 +206,6 @@ function xuverse_estimated_reading_time($text)
     return max(1, (int)ceil($words / 220));
 }
 
-function xuverse_table_exists($conn, $table)
-{
-    $table = $conn->real_escape_string($table);
-    $result = $conn->query("SHOW TABLES LIKE '{$table}'");
-
-    return $result && $result->num_rows > 0;
-}
-
 function xuverse_asset($path)
 {
     $path = trim((string)$path);

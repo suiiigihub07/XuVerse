@@ -12,7 +12,7 @@ if ($images) $pageImage = $images[0];
 $schemaData = ['@type'=>'CreativeWork','name'=>$post['title'],'description'=>$post['summary'],'url'=>xuverse_absolute_url('photos/' . $post['slug'])];
 xuverse_public_start($post['title'], $post['summary'], 'photos/' . $post['slug'], 'published');
 ?>
-<section class="section media-detail-section">
+<section class="personal-page personal-media-detail media-detail-section">
 <div class="container">
 <article class="media-detail published-detail reveal">
 <?php if ($images): ?><div class="published-detail-images"><?php xuverse_gallery($post, 'published-detail-gallery'); ?></div><?php endif; ?>

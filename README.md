@@ -1,6 +1,6 @@
 # XuVerse
 
-XuVerse is B K Suraj's PHP and MySQL portfolio for software projects, writing, research and selected media. Public content comes from versioned JSON and Markdown; the CMS retains account and music tools and historical private records.
+XuVerse is B K Suraj's PHP and MySQL portfolio for software projects, writing, research and selected media. Public content comes from versioned JSON and Markdown; the CMS retains account tools and historical private records.
 
 Public site: [xuverse.freehosting.dev](https://xuverse.freehosting.dev/). Source: [suiiigihub07/XuVerse](https://github.com/suiiigihub07/XuVerse).
 
@@ -58,7 +58,7 @@ Environment variables accept these names and the existing XUVERSE_ prefix; the p
 
 ## Source and live content
 
-Public JSON and Markdown in `content/`, public assets and generated PDFs are versioned in Git. Local and production MySQL retain their own accounts, music and historical records; their uploads and private settings are preserved separately. No SQL import is part of ordinary publication.
+Public JSON and Markdown in `content/`, public assets and generated PDFs are versioned in Git. Local and production MySQL retain their own accounts and historical records; their uploads and private settings are preserved separately. No SQL import is part of ordinary publication.
 
 Edit JSON/Markdown, preview in XAMPP, then run `python scripts/publish.py --message "Describe your edit"`. Publish validates, regenerates PDFs, commits, pushes and activates a verified isolated release. Verify the hosted browser and revision marker. Public editorial CMS fields are read-only so live database edits cannot create a second source.
 

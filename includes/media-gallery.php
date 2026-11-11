@@ -67,3 +67,24 @@ function xuverse_published_video($url, $title) {
     </div>
     <?php
 }
+
+function xuverse_inline_video($video, $fallbackUrl, $posterSizes)
+{
+    $poster = $video['poster'] ?? '';
+    $embed = xuverse_youtube_embed($video['url']);
+    ?>
+    <div class="personal-video-player" data-inline-video data-video-source="<?= e($embed) ?>" data-video-title="<?= e($video['title']) ?>">
+        <div class="personal-video-stage" data-video-stage>
+            <?php if ($poster !== ''): ?>
+            <img src="<?= e(xuverse_asset($poster)) ?>"
+                <?= xuverse_image_attributes($poster) ?>
+                <?= xuverse_responsive_image_attributes($poster, $posterSizes) ?>
+                alt="" loading="lazy" decoding="async" data-video-poster>
+            <?php endif; ?>
+            <a class="personal-video-activation" href="<?= e($fallbackUrl) ?>" aria-label="<?= e('Watch ' . $video['title']) ?>" data-video-fallback></a>
+            <button class="personal-video-activation" type="button" aria-label="<?= e('Play ' . $video['title']) ?>" data-video-play hidden></button>
+        </div>
+        <button type="button" class="personal-button personal-video-stop" data-video-stop hidden>Close video</button>
+    </div>
+    <?php
+}

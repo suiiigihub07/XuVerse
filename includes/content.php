@@ -50,9 +50,21 @@ function xuverse_markdown($text) {
             $flush();
             if (preg_match('/^\|[\s:|\-]+\|$/', $line)) { continue; }
             $cells = explode('|', trim($line, '|'));
-            $tag = $table ? 'td' : 'th';
-            if (!$table) { $out .= '<div class="table-scroll"><table><tbody>'; $table = true; }
-            $out .= '<tr>'; foreach ($cells as $cell) { $out .= '<' . $tag . '>' . xuverse_inline(trim($cell)) . '</' . $tag . '>'; } $out .= '</tr>'; continue;
+            if (!$table) {
+                $out .= '<div class="table-scroll" role="region" aria-label="Scrollable table" tabindex="0"><table><thead><tr>';
+                foreach ($cells as $cell) {
+                    $out .= '<th scope="col">' . xuverse_inline(trim($cell)) . '</th>';
+                }
+                $out .= '</tr></thead><tbody>';
+                $table = true;
+            } else {
+                $out .= '<tr>';
+                foreach ($cells as $cell) {
+                    $out .= '<td>' . xuverse_inline(trim($cell)) . '</td>';
+                }
+                $out .= '</tr>';
+            }
+            continue;
         }
         if (preg_match('/^(#{1,6})\s+(.+)$/u', $line, $m)) {
             $flush(); $close(); $level = max(2, strlen($m[1]));
@@ -93,16 +105,16 @@ function xuverse_public_start($title, $description, $path = '', $returnSection =
     require_once __DIR__ . '/db.php';
     $settings = xuverse_public_settings();
     $pageTitle = $title . ' | ' . xuverse_content('copy')['name']; $pageDescription = $description;
-    $canonicalUrl = xuverse_base_url() . '/' . $path;
-    $publicReturnPath = $path;
+    $canonicalUrl = $path === null ? xuverse_current_url() : xuverse_base_url() . '/' . $path;
+    $publicReturnPath = $path ?? '';
     include __DIR__ . '/header.php'; include __DIR__ . '/navbar.php';
     if ($publicReturnPath !== '' && str_contains($publicReturnPath, '/')) {
-        echo '<nav class="container public-return-nav" aria-label="Return navigation">';
         $section = $returnSection ?: explode('/', $publicReturnPath)[0];
         $parents = ['photos'=>'media#photographs','videos'=>'media#videos','published'=>'media#published','articles'=>'articles','projects'=>'projects'];
         $labels = ['photos'=>'Photographs','videos'=>'Videos','published'=>'Published Work','articles'=>'Articles','projects'=>'Projects'];
-        if (str_contains($publicReturnPath, '/') && isset($parents[$section])) { echo '<a href="'.e(xuverse_url($parents[$section])).'">'.e($labels[$section]).'</a>'; }
-        echo '<a href="'.e(xuverse_url()).'">Home</a></nav>';
+        if (isset($parents[$section])) {
+            echo '<nav class="container public-return-nav" aria-label="Return navigation"><a href="' . e(xuverse_url($parents[$section])) . '">' . e($labels[$section]) . '</a></nav>';
+        }
     }
 }
 
@@ -111,17 +123,4 @@ function xuverse_find_public($collection, $slug, $id = 0) {
         if (($slug !== '' && $item['slug'] === $slug) || ($id && in_array($id, $item['legacy_ids'] ?? [], true))) { return $item; }
     }
     return null;
-}
-
-function xuverse_public_card($item, $route, $image = '', $showCover = true) {
-    $url = xuverse_url($route . '/' . $item['slug']);
-    $cardClass = $route === 'projects' ? 'project-card' : 'article-card';
-    $searchTerms = array_merge([$item['title'], $item['summary'], $item['category'] ?? $item['status'] ?? ''], $item['technology'] ?? [], $item['tags'] ?? []);
-    echo '<article class="public-card ' . $cardClass . ' reveal magnetic-card" data-search="' . e(implode(' ', $searchTerms)) . '">';
-    if ($showCover && $image) { echo '<a href="' . e($url) . '"><img src="' . e(xuverse_url($image)) . '" alt="' . e($item['title']) . '" loading="lazy" decoding="async"></a>'; }
-    elseif ($showCover && $route === 'projects') {
-        // A factual technology cover for projects without a screenshot.
-        echo '<a class="project-cover-text" href="' . e($url) . '" aria-label="' . e('View ' . $item['title']) . '"><span aria-hidden="true">' . e($item['technology'][0] ?? $item['title']) . '</span></a>';
-    }
-    echo '<p class="eyebrow">' . e($item['category'] ?? $item['status'] ?? '') . '</p><h2><a href="' . e($url) . '">' . e($item['title']) . '</a></h2><p>' . e($item['summary']) . '</p><a class="text-link" href="' . e($url) . '">Read more</a></article>';
 }

@@ -1,4 +1,4 @@
-<?php // Decorative vector lettering with a CSS-driven edge light. ?>
+<?php // Decorative XS signature. The S is 69% of the X's cap height. ?>
 <div class="xv-ambient" aria-hidden="true">
 <svg class="xv-signature" viewBox="0 0 640 640" focusable="false">
 <defs>
@@ -13,7 +13,6 @@
 </defs>
 <!-- A narrow, chamfered X; the small cut around S separates the two letters. -->
 <use class="xv-signature-x" href="#xv-letter-x" mask="url(#xv-letter-cut)"/>
-<use class="xv-edge xv-edge-x" href="#xv-letter-x" mask="url(#xv-letter-cut)"/>
-<svg x="126.8" y="126.8" width="386.4" height="386.4" viewBox="0 0 400 400" overflow="visible"><use class="xv-signature-s" href="#xv-letter-s"/><use class="xv-edge xv-edge-s" href="#xv-letter-s"/></svg>
+<svg x="126.8" y="126.8" width="386.4" height="386.4" viewBox="0 0 400 400" overflow="visible"><use class="xv-signature-s" href="#xv-letter-s"/></svg>
 </svg>
 </div>

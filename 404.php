@@ -1,35 +1,15 @@
 <?php
-
-require_once 'includes/db.php';
-require_once 'includes/functions.php';
-
-$settings = $conn->query(
-    "SELECT * FROM settings
-     LIMIT 1"
-)->fetch_assoc();
+require_once 'includes/content.php';
 
 http_response_code(404);
-
-$pageTitle = 'Deep Space - XuVerse';
-$pageDescription = 'This XuVerse route drifted into deep space.';
-$canonicalUrl = xuverse_current_url();
-$robots = xuverse_noindex();
-
-include 'includes/header.php';
-include 'includes/navbar.php';
-
+xuverse_public_start('Page not found', 'This page could not be found.', null);
 ?>
 
-<section class="section error-space">
-<div class="container">
-<p class="page-kicker">404 / Deep Space</p>
-<h1>Signal lost.</h1>
-<p>The page you were looking for drifted beyond the mapped universe.</p>
-<div class="action-row">
-<a href="<?= e(xuverse_url()) ?>" class="vx-btn primary">Return Home</a>
-<a href="<?= e(xuverse_url('now')) ?>" class="vx-btn ghost">What I’m doing now</a>
-</div>
-</div>
+<section class="xu-container xu-error" aria-labelledby="error-title">
+    <p class="xu-kicker">404</p>
+    <h1 id="error-title">Page not found.</h1>
+    <p>The address may have changed. You can find the latest work from the homepage.</p>
+    <a class="xu-link" href="<?= e(xuverse_url()) ?>">Back to home <span aria-hidden="true">↗</span></a>
 </section>
 
 <?php include 'includes/footer.php'; ?>

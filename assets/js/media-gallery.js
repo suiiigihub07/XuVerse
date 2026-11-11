@@ -42,6 +42,42 @@
 
 /* Progressive category tabs. Plain hash links expose every section without JS. */
 (() => {
+  const players = [...document.querySelectorAll('[data-inline-video][data-video-source]:not([data-video-source=""])')].map(player => {
+    const stage = player.querySelector('[data-video-stage]');
+    const play = player.querySelector('[data-video-play]');
+    const close = player.querySelector('[data-video-stop]');
+    const poster = player.querySelector('[data-video-poster]');
+    let frame = null;
+    const stop = (focus = false) => {
+      if (!frame) return;
+      frame.remove();
+      frame = null;
+      if (poster) poster.hidden = false;
+      play.hidden = false;
+      close.hidden = true;
+      if (focus) play.focus();
+    };
+
+    player.querySelector('[data-video-fallback]').hidden = true;
+    play.hidden = false;
+    close.addEventListener('click', () => stop(true));
+    play.addEventListener('click', () => {
+      players.forEach(other => other.stop());
+      frame = document.createElement('iframe');
+      frame.src = player.dataset.videoSource + '?autoplay=1';
+      frame.title = player.dataset.videoTitle;
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.allow = 'autoplay; encrypted-media; picture-in-picture; web-share';
+      frame.allowFullscreen = true;
+      if (poster) poster.hidden = true;
+      play.hidden = true;
+      close.hidden = false;
+      stage.append(frame);
+      frame.focus();
+    });
+    return { element: player, stop };
+  });
+
   const navigation = document.querySelector('.media-categories');
   if (!navigation) return;
   const links = [...navigation.querySelectorAll('a')];
@@ -63,9 +99,11 @@
       link.removeAttribute('aria-current');
       panels[i].hidden = i !== index;
       panels[i].classList.toggle('is-current', i === index);
-      // Stop a playing video when its category is closed, and load only the
-      // selected category's embeds. A direct video page remains unchanged.
-      panels[i].querySelectorAll('iframe').forEach(frame => {
+      if (i !== index) {
+        players.filter(player => panels[i].contains(player.element)).forEach(player => player.stop());
+      }
+      // Older published posts can contain embeds without a poster.
+      panels[i].querySelectorAll('iframe:not([data-inline-video] iframe)').forEach(frame => {
         frame.dataset.mediaSource ||= frame.getAttribute('src') || '';
         if (i === index && !frame.hasAttribute('src')) frame.src = frame.dataset.mediaSource;
         else if (i !== index) frame.removeAttribute('src');

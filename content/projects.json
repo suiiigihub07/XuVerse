@@ -19,7 +19,9 @@
     "legacy_ids": [
       6
     ],
-    "image": "assets/images/public/xuverse-home-20260728b.webp"
+    "image": "assets/images/public/xuverse-editorial-home.webp",
+    "image_alt": "XuVerse homepage with B K Suraj's name and portrait beside links to his work and About page.",
+    "image_caption": "The redesigned XuVerse homepage."
   },
   {
     "title": "Lost & Found Management System",
@@ -38,7 +40,9 @@
     "legacy_ids": [
       11
     ],
-    "image": "assets/images/public/lostfound.webp"
+    "image": "assets/images/public/lostfound.webp",
+    "image_alt": "Lost and Found title in yellow over a forest photograph.",
+    "image_caption": "Cover artwork for the Lost & Found project."
   },
   {
     "title": "Hotel Reservation Manager",

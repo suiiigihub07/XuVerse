@@ -4,11 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('#primary-links');
     const printResume = document.querySelector('[data-print-resume]');
-    const topProgress = document.querySelector('.top-progress');
     const navbar = document.querySelector('.navbar');
 
     document.body.classList.add('motion-ready');
-    document.querySelectorAll('.nav-links a.active').forEach((link) => link.setAttribute('aria-current', 'page'));
 
     if (printResume) {
         printResume.addEventListener('click', () => window.print());
@@ -178,76 +176,28 @@ document.addEventListener('DOMContentLoaded', () => {
         revealItems.forEach((item) => item.classList.add('is-visible'));
     }
 
-    if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        document.querySelectorAll('.project-card, .article-card, .media-card, .social-card, .deck-card, .snap-card').forEach((card) => {
-            card.addEventListener('pointermove', (event) => {
-                const bounds = card.getBoundingClientRect();
-                const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-                const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-                card.style.setProperty('--mx', `${x.toFixed(1)}%`);
-                card.style.setProperty('--my', `${y.toFixed(1)}%`);
-            }, { passive: true });
-
-            card.addEventListener('pointerleave', () => {
-                card.style.removeProperty('--mx');
-                card.style.removeProperty('--my');
-            });
-        });
-    }
-
-    let scrollQueued = false;
-    const updateScrollUi = () => {
-        scrollQueued = false;
-        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
-
-        if (topProgress) {
-            topProgress.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
-        }
-
-        navbar?.classList.toggle('nav-scrolled', window.scrollY > 12);
-        backToTop.classList.toggle('is-visible', window.scrollY > 700);
-    };
-
-    const requestScrollUpdate = () => {
-        if (!scrollQueued) {
-            scrollQueued = true;
-            window.requestAnimationFrame(updateScrollUi);
-        }
-    };
-
-    const backToTop = document.createElement('button');
-    backToTop.type = 'button';
-    backToTop.className = 'back-to-top';
-    backToTop.setAttribute('aria-label', 'Back to top');
-    backToTop.textContent = 'Top';
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-    });
-    document.body.appendChild(backToTop);
-
-    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
-    updateScrollUi();
-
     document.querySelectorAll('.share-button').forEach((button) => {
+        const status = button.parentElement.querySelector('[data-share-status]');
+        button.hidden = false;
         button.addEventListener('click', async () => {
             const url = button.dataset.shareUrl || window.location.href;
             const title = button.dataset.shareTitle || document.title;
+            if (status) { status.textContent = ''; }
 
-            try {
-                if (navigator.share) {
+            if (typeof navigator.share === 'function') {
+                try {
                     await navigator.share({ title, url });
                     return;
+                } catch (error) {
+                    if (error.name === 'AbortError') { return; }
                 }
+            }
 
+            try {
                 await navigator.clipboard.writeText(url);
-                const original = button.textContent;
-                button.textContent = 'Link copied';
-                window.setTimeout(() => {
-                    button.textContent = original;
-                }, 1500);
-            } catch (error) {
-                // A cancelled share is not an application error.
+                if (status) { status.textContent = 'Link copied.'; }
+            } catch {
+                if (status) { status.textContent = 'Copy the address from your browser to share this article.'; }
             }
         });
     });

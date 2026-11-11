@@ -30,7 +30,7 @@ $schemaData = [
 xuverse_public_start($photo['title'], $photo['summary'], 'photos/' . $photo['slug'], $photo['type'] === 'card series' ? 'published' : 'photos');
 ?>
 
-<section class="section media-detail-section">
+<section class="personal-page personal-media-detail media-detail-section">
 <div class="container">
 <article class="media-detail reveal">
 <?php if ($photo['type'] === 'card series' || count(xuverse_gallery_images($photo)) > 1): ?>

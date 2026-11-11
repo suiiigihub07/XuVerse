@@ -19,7 +19,6 @@ p { margin: 0 0 3pt; orphans: 3; widows: 3; word-wrap: break-word; }
 a { color: #971b12; text-decoration: none; word-wrap: break-word; }
 .headline { font-size: 10.3pt; color: #45454c; margin-bottom: 5pt; }
 .contact { font-size: 8.5pt; line-height: 1.5; color: #52525b; margin-bottom: 2pt; }
-.profile { margin-top: 8pt; }
 .meta { font-size: 8.5pt; color: #62626b; margin-bottom: 3pt; page-break-after: avoid; }
 .entry-heading { page-break-inside: avoid; page-break-after: avoid; }
 .skill { margin-bottom: 4pt; }
@@ -29,7 +28,7 @@ a { color: #971b12; text-decoration: none; word-wrap: break-word; }
 </head>
 <body>
 <h1><?= xuverse_resume_pdf_text($resume['name']) ?></h1>
-<?php if ($resume['headline'] !== '' && !str_starts_with(mb_strtolower($resume['summary']), mb_strtolower($resume['headline']))): ?><p class="headline"><?= xuverse_resume_pdf_text($resume['headline']) ?></p><?php endif; ?>
+<?php if ($resume['headline'] !== ''): ?><p class="headline"><?= xuverse_resume_pdf_text($resume['headline']) ?></p><?php endif; ?>
 <p class="contact">
 <?php if ($resume['location'] !== ''): ?><?= xuverse_resume_pdf_text($resume['location']) ?> &nbsp; | &nbsp; <?php endif; ?>
 <?php if (filter_var($resume['email'], FILTER_VALIDATE_EMAIL)): ?><a href="mailto:<?= xuverse_resume_pdf_text($resume['email']) ?>"><?= xuverse_resume_pdf_text($resume['email']) ?></a><br><?php endif; ?>
@@ -39,10 +38,6 @@ a { color: #971b12; text-decoration: none; word-wrap: break-word; }
  &nbsp; | &nbsp; <a href="<?= xuverse_resume_pdf_text($link) ?>"><?= $label ?></a>
 <?php endif; endforeach; ?>
 </p>
-
-<?php if ($resume['summary'] !== ''): ?>
-<div class="profile"><?= xuverse_resume_pdf_paragraphs($resume['summary']) ?></div>
-<?php endif; ?>
 
 <?php if ($resume['education']): ?>
 <h2>Education</h2>
@@ -64,19 +59,18 @@ a { color: #971b12; text-decoration: none; word-wrap: break-word; }
 <?= xuverse_resume_pdf_paragraphs($entry['description']) ?>
 <?php endforeach; endforeach; ?>
 
-<?php if ($resume['skills']): ?>
-<h2>Skills / Areas of Work</h2>
-<?php foreach ($resume['skills'] as $category => $skills): ?>
-<p class="skill"><strong><?= xuverse_resume_pdf_text($category) ?>:</strong> <?= xuverse_resume_pdf_text(implode(', ', $skills)) ?></p>
-<?php endforeach; endif; ?>
+<?php if ($resume['achievement'] !== ''): ?>
+<h2>Selected Recognition</h2>
+<p><?= xuverse_resume_pdf_text($resume['achievement']) ?></p>
+<p class="meta"><?= xuverse_resume_pdf_text($resume['achievement_note']) ?></p>
+<?php endif; ?>
 
-<?php if ($resume['projects']): ?>
-<h2>Selected projects</h2>
-<?php foreach ($resume['projects'] as $entry): ?>
-<h3><a href="<?= xuverse_resume_pdf_text($resume['website'] . '/projects/' . $entry['slug']) ?>"><?= xuverse_resume_pdf_text($entry['title']) ?></a></h3>
-<?= xuverse_resume_pdf_paragraphs($entry['description']) ?>
-<?php endforeach; endif; ?>
+<h2>Areas of Work</h2>
+<?php foreach ($resume['areas'] as $area => $skills): ?>
+<p class="skill"><strong><?= xuverse_resume_pdf_text($area) ?></strong> · <?= xuverse_resume_pdf_text(implode(', ', $skills)) ?></p>
+<?php endforeach; ?>
 
-<h2>Selected Achievements</h2><p><?= xuverse_resume_pdf_text($resume['achievement']) ?></p><p class="meta"><?= xuverse_resume_pdf_text($resume['achievement_note']) ?></p>
+<h2>Tools</h2>
+<p><?= xuverse_resume_pdf_text(implode(', ', $resume['tools'])) ?></p>
 </body>
 </html>

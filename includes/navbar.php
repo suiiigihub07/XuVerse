@@ -3,15 +3,8 @@
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/functions.php';
 
-$navSettings = $conn->query(
-    "SELECT site_title, nav_cta_label FROM settings
-     LIMIT 1"
-)->fetch_assoc();
-
 require_once __DIR__ . '/content.php';
 $navCopy = xuverse_content('site');
-$siteTitle = $navCopy['site_title'];
-$navCtaLabel = $navCopy['nav_contact'];
 $currentScript = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
 $currentPage = basename($currentScript);
 $isAdminArea = strpos($currentScript, '/admin/') !== false;
@@ -25,17 +18,17 @@ if (isset($_SESSION['user_id'])) {
     $navUser = $stmt->get_result()->fetch_assoc();
 }
 
-function nav_active($pages, $currentPage, $isAdminArea = false)
-{
-    if ($isAdminArea) {
-        return '';
-    }
-
-    return in_array($currentPage, (array)$pages, true) ? 'active' : '';
-}
-
 $profileName = $navUser['full_name'] ?? ($_SESSION['name'] ?? 'Admin');
 $profileInitial = strtoupper(substr(trim($profileName) ?: 'X', 0, 1));
+$primaryLinks = [
+    ['home', '', ['index.php']],
+    ['projects', 'projects', ['projects.php', 'project.php']],
+    ['articles', 'articles', ['articles.php', 'article.php']],
+    ['media', 'media', ['media.php', 'gallery.php', 'photo.php', 'video.php', 'published.php']],
+    ['about', 'about', ['about.php']],
+    ['resume', 'resume', ['resume.php']],
+    ['contact', 'contact', ['contact.php']],
+];
 
 ?>
 
@@ -44,23 +37,22 @@ $profileInitial = strtoupper(substr(trim($profileName) ?: 'X', 0, 1));
 <div class="nav-wrapper">
 
 <a href="<?= e(xuverse_url()) ?>" class="logo">
-<span><?= e($siteTitle) ?></span>
-<small><?= e(xuverse_content('copy')['name']) ?></small>
+<span><?= e($navCopy['site_title']) ?></span>
 </a>
 
 <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-links">
+<span class="xu-menu-mark" aria-hidden="true"></span>
 <span>Menu</span>
 </button>
 
 <div class="nav-links" id="primary-links">
 
-<a class="<?= nav_active('index.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('')) ?>"> <?= e($navCopy['nav_home']) ?></a>
-<a class="<?= nav_active(['projects.php','project.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('projects')) ?>"> <?= e($navCopy['nav_projects']) ?></a>
-<a class="<?= nav_active(['articles.php','article.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('articles')) ?>"> <?= e($navCopy['nav_articles']) ?></a>
-<a class="<?= nav_active(['media.php','photo.php','video.php','published.php'], $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('media')) ?>"> <?= e($navCopy['nav_media']) ?></a>
-<a class="<?= nav_active('about.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('about')) ?>"> <?= e($navCopy['nav_about']) ?></a>
-<a class="<?= nav_active('resume.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('resume')) ?>"> <?= e($navCopy['nav_resume']) ?></a>
-<a class="nav-action <?= nav_active('contact.php', $currentPage, $isAdminArea) ?>" href="<?= e(xuverse_url('contact')) ?>"> <?= e($navCopy['nav_contact']) ?></a>
+<?php foreach ($primaryLinks as [$key, $path, $scripts]):
+    $active = !$isAdminArea && in_array($currentPage, $scripts, true);
+    $classes = trim(($key === 'contact' ? 'nav-action ' : '') . ($active ? 'active' : ''));
+?>
+<a href="<?= e(xuverse_url($path)) ?>"<?= $classes ? ' class="' . e($classes) . '"' : '' ?><?= $active ? ' aria-current="' . ($currentPage === $scripts[0] ? 'page' : 'location') . '"' : '' ?>><?= e($navCopy['nav_' . $key]) ?></a>
+<?php endforeach; ?>
 <?php if(isset($_SESSION['user_id'])): ?>
 <div class="profile-menu">
 <button
@@ -81,7 +73,6 @@ aria-haspopup="true">
 <a href="<?= e(xuverse_url('admin/dashboard.php')) ?>">Dashboard</a>
 <a href="<?= e(xuverse_url('admin/settings/index.php')) ?>">Settings</a>
 <a href="<?= e(xuverse_url('admin/settings/password.php')) ?>">Password</a>
-<a href="<?= e(xuverse_url('admin/music/index.php')) ?>">Music</a>
 <a href="<?= e(xuverse_url('logout.php')) ?>">Logout</a>
 </div>
 </div>
@@ -94,4 +85,4 @@ aria-haspopup="true">
 </nav>
 
 <div id="page-shell" class="page-shell">
-<main id="main-content">
+<main id="main-content" tabindex="-1">

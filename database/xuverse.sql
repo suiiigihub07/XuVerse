@@ -65,21 +65,6 @@ CREATE TABLE `highlights` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `music_tracks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(160) NOT NULL,
-  `artist` varchar(160) DEFAULT NULL,
-  `playlist` varchar(120) DEFAULT 'XuVerse',
-  `file_path` varchar(255) NOT NULL,
-  `display_order` int(11) DEFAULT 0,
-  `is_active` tinyint(1) DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `photos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,

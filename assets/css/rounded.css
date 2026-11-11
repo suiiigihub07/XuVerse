@@ -10,9 +10,9 @@ body :is(.project-card,.article-card,.media-card,.public-card,.deck-card,.snap-c
 
 body :is(.btn,.vx-btn,.text-link,.nav-links>a,.profile-dropdown>a,.cms-section-nav>a,
   .article-contents>a,.command-results>a,.resume-chip,.skill-pill,.hero-tags span,
-  .evidence-chip,.gallery-count,.xv-motion-toggle,.music-track),
+  .evidence-chip,.gallery-count,.xv-motion-toggle),
 body button,body .cms-array-actions button,body .cms-add,
-body .music-controls button,body .post-gallery-controls button,body .gallery-close {
+body .post-gallery-controls button,body .gallery-close {
   border-radius:var(--radius-pill);
 }
 body :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
@@ -21,7 +21,7 @@ body input::file-selector-button { border-radius:var(--radius-pill); }
 body :is(.footer-icons>a,.profile-trigger,.avatar-trigger,.back-to-top,.share-button) { border-radius:50%; }
 body :is(.profile-trigger img,.avatar-trigger img,.user-avatar,.profile-avatar) { border-radius:50%; }
 
-body dialog,body :is(.profile-dropdown,.music-panel,.command-panel,.confirmation-dialog,.gallery-modal),
+body dialog,body :is(.profile-dropdown,.command-panel,.confirmation-dialog,.gallery-modal),
 body .navbar .nav-links { border-radius:var(--radius); }
 body .navbar,body footer { border-radius:var(--radius); }
 

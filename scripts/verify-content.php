@@ -7,9 +7,9 @@ function check($value,$message) { if (!$value) { throw new RuntimeException($mes
 function verify_shared_asset_scope() {
     // Header includes share their caller's PHP scope (Resume and legacy media forms).
     $name='B K Suraj'; $type='photo'; $path='caller-path'; $url='caller-url'; $separator='caller-separator';
-    ob_start(); require __DIR__.'/../includes/ambient-motion.php'; $assets=ob_get_clean();
+    ob_start(); require __DIR__.'/../includes/site-assets.php'; $assets=ob_get_clean();
     check([$name,$type,$path,$url,$separator]===['B K Suraj','photo','caller-path','caller-url','caller-separator'],'Shared asset loader preserves caller variables');
-    foreach(['ambient-motion.css','media-gallery.css','rounded.css','refinements.css','ambient-motion.js','media-gallery.js'] as $asset) check(str_contains($assets,$asset),'Shared asset '.$asset);
+    foreach(['media-gallery.css','rounded.css','refinements.css','editorial.css','editorial-work.css','editorial-personal.css','media-gallery.js'] as $asset) check(str_contains($assets,$asset),'Shared asset '.$asset);
 }
 verify_shared_asset_scope();
 $root=dirname(__DIR__); $manifest=xuverse_content('manifest');

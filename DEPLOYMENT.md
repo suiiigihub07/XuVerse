@@ -48,7 +48,7 @@ The existing repository is connected as `origin` on `main`. Commit and push norm
 4. Choose initial content: privately transfer a fresh export of the current local database and matching uploads once, or import the sanitized schema into an empty database and create an admin. Preserve relative media paths. Runtime media is not in Git.
 5. Back up first. Import only into the new empty database. Never import starter SQL into an established site. The historical migrate-content.php and refresh-technical-copy.php scripts are setup/editorial tools, not routine deployment hooks.
 6. Install locked Composer dependencies locally if needed, then run `python scripts/build-release.py`. Upload/extract to the document root, including `.htaccess` and `uploads/.htaccess`. Transfer initial media and private config separately.
-7. Make uploads, application tmp and PHP temporary/session storage writable by PHP. Follow host ownership guidance; avoid world-writable permissions. Configure upload/post limits for images and optional 25 MB audio. Also set display_errors=Off, display_startup_errors=Off and log_errors=On in host PHP settings: runtime code cannot hide startup errors.
+7. Make uploads, application tmp and PHP temporary/session storage writable by PHP. Follow host ownership guidance and configure upload/post limits for images. Set `display_errors=Off`, `display_startup_errors=Off` and `log_errors=On` in the host PHP settings.
 8. Complete live verification below and use a unique live admin password. Rotate it if a private export was shared outside trusted storage.
 
 ## Every subsequent update
@@ -65,7 +65,7 @@ The 2026-10-09 owner correction restores the original black/red visual identity 
 
 Use the single Publish action documented in [PUBLISH.md](PUBLISH.md). Edit canonical JSON/Markdown, preview locally, then run `python scripts/publish.py --message "Describe your edit"`. It normalizes canonical text to Git's LF bytes, validates content, regenerates affected PDFs, commits/pushes, checks the committed hashes, stages a complete FTPS release, verifies every uploaded file, and atomically activates the pointer. Complete browser acceptance after activation.
 
-Do not import SQL, overlay the whole root, mirror directories, replace runtime uploads, or edit public records independently in live MySQL. Accounts/music remain in each environment's database. Shared configuration, uploads and dependencies are preserved. Back up before any future schema migration; none was required for this file-reader architecture.
+Ordinary releases preserve each environment’s database, runtime uploads, shared configuration and Composer dependencies. Update public records in canonical files and publish through Git. The editorial redesign removed background music from the app and blocks direct serving of historical audio under `uploads/`. The shared `uploads/.htaccess` lives outside the versioned releases. Update that rule separately on an existing installation using an atomic replacement with a private backup and read-back verification.
 
 Rollback uses `python scripts/publish.py --rollback <retained-full-SHA>` followed by browser verification. Installation archives are reference/fresh-install tools, not the ordinary update workflow.
 
@@ -75,7 +75,7 @@ Rollback uses `python scripts/publish.py --rollback <retained-full-SHA>` followe
 - Project/article/photo/video details, missing-record 404s, responsive assets and uploaded media
 - PDF download from current CMS content
 - Login/logout; every CMS page rejects logged-out and non-admin users
-- Temporary-record CRUD in experience, education, skills, projects, articles, media, highlights and music; remove only those test records
+- Temporary-record CRUD in applicable writable admin areas with cleanup of the test records
 - Settings, password, avatar, project/article image and video thumbnail uploads
 - Invalid uploads rejected, valid images display, mutations require CSRF
 - SQL/config/Git/internal paths return 403; HTTPS cookies and error hiding work

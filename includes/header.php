@@ -43,15 +43,18 @@ $ownerAvatar = xuverse_content('site')['portrait'];
 $pageImage = $pageImage ?? xuverse_setting($settings, 'og_image', $ownerAvatar);
 $absoluteImage = xuverse_absolute_url($pageImage);
 $pageType = $pageType ?? 'website';
-$isPrivatePage = strpos($_SERVER['SCRIPT_NAME'] ?? '', '/admin/') !== false;
+$isAdminPage = strpos($_SERVER['SCRIPT_NAME'] ?? '', '/admin/') !== false;
+$isPrivatePage = $isAdminPage || basename($_SERVER['SCRIPT_NAME'] ?? '') === 'login.php' || http_response_code() >= 400;
 $robots = $robots ?? (xuverse_is_production() && !$isPrivatePage ? 'index, follow, max-image-preview:large' : xuverse_noindex());
 $adminName = $adminName ?? xuverse_setting($settings, 'hero_title', 'B K Suraj');
+$assetVersionSeparator = defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?';
+$baseStylesheetVersion = substr(hash_file('sha256', __DIR__ . '/../assets/css/style.min.css'), 0, 12);
 $jsonLd = [
     '@context' => 'https://schema.org',
     '@type' => 'Person',
     'name' => $adminName,
     'url' => xuverse_base_url() . '/',
-    'image' => $absoluteImage,
+    'image' => xuverse_absolute_url($ownerAvatar),
     'email' => xuverse_setting($settings, 'contact_email', ''),
     'sameAs' => array_values(array_filter([
         $settings['github_url'] ?? '',
@@ -101,7 +104,7 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 
 <meta name="robots" content="<?= e($robots) ?>">
 <meta name="xuverse-revision" content="<?= e(xuverse_checkout_revision()) ?>">
-<meta name="theme-color" content="#050507">
+<meta name="theme-color" content="#101010">
 <link rel="canonical" href="<?= e($canonicalUrl) ?>">
 
 <meta property="og:type" content="<?= e($pageType) ?>">
@@ -126,31 +129,33 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
+<?php if ($isAdminPage): ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="preload" href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260918-consistency-5" as="style">
+<?php else: ?>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400..800&amp;display=swap">
+<?php endif; ?>
+<link rel="preload" href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= $assetVersionSeparator ?>v=<?= $baseStylesheetVersion ?>" as="style">
 <?php if (session_status() === PHP_SESSION_ACTIVE && !empty($_SESSION['user_id'])): ?>
 <meta name="csrf-token" content="<?= e(xuverse_csrf_token()) ?>">
 <?php endif; ?>
 
 <link
 rel="stylesheet"
-href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260918-consistency-5">
-<link rel="stylesheet" href="<?= e(xuverse_url('assets/css/responsive.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=20260930-3">
+href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= $assetVersionSeparator ?>v=<?= $baseStylesheetVersion ?>">
+<link rel="stylesheet" href="<?= e(xuverse_url('assets/css/responsive.css')) ?><?= $assetVersionSeparator ?>v=<?= substr(hash_file('sha256', __DIR__ . '/../assets/css/responsive.css'), 0, 12) ?>">
 
 <script
-src="<?= e(xuverse_url('assets/js/main.min.js')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=<?= substr(hash_file('sha256', __DIR__ . '/../assets/js/main.min.js'),0,12) ?>"
+src="<?= e(xuverse_url('assets/js/main.min.js')) ?><?= $assetVersionSeparator ?>v=<?= substr(hash_file('sha256', __DIR__ . '/../assets/js/main.min.js'),0,12) ?>"
 defer></script>
 
 <script type="application/ld+json">
 <?= json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP) ?>
 </script>
 
-<link rel="stylesheet" href="<?= e(xuverse_url('assets/css/public.css')) ?><?= defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&amp;' : '?' ?>v=<?= substr(hash_file('sha256', __DIR__ . '/../assets/css/public.css'),0,12) ?>">
+<link rel="stylesheet" href="<?= e(xuverse_url('assets/css/public.css')) ?><?= $assetVersionSeparator ?>v=<?= substr(hash_file('sha256', __DIR__ . '/../assets/css/public.css'),0,12) ?>">
 <meta name="xuverse-content-sha256" content="<?= e(xuverse_content('manifest')['content_sha256']) ?>">
-<?php require __DIR__ . '/ambient-motion.php'; ?>
+<?php require __DIR__ . '/site-assets.php'; ?>
 </head>
 
-<body>
-<?php require __DIR__ . '/background-signature.php'; ?>
+<body<?= $isAdminPage ? '' : ' class="xu-public"' ?>>
 <a class="skip-link" href="#main-content">Skip to main content</a>
-<div class="top-progress" aria-hidden="true"></div>

@@ -31,12 +31,12 @@ function xuverse_editor_template($collection, $type = '') {
     if ($collection === 'published') return ['title'=>'','slug'=>'','summary'=>'','description'=>'','article_body'=>'','cards'=>[],'video_urls'=>[],'alt'=>'','credit_note'=>'','publication_status'=>'draft'];
     if ($collection === 'media') {
         $entry = ['title'=>'','slug'=>'','type'=>$type ?: 'card series','summary'=>'','description'=>'','alt'=>'','credit_note'=>'','publication_status'=>'draft'];
-        if ($type === 'video') { $entry['url'] = ''; }
+        if ($type === 'video') { $entry['url'] = ''; $entry['poster'] = ''; }
         elseif ($type === 'photograph') { $entry['image'] = ''; }
         else { $entry['cards'] = []; }
         return $entry;
     }
-    if ($collection === 'projects') return ['title'=>'','slug'=>'','summary'=>'','description'=>'','technology'=>[],'role'=>'','status'=>'','repository'=>null,'live'=>null,'learning'=>'','image'=>'','publication_status'=>'draft'];
+    if ($collection === 'projects') return ['title'=>'','slug'=>'','summary'=>'','description'=>'','technology'=>[],'role'=>'','status'=>'','repository'=>null,'live'=>null,'learning'=>'','image'=>'','image_alt'=>'','image_caption'=>'','publication_status'=>'draft'];
     if ($collection === 'articles') return ['title'=>'','subtitle'=>'','slug'=>'','author'=>xuverse_content('copy')['name'],'date_display'=>'','written_date'=>'','date_precision'=>'year','category'=>'','language'=>'en','summary'=>'','tags'=>[],'publication_status'=>'draft','source_note'=>'','references'=>[]];
     return [];
 }
@@ -97,7 +97,7 @@ function xuverse_editor_validate($collection, $data) {
             if (!preg_match('/^[a-z][a-z0-9-]{0,99}$/', $item['slug']) || isset($slugs[$item['slug']])) throw new RuntimeException('Use a unique address with lowercase letters, numbers and hyphens.');
             $slugs[$item['slug']] = true;
             if (!in_array($item['publication_status'] ?? 'published', ['draft','published'], true)) throw new RuntimeException('Invalid publication status.');
-            foreach (['description','article_body','alt','credit_note','author','subtitle','date_display','source_note'] as $key) if (isset($item[$key]) && !is_string($item[$key])) throw new RuntimeException('Use text for ' . str_replace('_',' ',$key) . '.');
+            foreach (['description','article_body','alt','credit_note','author','subtitle','date_display','source_note','image_alt','image_caption'] as $key) if (isset($item[$key]) && !is_string($item[$key])) throw new RuntimeException('Use text for ' . str_replace('_',' ',$key) . '.');
             foreach (['technology','tags','related_links'] as $key) if (isset($item[$key])) {
                 if (!is_array($item[$key]) || !array_is_list($item[$key])) throw new RuntimeException('Invalid list: ' . $key);
                 foreach ($item[$key] as $value) if (!is_string($value)) throw new RuntimeException('Use text for each ' . $key . ' item.');
@@ -108,6 +108,7 @@ function xuverse_editor_validate($collection, $data) {
                 if (!in_array($item['type'] ?? '', ['video','photograph','card series'], true)) throw new RuntimeException('Choose a supported media type.');
                 if ($item['type'] === 'video') {
                     if (xuverse_youtube_embed($item['url'] ?? '') === '') throw new RuntimeException('Enter a valid YouTube video link.');
+                    if (($item['poster'] ?? '') !== '' && !xuverse_editor_asset_valid($item['poster'])) throw new RuntimeException('Choose an existing video poster or upload a JPG, PNG or WebP image.');
                 } else {
                     $images = $item['type'] === 'card series' ? ($item['cards'] ?? []) : [$item['image'] ?? ''];
                     if (!is_array($images) || !array_is_list($images) || count($images) < 1 || count($images) > 10) throw new RuntimeException('A post must contain between 1 and 10 images.');
@@ -142,8 +143,9 @@ function xuverse_editor_validate($collection, $data) {
         }
     }
     if ($collection === 'copy') {
-        if (count($data['hero_actions']) !== 3) throw new RuntimeException('Keep all three home action labels.');
-        foreach ($data['hero_actions'] as $label) if (trim($label) === '') throw new RuntimeException('Home action labels cannot be empty.');
+        foreach (['hero_work_action', 'hero_about_action'] as $key) {
+            if (trim($data[$key]) === '') throw new RuntimeException('Home action labels cannot be empty.');
+        }
     }
     if ($collection === 'skills') foreach ($data as $items) {
         if (!is_array($items) || !array_is_list($items)) throw new RuntimeException('Each skill category must contain a list.');
@@ -232,6 +234,7 @@ function xuverse_editor_save($collection, $itemKey, $entity, $body, $expected, $
         if ($uploaded) {
             if ($multiple) $entity['cards'] = array_merge($existingImages,$uploaded);
             elseif ($collection === 'site') $entity['portrait'] = $uploaded[0];
+            elseif ($collection === 'media' && $entity['type'] === 'video') $entity['poster'] = $uploaded[0];
             else $entity['image'] = $uploaded[0];
         }
         if ($isList) { if ($position === null) $data[]=$entity; else $data[$position]=$entity; } else $data=$entity;

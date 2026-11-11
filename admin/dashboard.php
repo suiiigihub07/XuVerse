@@ -24,8 +24,7 @@ $counts = [
     'articles' => xuverse_count($conn, 'articles'),
     'photos' => xuverse_count($conn, 'photos'),
     'videos' => xuverse_count($conn, 'videos'),
-    'highlights' => xuverse_count($conn, 'highlights'),
-    'music' => xuverse_table_exists($conn, 'music_tracks') ? xuverse_count($conn, 'music_tracks') : 0
+    'highlights' => xuverse_count($conn, 'highlights')
 ];
 
 $mediaCount = $counts['photos'] + $counts['videos'];
@@ -111,11 +110,6 @@ $publicStats=['Projects'=>count(xuverse_content('projects')),'Articles'=>count(x
 <p>Highlights</p>
 </div>
 
-<div class="stat-card">
-<h2><?= $counts['music'] ?></h2>
-<p>Music</p>
-</div>
-
 </div>
 
 
@@ -154,11 +148,6 @@ $publicStats=['Projects'=>count(xuverse_content('projects')),'Articles'=>count(x
 <a href="media/index.php">
 <h2>Manage Media</h2>
 <p><?= $counts['photos'] ?> photos, <?= $counts['videos'] ?> videos</p>
-</a>
-
-<a href="music/index.php">
-<h2>Manage Music</h2>
-<p><?= $counts['music'] ?> local tracks</p>
 </a>
 
 <a href="settings/index.php">

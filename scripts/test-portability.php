@@ -2,7 +2,6 @@
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/media_helpers.php';
-require_once __DIR__ . '/../includes/music_helpers.php';
 
 function check($condition, $name) {
     if (!$condition) { throw new RuntimeException('FAIL: ' . $name); }
@@ -32,7 +31,7 @@ if (!is_dir(dirname(__DIR__) . '/tmp')) { mkdir(dirname(__DIR__) . '/tmp', 0700,
 $sentinel = tempnam(dirname(__DIR__) . '/tmp', 'delete-boundary-');
 try {
     xuverse_delete_uploaded_file('uploads/../tmp/' . basename($sentinel));
-    xuverse_delete_local_file('tmp/' . basename($sentinel));
+    xuverse_delete_uploaded_file('tmp/' . basename($sentinel));
     check(is_file($sentinel), 'upload deletion cannot escape uploads');
 } finally { unlink($sentinel); }
 echo "Portability checks complete.\n";

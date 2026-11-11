@@ -3,6 +3,7 @@
         "title": "Dong-Eui Global College 2026",
         "type": "video",
         "url": "https://www.youtube.com/watch?v=ItV0DbEebzg",
+        "poster": "assets/images/public/video-global-college-2026.webp",
         "summary": "Selected university promotional media work.",
         "credit_note": "Selected university promotional media work; individual production credits are not confirmed.",
         "slug": "global-college-2026",
@@ -14,6 +15,7 @@
         "title": "University Promotional Competition Video",
         "type": "video",
         "url": "https://www.youtube.com/watch?v=xCaKYaSjlq0",
+        "poster": "assets/images/public/video-promotional-competition.webp",
         "summary": "Selected competition video associated with the user-reported award.",
         "slug": "promotional-competition",
         "legacy_ids": [
@@ -24,6 +26,7 @@
         "title": "DAAM Introduction",
         "type": "video",
         "url": "https://www.youtube.com/watch?v=vPs7_L4hYEQ",
+        "poster": "assets/images/public/video-daam-introduction.webp",
         "summary": "Introduction to the DAAM student club.",
         "slug": "daam-introduction",
         "legacy_ids": [

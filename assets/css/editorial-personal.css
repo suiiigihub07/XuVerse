@@ -1,0 +1,672 @@
+.personal-page {
+    padding-block: clamp(38px, 7vw, 100px);
+    color: var(--xu-paper, #f4f0e9);
+}
+
+.personal-title {
+    margin: 0;
+    font: 400 clamp(4rem, 9vw, 8.5rem)/.88 var(--xu-serif, Georgia, serif);
+    letter-spacing: -.045em;
+    text-wrap: balance;
+}
+
+.personal-label,
+.personal-about-focus h2,
+.personal-contact-email h2 {
+    margin: 0 0 12px;
+    color: var(--xu-muted, #b8b3ac);
+    font: 600 .75rem/1.5 var(--xu-sans, system-ui, sans-serif);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.personal-lead {
+    max-width: 38ch;
+    margin: 24px 0 0;
+    color: var(--xu-paper, #f4f0e9);
+    font-size: clamp(1.04rem, 2vw, 1.27rem);
+    line-height: 1.6;
+}
+
+.personal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.personal-page .personal-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 9px 17px;
+    border: 1px solid var(--personal-button-border, #716b65);
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    font: 600 .87rem/1.35 var(--xu-sans, system-ui, sans-serif);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.personal-page .personal-button:hover {
+    border-color: currentColor;
+    text-decoration: underline;
+    text-underline-offset: .22em;
+}
+
+.personal-page .personal-button-primary {
+    border-color: #b81c16;
+    background: #b81c16;
+    color: #fff;
+}
+
+.personal-page .personal-button-primary:hover {
+    border-color: #cb241d;
+    background: #cb241d;
+}
+
+.personal-page .personal-button[hidden] {
+    display: none;
+}
+
+.personal-about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+    align-items: center;
+    gap: clamp(38px, 8vw, 130px);
+}
+
+.personal-about-focus {
+    max-width: 40ch;
+    margin-block: clamp(26px, 5vw, 50px) 23px;
+    padding-block-start: 18px;
+    border-top: 1px solid var(--xu-line, #393631);
+}
+
+.personal-about-focus p {
+    margin: 0;
+    color: var(--xu-muted, #b8b3ac);
+    line-height: 1.65;
+}
+
+.personal-portrait {
+    margin: 0;
+}
+
+.personal-portrait picture,
+.personal-portrait img {
+    display: block;
+    width: 100%;
+}
+
+.personal-portrait img {
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.personal-portrait figcaption {
+    margin-top: 10px;
+    color: var(--xu-muted, #b8b3ac);
+    font-size: .8rem;
+}
+
+.personal-cv {
+    color: #24211e;
+    --personal-button-border: #9c9287;
+}
+
+.personal-cv .personal-cv-container {
+    max-width: 1080px;
+    padding: clamp(24px, 6vw, 76px);
+    background: var(--xu-paper, #f4f0e9);
+}
+
+.personal-cv-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px 34px;
+    padding-bottom: clamp(18px, 4vw, 34px);
+    border-bottom: 2px solid #a51b14;
+}
+
+.personal-cv-header .personal-title {
+    color: #24211e;
+    font-size: clamp(3.4rem, 7vw, 6.6rem);
+}
+
+.personal-cv .personal-label {
+    color: #8f1610;
+}
+
+.personal-cv-headline {
+    margin: 12px 0 0;
+    color: #24211e;
+    font-weight: 550;
+}
+
+.personal-cv-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0 16px;
+    margin: 4px 0 0;
+    padding: 0;
+    color: var(--xu-paper-muted, #56514b);
+    font-size: .82rem;
+    list-style: none;
+}
+
+.personal-cv-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: .2em;
+    overflow-wrap: anywhere;
+}
+
+.personal-cv-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+    gap: clamp(26px, 6vw, 72px);
+    padding-top: 23px;
+}
+
+.personal-cv-section + .personal-cv-section {
+    margin-top: 22px;
+}
+
+.personal-cv-section h2 {
+    margin: 0 0 9px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #d0c7bc;
+    color: #8f1610;
+    font: 700 .78rem/1.4 var(--xu-sans, system-ui, sans-serif);
+    letter-spacing: .075em;
+    text-transform: uppercase;
+}
+
+.personal-cv-entry + .personal-cv-entry {
+    margin-top: 9px;
+}
+
+.personal-cv-entry-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1px 10px;
+}
+
+.personal-cv-entry h3 {
+    margin: 0;
+    color: #24211e;
+    font: 650 .96rem/1.45 var(--xu-sans, system-ui, sans-serif);
+    letter-spacing: 0;
+}
+
+.personal-cv-section p {
+    margin: 0;
+    color: #24211e;
+    font-size: .88rem;
+    line-height: 1.55;
+}
+
+.personal-cv-section .personal-cv-detail,
+.personal-cv-entry-title p {
+    color: var(--xu-paper-muted, #56514b);
+}
+
+.personal-cv-entry-title p {
+    font-size: .8rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.personal-contact-header {
+    margin-bottom: clamp(26px, 5vw, 56px);
+}
+
+.personal-contact-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "email social";
+    align-items: start;
+    gap: 14px clamp(28px, 7vw, 90px);
+}
+
+.personal-contact-layout.has-inquiry {
+    grid-template-areas: "email inquiry" "social inquiry";
+    grid-template-rows: auto 1fr;
+}
+
+.personal-contact-email {
+    grid-area: email;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 0 24px;
+    border-top: 1px solid var(--xu-line, #393631);
+}
+
+.personal-contact-email .personal-contact-address {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: 11px;
+    color: var(--xu-paper, #f4f0e9);
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: .22em;
+    overflow-wrap: anywhere;
+}
+
+.personal-contact-email .mail-status:empty {
+    display: block;
+    margin: 0;
+}
+
+.personal-contact-email .mail-status:not(:empty) {
+    margin-top: 12px;
+}
+
+.personal-socials {
+    grid-area: social;
+}
+
+.personal-socials ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.personal-socials a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    padding-block: 9px;
+    border-top: 1px solid var(--xu-line, #393631);
+    color: var(--xu-paper, #f4f0e9);
+    font-size: .9rem;
+    text-decoration: none;
+}
+
+.personal-socials a:hover {
+    text-decoration: underline;
+    text-underline-offset: .22em;
+}
+
+.personal-socials a span {
+    color: var(--xu-muted, #b8b3ac);
+}
+
+.personal-contact-inquiry {
+    grid-area: inquiry;
+    padding: clamp(17px, 4vw, 36px);
+    border: 1px solid var(--xu-line, #393631);
+    background: var(--xu-charcoal, #1c1b1a);
+}
+
+.personal-contact-inquiry h2 {
+    margin: 0 0 17px;
+    font: 400 clamp(1.9rem, 5vw, 2.8rem)/1 var(--xu-serif, Georgia, serif);
+}
+
+.personal-contact-inquiry :is(input, textarea, select) {
+    color: var(--xu-paper, #f4f0e9);
+    background: var(--xu-ink, #101010);
+    border-color: #716b65;
+    color-scheme: dark;
+}
+
+.personal-admin-access {
+    margin: 28px 0 0;
+}
+
+.personal-admin-access a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--xu-muted, #b8b3ac);
+    font-size: .76rem;
+    text-decoration: underline;
+    text-underline-offset: .22em;
+}
+
+.personal-media-header .personal-title {
+    margin-bottom: 13px;
+}
+
+.personal-media .media-categories {
+    width: 100%;
+    gap: 0;
+    margin-top: clamp(20px, 4vw, 40px);
+    border-bottom: 1px solid var(--xu-line, #393631);
+}
+
+.personal-media .media-categories a {
+    min-width: 0;
+    min-height: 48px;
+    padding: 9px 4px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--xu-muted, #b8b3ac);
+    font-weight: 650;
+    white-space: normal;
+}
+
+.personal-media .media-categories a:hover {
+    background: var(--xu-charcoal, #1c1b1a);
+    color: var(--xu-paper, #f4f0e9);
+}
+
+.personal-media .media-categories a:is([aria-selected="true"], [aria-current="true"]) {
+    border-bottom-color: var(--xu-red, #e10600);
+    background: transparent;
+    color: var(--xu-paper, #f4f0e9);
+}
+
+.personal-media .media-category {
+    padding-top: clamp(18px, 3vw, 35px);
+}
+
+.personal-photo-layout,
+.personal-video-layout,
+.personal-published-layout {
+    display: grid;
+    align-items: start;
+    gap: clamp(18px, 4vw, 44px);
+}
+
+.personal-photo-layout,
+.personal-video-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.personal-photo-layout > :first-child,
+.personal-video-layout > :first-child {
+    grid-column: 1 / -1;
+}
+
+.personal-photo-layout > :only-child {
+    width: min(100%, 820px);
+    justify-self: center;
+}
+
+.personal-media .personal-photo .media-link {
+    display: grid;
+    width: 100%;
+    place-items: center;
+    aspect-ratio: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: var(--xu-charcoal, #1c1b1a);
+}
+
+.personal-photo .media-link picture {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.personal-photo .media-link img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: clamp(370px, 67svh, 680px);
+    margin: auto;
+    padding: 0;
+    aspect-ratio: auto;
+    background: transparent;
+    border-radius: 0;
+    object-fit: contain;
+}
+
+.personal-video-stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--xu-charcoal, #1c1b1a);
+}
+
+.personal-video-stage > :is(img, iframe, .personal-video-activation) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.personal-video-stage img {
+    object-fit: contain;
+}
+
+.personal-video-stage > .personal-video-activation {
+    display: grid;
+    place-items: center;
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.personal-video-stage > [hidden] {
+    display: none;
+}
+
+.personal-video-stage .personal-video-activation::before,
+.personal-video-stage .personal-video-activation::after {
+    grid-area: 1 / 1;
+    content: "";
+}
+
+.personal-video-stage .personal-video-activation::before {
+    width: clamp(48px, 6vw, 72px);
+    aspect-ratio: 1;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background: #101010e6;
+}
+
+.personal-video-stage .personal-video-activation::after {
+    margin-left: 4px;
+    border-block: 8px solid transparent;
+    border-left: 12px solid #fff;
+}
+
+.personal-video-stage .personal-video-activation:hover::before {
+    background: #b81c16;
+}
+
+.personal-video-stage .personal-video-activation:focus-visible {
+    outline-offset: -4px;
+}
+
+.personal-video-stop {
+    margin-top: 8px;
+}
+
+.personal-video:first-child {
+    width: min(100%, 1000px);
+    justify-self: center;
+}
+
+.personal-media :is(.personal-photo, .personal-video) h3 {
+    margin: 0;
+}
+
+.personal-media :is(.personal-photo, .personal-video, .published-post) h3 a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 44px;
+    padding-block: 10px;
+    border-bottom: 1px solid var(--xu-line, #393631);
+    color: var(--xu-paper, #f4f0e9);
+    font: 500 .92rem/1.4 var(--xu-sans, system-ui, sans-serif);
+    text-decoration: none;
+}
+
+.personal-media :is(.personal-photo, .personal-video, .published-post) h3 a:hover {
+    color: var(--xu-paper, #f4f0e9);
+    text-decoration: underline;
+    text-underline-offset: .22em;
+}
+
+.personal-published-layout {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 380px));
+}
+
+body .personal-published-layout .published-post,
+body .personal-published-layout .published-post:hover {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.personal-published-layout .published-post::before {
+    display: none;
+}
+
+.personal-published-layout .published-post .media-content {
+    padding: 0;
+}
+
+.personal-published-layout .gallery-post-cover {
+    background: var(--xu-charcoal, #1c1b1a);
+}
+
+body .personal-media-detail .media-detail {
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.personal-media-detail .media-detail-info {
+    max-width: 68ch;
+    margin-inline: auto;
+    padding: clamp(20px, 4vw, 42px) 0 0;
+    text-align: left;
+}
+
+.personal-media-detail .media-detail-info h1 {
+    margin: 0 0 16px;
+    font: 400 clamp(2.5rem, 7vw, 4.8rem)/.98 var(--xu-serif, Georgia, serif);
+}
+
+.personal-media-detail .media-detail-info .project-buttons {
+    justify-content: flex-start;
+}
+
+.personal-media-detail .photograph-detail-frame {
+    min-height: 0;
+    background: var(--xu-charcoal, #1c1b1a);
+}
+
+@media (max-width: 780px) {
+    .personal-contact-layout,
+    .personal-contact-layout.has-inquiry {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "email" "social";
+        grid-template-rows: auto;
+    }
+
+    .personal-contact-layout.has-inquiry {
+        grid-template-areas: "email" "social" "inquiry";
+    }
+}
+
+@media (max-width: 720px) {
+    .personal-about-layout,
+    .personal-cv-layout,
+    .personal-photo-layout,
+    .personal-video-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .personal-about-layout {
+        gap: 28px;
+    }
+
+    .personal-cv-layout {
+        gap: 22px;
+    }
+
+    .personal-title {
+        font-size: clamp(3.55rem, 12vw, 6rem);
+    }
+}
+
+@media print {
+    .personal-page.personal-cv {
+        padding: 0;
+        color: #111;
+    }
+
+    .personal-cv .personal-cv-container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+    }
+
+    .personal-cv .personal-cv-header {
+        padding-bottom: 9pt;
+        border-color: #999;
+        break-inside: avoid;
+    }
+
+    .personal-cv .personal-title {
+        font-size: 25pt;
+    }
+
+    .personal-cv .personal-cv-layout {
+        grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+        gap: 18pt;
+        padding-top: 10pt;
+    }
+
+    .personal-cv .personal-cv-controls {
+        display: none;
+    }
+
+    .personal-cv .personal-cv-section + .personal-cv-section {
+        margin-top: 8pt;
+    }
+
+    .personal-cv .personal-cv-section {
+        break-inside: avoid;
+    }
+
+    .personal-cv .personal-cv-links a {
+        min-height: 0;
+    }
+
+    .personal-cv .personal-cv-entry + .personal-cv-entry {
+        margin-top: 4pt;
+    }
+
+    .personal-cv .personal-cv-links,
+    .personal-cv .personal-cv-section p {
+        font-size: 9pt;
+    }
+}
