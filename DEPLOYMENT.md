@@ -1,5 +1,11 @@
 # Deploying XuVerse without losing content
 
+## Editorial redesign verification
+
+Local acceptance used the existing XAMPP Apache and MySQL installation. `scripts/editorial-qa.cjs` checks the public routes and Media modes at 14 widths from 320 to 3440 px. It also checks internal links, missing routes, keyboard navigation, collection search, video activation, and downloads of the résumé and all four writing PDFs. The script saves screenshots and a JSON report in ignored `tmp/editorial-qa/<hostname>/`.
+
+Use `XUVERSE_URL` to select a host and `XUVERSE_EXPECTED_REVISION` to check its release marker against the deployed commit. Run the browser suite after the FTPS pointer switches. The deployment uses the existing free host and shared PHP dependencies.
+
 ## October handoff acceptance — 2026-10-09 (Korea time)
 
 The approved pages, three complete essays, independent research paper, credited ANCHOR cards and selected videos use canonical JSON/Markdown under `content/`. No database migration or SQL import was needed. Historical records and runtime data are retained; public editorial CMS fields explain the single source and are read-only.

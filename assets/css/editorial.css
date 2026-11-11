@@ -1,10 +1,10 @@
 :root {
-    --xu-ink: #101010;
-    --xu-charcoal: #1c1b1a;
-    --xu-paper: #f4f0e9;
-    --xu-red: #e10600;
+    --xu-ink: #0a0a0b;
+    --xu-charcoal: #151517;
+    --xu-paper: #f2efe9;
+    --xu-red: #e53832;
     --xu-red-ink: #af211b;
-    --xu-pink: #f49aaf;
+    --xu-pink: #ff4f91;
     --xu-muted: #b8b3ac;
     --xu-paper-muted: #56514b;
     --xu-line: #393631;
@@ -304,6 +304,13 @@ body.xu-public .navbar .nav-links > .nav-action:hover { border-color: var(--xu-p
     background: #181716;
 }
 
+.xu-public .site-footer.xu-footer-contact {
+    background: #631b1a;
+    border-color: #93413d;
+}
+
+.xu-footer-contact .xu-footer-bottom { border-top-color: #9a534e; }
+.xu-footer-contact :is(.xu-footer-socials a, .xu-footer-bottom p) { color: #eee1db; }
 .xu-footer-inner { width: min(var(--xu-width), 100% - clamp(34px, 9vw, 114px)); margin-inline: auto; padding-block: clamp(28px, 4vw, 54px) 18px; }
 .xu-footer-inner.xu-footer-compact { padding-block: 12px; }
 .xu-footer-compact .xu-footer-bottom { border-top: 0; padding-top: 0; }

@@ -22,7 +22,7 @@ $footerSocials = [
     <div class="container footer-core"><p class="footer-copy">&copy; <?= gmdate('Y') ?> <?= e(xuverse_content('site')['site_title']) ?></p></div>
 </footer>
 <?php else: ?>
-<footer class="site-footer">
+<footer class="site-footer<?= $showFooterContact ? ' xu-footer-contact' : '' ?>">
     <div class="xu-footer-inner<?= $showFooterContact ? '' : ' xu-footer-compact' ?>">
         <?php if ($showFooterContact): ?>
         <div class="xu-footer-top">

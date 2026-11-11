@@ -104,7 +104,7 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 
 <meta name="robots" content="<?= e($robots) ?>">
 <meta name="xuverse-revision" content="<?= e(xuverse_checkout_revision()) ?>">
-<meta name="theme-color" content="#101010">
+<meta name="theme-color" content="#0a0a0b">
 <link rel="canonical" href="<?= e($canonicalUrl) ?>">
 
 <meta property="og:type" content="<?= e($pageType) ?>">
