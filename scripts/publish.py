@@ -17,7 +17,7 @@ def run(*args, capture=False):
 def allowed(name):
     p=PurePosixPath(name)
     if '__pycache__' in p.parts or p.suffix in {'.pyc','.zip','.sql','.log','.bak','.pem','.key'}: return False
-    return (p.parts[0] in {'admin','includes','assets','content','scripts'} or name in {'.htaccess','.gitignore','.gitattributes','README.md','DEPLOYMENT.md','PUBLISH.md','CONTENT-GUIDE.md','composer.json','composer.lock'} or (len(p.parts)==1 and p.suffix=='.php' and not name.startswith('config.') and 'backup' not in name))
+    return (p.parts[0] in {'admin','includes','assets','content','scripts'} or name in {'.htaccess','.gitignore','.gitattributes','README.md','DEPLOYMENT.md','PUBLISH.md','CONTENT-GUIDE.md','REFINEMENT-CHECKLIST.md','composer.json','composer.lock'} or (len(p.parts)==1 and p.suffix=='.php' and not name.startswith('config.') and 'backup' not in name))
 
 def release_files(revision):
     names=run('git','ls-tree','-r','--name-only',revision,capture=True).splitlines()
@@ -210,7 +210,8 @@ def main():
         assert_publishable(lambda name: (ROOT/name).read_bytes(),source_exists)
         assert_workspace_unchanged(validated_source,'during validation')
         changed=run('git','status','--porcelain','--untracked-files=all',capture=True).splitlines()
-        names=[line[3:] for line in changed if allowed(line[3:])]
+        # A staged deletion has no matching worktree or index path for git add.
+        names=[line[3:] for line in changed if line[:2] != 'D ' and allowed(line[3:])]
         for name in names: run('git','add','--',name)
         assert_workspace_unchanged(validated_source,'during staging')
         assert_index_matches_workspace()

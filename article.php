@@ -33,8 +33,9 @@ if (!empty($article['published_at'])) {
 }
 xuverse_public_start($article['title'], $article['summary'], $path);
 ?>
+<div class="xw-shell xu-tone-light">
 <article class="xw-page xw-container xw-article-page<?= $isResearch ? ' xw-article-research' : '' ?>">
-    <header class="xw-reading-head">
+    <header class="xw-reading-head reveal">
         <?php if ($category): ?><p class="xw-kicker"><?= e($category) ?></p><?php endif; ?>
         <h1><?= e($article['title']) ?></h1>
         <?php if (!empty($article['subtitle'])): ?>
@@ -52,7 +53,7 @@ xuverse_public_start($article['title'], $article['summary'], $path);
     </header>
 
     <?php if ($cover): ?>
-    <figure class="xw-article-cover">
+    <figure class="xw-article-cover xu-image-reveal reveal">
         <img src="<?= e(xuverse_asset($cover)) ?>" <?= xuverse_image_attributes($cover) ?> <?= xuverse_responsive_image_attributes($cover, '(max-width: 1015px) 88vw, 928px') ?> alt="<?= e($article['image_alt'] ?? $article['cover_alt'] ?? '') ?>" decoding="async">
     </figure>
     <?php endif; ?>
@@ -96,7 +97,7 @@ xuverse_public_start($article['title'], $article['summary'], $path);
         <?php endif; ?>
 
         <?php $related = array_filter(xuverse_published('articles'), static fn($item) => $item['slug'] !== $article['slug']); ?>
-        <footer class="xw-reading-footer">
+        <footer class="xw-reading-footer reveal">
             <?php if ($related): ?>
             <h2>Related reading</h2>
             <ul>
@@ -105,8 +106,9 @@ xuverse_public_start($article['title'], $article['summary'], $path);
                 <?php endforeach; ?>
             </ul>
             <?php endif; ?>
-            <a class="xw-return" href="<?= e(xuverse_url('articles')) ?>"><span aria-hidden="true">←</span> All articles</a>
+            <a class="xw-return" href="<?= e(xuverse_url('articles')) ?>">All articles</a>
         </footer>
     </div>
 </article>
+</div>
 <?php include __DIR__ . '/includes/footer.php'; ?>

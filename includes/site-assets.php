@@ -3,7 +3,7 @@
 (static function ($admin) {
     $styles = ['media-gallery.css', 'rounded.css', 'refinements.css'];
     if (!$admin) {
-        array_push($styles, 'editorial.css', 'editorial-work.css', 'editorial-personal.css');
+        array_push($styles, 'editorial.css', 'editorial-work.css', 'editorial-pages.css', 'editorial-resume.css');
     }
     $assetUrl = static function ($path) {
         $separator = defined('XUVERSE_RELEASE_ID') && XUVERSE_RELEASE_ID ? '&' : '?';

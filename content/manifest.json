@@ -1,12 +1,12 @@
 {
-    "content_sha256": "83d1306931e3d248d0de0ea1b3087fbfb471528334077c5cd0a83185178da609",
+    "content_sha256": "68225c32233915323c410634d786120194f6da3d110f51ea76e5d95b6f04e6a4",
     "files": {
         "content/articles.json": "23253654e8d01f4e061ad35ee6712480d8e14c17ee0d5526f9a7c6e448247f8c",
-        "content/copy.json": "c3a618d87ef863adff914c5860a471ca5c0f11b261d5029eb0a28935f5ab90e0",
+        "content/copy.json": "5372d21d46f6174971bd25d646101ca8a676b3d59d088f5ee7408da942f2e5b8",
         "content/links.json": "4ee74f11040be2f34eccb4ae6a174171e1eaee1202d8d9eb47005da67514cc0b",
-        "content/media.json": "3c0ce539cb66957049a6b96633d425dbc8f670465210dbabadb527aa95ec58aa",
+        "content/media.json": "24eddc486aa669676fb48cbf47586e077f1776775a75dc6686e5214d716c8dde",
         "content/profile.json": "426a12cfc628aeb88c431dd7409fbc0087840db0f948d8f550ecfe1b82349e16",
-        "content/projects.json": "5eba683562595606350d7410416eeef846757117d16cc9b866df171182e08eab",
+        "content/projects.json": "3972709643c8171e08d4b070f53320ca212c4a267bd4cf096cfba2349fb3a20d",
         "content/published.json": "e9bdd1dde48b7c26fe94c14d3145cce2a710765a3466ffd48af19c206300a785",
         "content/site.json": "6422db2089eb521815fe89348afdc5b07ac4794a06e6bd50f58b6c2b56b7b9e1",
         "content/skills.json": "1d98ec347ddcfcaa35a642eada13d41184c1e4616a1b458f3281fc9ed33ed4e2",
@@ -17,20 +17,20 @@
     },
     "writing": {
         "kage": {
-            "source_sha256": "313fb242829058d31bacecc2a79994c7be1e46404fc998b025d1843b1e16e317",
-            "pdf_sha256": "c1e284fcb663500c2f3b331496fb7dd80d6b4f88c7812a9821deee24c09c044c"
+            "source_sha256": "8fb0570e31394a5591a6b6c9031c854bfe744e568a3a3ce1fae60b9393d3ac7e",
+            "pdf_sha256": "75c1c4e4a6a48dd5be50a21d4b6aa6d71b5fc40c4f2e298778800eb20f79929e"
         },
         "before-the-next-cut": {
-            "source_sha256": "10dd76fd1888a6c231aa6868a7fde86060fad19ecd5893e7e539636ddd6229fc",
-            "pdf_sha256": "0abf2f6594ed44b902df8debf088780ef8106412017f700218dac9c18c067ec4"
+            "source_sha256": "d85f7ae2c08cee6836155096f9968542e5df2edf43058b6fa91060298b87e655",
+            "pdf_sha256": "9aaefe17d57e772071844c6f493bf4a4ae4ec931088f045cdeaf69bb5f2c2822"
         },
         "what-the-frame-holds": {
-            "source_sha256": "95688edc2bfc1e8dc1c5d40993ae0c5ea326c82a6793be0907a13f6252a89504",
-            "pdf_sha256": "c5a8ddcad33106aac5fe8ac7e555254caddcd7cdca7ab5c24f6bf4710e7c6eff"
+            "source_sha256": "6ceac361a29693ae193cae349676d70a28425f5b9d91f151621d5a54c97765a7",
+            "pdf_sha256": "d25507a95e9ea1a7543dd6a5d098527680b57562996ac87302045e900bf7a614"
         },
         "same-moment-different-meaning": {
-            "source_sha256": "4aaa5d3aa7ab28bf571987facd483db0c06d8f852242ea5290c391bb344d35c8",
-            "pdf_sha256": "9a311310374d35ab7aba27c3d67f90c1d93bbe0b32983119bfaa6920c31c7857"
+            "source_sha256": "4ac88a98ff4048500538f871c00f997a016d941ee87430759541d0d1faaa5f3a",
+            "pdf_sha256": "61bbd3d8bcdc2b4ef05af0fdf7a929bb78731789561a76227e9bdc4d13c7c453"
         }
     }
 }

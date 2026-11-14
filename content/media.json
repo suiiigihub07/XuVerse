@@ -5,7 +5,7 @@
         "url": "https://www.youtube.com/watch?v=ItV0DbEebzg",
         "poster": "assets/images/public/video-global-college-2026.webp",
         "summary": "Selected university promotional media work.",
-        "credit_note": "Selected university promotional media work; individual production credits are not confirmed.",
+        "credit_note": "Individual production credits are not confirmed.",
         "slug": "global-college-2026",
         "legacy_ids": [
             1
@@ -16,7 +16,7 @@
         "type": "video",
         "url": "https://www.youtube.com/watch?v=xCaKYaSjlq0",
         "poster": "assets/images/public/video-promotional-competition.webp",
-        "summary": "Selected competition video associated with the user-reported award.",
+        "summary": "University promotional competition entry.",
         "slug": "promotional-competition",
         "legacy_ids": [
             2

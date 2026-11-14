@@ -1,110 +1,158 @@
-# XuVerse refinement checklist
+# XuVerse final editorial correction
 
-This is the implementation and observation record for the supplied 32-section brief and subsequent corrections. Earlier geometry checks missed real density and wrapping problems; the latest localhost corrections are documented below. Passing checks do not constitute the owner's visual approval. The existing PHP application and canonical content are preserved, and requirement 30 covers localhost/GitHub synchronization.
+This audit maps all 112 sections of the latest brief to the existing site. It supersedes the earlier XS and red-dominant directions. Backup commit: `ac1d721` (`codex/backup-november-editorial`).
 
-| # | Status | Requirement | Implementation and verification |
-| --- | --- | --- | --- |
-| 1 | Verified locally | Overall goal | Kept the black/red identity, existing fonts, content collections, PHP/MySQL application and navigation. Preserved the original red atmosphere and subtle motion while reducing oversized shared layouts. Reviewed all seven principal pages and current detail pages. |
-| 2 | Verified locally | Smaller search | Both project and article searches use a maximum 520px utility with a label/count row, a 44px input and 44px clear button. Removed the large enclosing panel. Added a 16px decorative search icon and restrained red focus feedback. Searches now include existing canonical technology and tag metadata, not just the visible card text. Tested metadata matches, empty states, counts, clearing and narrow layouts. There is no separate global search page in this application. |
-| 3 | Verified locally | Quieter background | Removed canvas particles, contour paths and grid/diagonal noise. Preserved the original red gradients, slow atmospheric drift, hero breathing, portrait light and normal progress feedback. The XS lettering stays centered while short red highlights travel around its edges; atmospheric and edge motion share a pause control and respect reduced-motion preferences. |
-| 4 | Verified locally | Replace vertical line with XS | Added a custom vector composition: outlined chamfered X, curved foreground S and a small negative-space cut separating them. Both geometric centers are (320, 320). X cap height is 560 units; S is 386.4 units, exactly 69%. No reliance on font baselines or downloaded fonts. |
-| 5 | Verified locally | Navbar positioning | Desktop top inset 12px, mobile 8px, side insets 10–24px. Visible rounded corners remain inset when sticky. The wordmark and its smaller name are vertically centered inside their 44px target. Inner navigation aligns with the page gutter. No compensating blank section below it. Checked collisions and mobile menu behavior. |
-| 6 | Verified locally | Global spacing audit | Shared section padding is 28–44px; landing padding 28–52px. Removed viewport minimums from the page shell, all detail-section types, sign-in and 404. Audited grids, cards, About, Connect, search, footer and resume rather than just the named sections. |
-| 7 | Verified locally | Compact page headers | Page heroes use 20px padding on mobile and 24px on larger screens, plus content height. Titles use a 2–3rem responsive scale and compact label/description spacing. Resume identity is grouped with its summary and actions. |
-| 8 | Verified locally | Remove decorative arrows and dashes | Removed decorative arrow text and, following the latest correction, the short action-link underlines, navbar underline, focus-text dash and card hover bar. Color changes, focus borders and a restrained 2px card lift provide feedback. Semantic prose links and functional image-navigation arrows remain. |
-| 9 | Verified locally | Selected Works on one line | The landing section now actually reads Selected Works. Its heading uses the full available container, without the old character-width constraint. Selected Works, Published Work and Let's Connect passed single-line checks down to 320px. |
-| 10 | Verified locally | Heading audit | Tightened title scale, line-height and tracking; removed narrow layout constraints on short section headings. Retained natural wrapping for long publication/project titles. Corrected the oversized About eyebrow and shortened the resume action to View resume. |
-| 11 | Verified locally | Three primary Media categories | Photographs, Videos, Published Work are equal sibling sections and equal-width primary controls, in precisely that order. All three controls share one row even at 320px; Photographs does not split within the word. Published Work is not nested inside Photographs. |
-| 12 | Verified locally | Media behavior | Photographs is selected on a plain Media visit. Progressive tabs support direct hashes, item bookmarks, reload, Back/Forward, Left/Right/Home/End keys and an announced selected state. Without JavaScript the links scroll to three readable sections. Inactive videos stop and do not keep playing out of view. |
-| 13 | Verified locally | Individual media destinations | Photograph covers open the existing lightbox and detail links reach the photograph page. Videos retain embeds and detail/YouTube links. Published covers open galleries; titles reach their existing detail route. Internal destinations were checked. |
-| 14 | Verified locally | Published Work extensibility | Retained the canonical published collection and its existing image, video and article-body support. Text-only covers no longer inherit an oversized portrait frame. Published details return to Published Work; legacy /photos/<slug> URLs remain supported. No invented publications were added. |
-| 15 | Verified locally | Footer | Preserved brand/social/copyright positions and order. Removed the minimum-height track, large outer gap and unnecessary height; kept its dark red/black palette consistent. Set 20–22px vertical padding and retained 44px social targets. |
-| 16 | Verified locally | Dedicated resume refinement | Removed the repeated opening headline on screen and in the PDF. Desktop has two independently spaced columns: Education/Work and Leadership/Achievements, followed by full-width Projects and Skills. Mobile and print keep a single reading flow. The download was rendered and verified as one readable A4 page. |
-| 17 | Verified locally | Education | Shows Dong-Eui University; Busan, South Korea; Undergraduate — Intelligence Computing; September 2024 – 2028 (expected); 5th semester; Software development and computing. Kept the existing expected-graduation qualifier. No GPA, minor, certificate, scholarship or additional claim was added. |
-| 18 | Verified locally | Resume hierarchy | Education, Leadership & Creative Roles, Experience / Work, Selected Achievements and Skills / Areas of Work are distinct. DAAM, Global College, ANCHOR and Pungwonjang remain. Explicit role categories replace fragile grouping by array position; invalid categories are rejected by content validation. |
-| 19 | Verified locally | Resume spacing | Titles, organizations and dates are one entry group. Related metadata uses 2–4px internal spacing with 16px between roles and 24px between sections. No large card padding or viewport-height resume sections. Removed the repeated, nonspecific focus block from the CV presentation. |
-| 20 | Verified locally | Responsive resume | Checked dates, organization names, long role headings, education, locations, skills, actions and download at every requested width. On tablet/mobile the main entries precede skills and stack. Download and print behavior pass. |
-| 21 | Verified locally | Mobile portraits | Home, About and resume portraits are horizontally centered within their content containers. Their frames use 17–18% rounding. Automated center-delta assertions cover mobile widths. |
-| 22 | Verified locally | Content density | Matching card title/preview tracks and equal heights within rows preserve consistency without stretching every mobile row. Selected Works uses three compact text previews; project screenshots remain in Projects and detail pages. The console project's cover uses its existing C++ technology label rather than a fake screenshot. Preview excerpts remain linked to full content. Redundant top-level Home strips are removed; detail return navigation remains. |
-| 23 | Verified locally | Alignment audit | Shared page gutters align navbar contents, heroes, cards and footer. Narrow reading containers are deliberate. Reviewed buttons, search label/count rows, media controls, gallery toolbars, resume metadata and image centers. Tests examine actual element bounds, not just document overflow hidden by CSS. |
-| 24 | Verified locally | Responsive testing | Tested 320, 360, 390, 430, 768, 820, 1024, 1280, 1366, 1440 and 1920px. Also resized continuously in 40px steps across the range; visually inspected representative 550, 900, 1100 and 1300px intermediate layouts. Screenshots at 390, 820 and 1440px cover the major and detail routes. |
-| 25 | Verified locally | Responsive XS | Signature size is bounded by viewport width and height. Checked that the SVG stays uncropped, the glyph centers match within 0.1px, and the cap-height ratio remains 0.69. Lower opacity is used on mobile. The same geometry survives reduced-motion mode and disabled JavaScript. The site has a dark presentation; no new theme system was introduced. |
-| 26 | Verified locally | Animation pass | Preserved red atmospheric drift, hero breathing, portrait light and coordinated reveal easing. Added slow red edge highlights following the stationary X and S contours, with actual progression and pause assertions. Kept short category fades, navigation and red hover feedback; removed only distracting background geometry. Reduced motion disables animations/transitions and smooth scrolling; the keyboard skip link remains hidden until focused. Tested normal reveals and a live preference change. |
-| 27 | Verified locally | No over-engineering | No new application dependency, framework, route architecture or repository. Used PHP partials, the existing content model, CSS, native SVG, native browser history and small JavaScript. Browser QA uses the already available Playwright runtime, not a new production dependency. |
-| 28 | Verified locally | Preserve good work | Kept the original routes, assets, credits, social order, article bodies, project records, database/admin systems and public site character. Changes target the requested presentation, category behavior and resume hierarchy. |
-| 29 | Verified locally | Data integrity | Existing names, organizations, achievements, skill labels, publications and social URLs are retained. Education uses only the user's supplied facts. Award uncertainty remains visible. No fake projects or media were added. Canonical content/PDF manifest checks pass. |
-| 30 | Verified and pushed | Local + GitHub synchronization | Local XAMPP implementation and browser checks completed. Commit/push verification is recorded below. Unrelated .presentation-build/ and presentation-output/ folders remain untouched and are excluded from the commit. |
-| 31 | Verified locally | Final QA | Reviewed Home, Projects, Articles, Media, About, Resume, Connect, both search utilities, current project/article/photo/video/published detail pages, sign-in and the 404 layout. Checked navigation, hashes/history, keyboard/focus, galleries, PDF download, print, normal/reduced motion, no-JS fallback and first-party links. |
-| 32 | Verified locally | Final design standard | Final visual review emphasizes a quiet custom typographic signature, smaller utilities, compact headers/cards/footer and a structured CV. Subjective appearance is documented by local screenshots rather than treated as an automated guarantee. |
+**Source** identifies what the implementation does. **Browser** identifies a repeatable check or a screenshot used to assess the result; a named check is not a claim that the final release passed it. **Visual** is a judgment about design quality, not an automated guarantee. **Pending** means the final run or deployment evidence belongs in the release record at the bottom.
 
-## Screenshot-driven corrections
+## Identity, color, type and hero
 
-### Latest localhost corrections against the renewed brief
+| # | Brief | Implementation and evidence |
+| --- | --- | --- |
+| 1 | Correct site-wide design problems | Shared frame, type, surfaces, grain and motion; rebuilt Home, Projects and Résumé and refined the other routes. Browser: required page and detail review. |
+| 2 | Keep the XuVerse brand | Existing name, portrait, fonts, PHP application and destinations remain. Visual: editorial treatment and recognizable identity. |
+| 3 | Remove XS completely | Removed the SVG partial, Home include, desktop/mobile styling and related effects. Source: no XS component is served; browser checks the live DOM. |
+| 4 | Add subtle moving grain | A tiny repeated monochrome raster is painted by the public body pseudo-element and drifts slowly. Browser: normal motion and reduced-motion checks. |
+| 5 | Use white, black, pink and deep red | `editorial.css` defines warm paper, near-black, pink accents and a true red action color. Browser: computed tokens and reviewed page surfaces. |
+| 6 | No brown | Public surfaces use the shared neutral paper/black palette; footer and primary actions use true red. Visual: check screens for residual muddy fills. |
+| 7 | Set color priorities | Paper carries reading, black frames media and identity, pink marks interaction, and red emphasizes actions and the footer. Visual: review the page sequence. |
+| 8 | Retain typography; fix scale | Instrument Serif and Inter remain, with separate scales for headings, body and labels. Source: central tokens and component styles. |
+| 9 | Reduce giant type | Hero, project/video titles, personal page titles and footer heading have bounded styles. Browser: longest titles at named widths. |
+| 10 | Use a responsive type system | Shared `clamp()` tokens and small component adjustments separate display, section, body and label roles. Browser: width and enlarged-text checks. |
+| 11 | Rebuild first screen | Home leads with identity, Busan, a brief statement, portrait and two actions. Visual: first screen without monogram or oversized competition. |
+| 12 | Make hero editorial | Copy and portrait sit side by side at desktop; mobile stacks them; the paragraph stays out of the visible hero. Source: `index.php` and `editorial-pages.css`. |
+| 13 | Preserve rounded portrait | The original white-background portrait uses a clean crop and moderate rounded frame. Browser and visual: desktop and mobile Home. |
+| 14 | Balance portrait size | The Home portrait is width-bounded and aligned with the copy instead of tied to viewport height. Visual: desktop, tablet and mobile hero. |
 
-Independent visual review found gaps the earlier checklist missed and verified the fixes on fresh screenshots:
+## Motion, interactions and navigation
 
-- Featured cards: 472→317px on desktop and 442→308px on mobile; mobile Home shortened by about 650px without deleting sections.
-- Project covers, title/preview tracks and actions now align. Empty screenshot slots use existing technology labels; there are no fabricated project images or facts.
-- Removed the 42–46px standalone Home strip from collection pages. Media does not repeat a large selected-category heading directly below its tabs; accessible labels and no-JavaScript section headings remain.
-- Media tabs share equal widths on one row at 320px, with unbroken Photographs text. Accepted legacy CMS card series now appear under Published Work and return there from their detail pages.
-- Resume header: 254→219px. Independent column stacks and subsequent sections have 24px gaps. The duplicated opening phrase is removed from the page and PDF. All authoritative roles and education facts remain.
-- All six footer icons remain on one row at 320px; footer height reduced from 251→203px. Short pages place the footer at the viewport bottom.
-- `tmp/refinement-qa/brief-density-corrections.json`: all 21 routes, 540 layout measurements and interactions passed. `brief-final-polish.json` checks the narrow layouts and added density/tab/footer assertions. The fresh resume PDF remains one A4 page; `brief-resume-render.png` was visually reviewed.
+| # | Brief | Implementation and evidence |
+| --- | --- | --- |
+| 15 | Strengthen motion | Group reveals, image masks, hover accents and continuous grain use a shared visual rhythm. Visual: observe entry, scrolling and interactions. |
+| 16 | Reusable animation system | `.reveal`, `.xu-image-reveal`, staggered observer timing, reusable transitions and grain cover four motion families. No scroll interception. |
+| 17 | Animate meaningful groups | Home, work and reading groups, poster/gallery items, personal pages and footer opt into reveal; nav and interactive elements animate on state changes. |
+| 18 | Intentional hover | Links, navigation, preview media, social links, buttons and résumé entries have component-specific feedback plus independent keyboard focus. |
+| 19 | Project hover | A whole row is linked; preview zoom, title movement and a pink accent provide feedback. Browser: hover the project preview and check the destination. |
+| 20 | Remove decorative arrows | Removed arrows from public navigation, calls to action, project/article entries, media labels and footer. Previous/next gallery controls and play symbols remain functional. |
+| 21 | Clean buttons | Rectangular deep red primary controls and quiet secondary links; color, underline and modest lift distinguish interaction. Browser: CTA and focus/touch checks. |
+| 22 | Refine detached navbar | Existing nav stays inset and rounded, with compact contents. Browser: frame inset, wordmark alignment, menu and collisions. |
+| 23 | Nav hover | Pink underline and subtle surface/text changes provide feedback. Browser: focus and hover alongside the current-page indicator. |
 
-The user clarified that these comments concern localhost. The independently observed hosted-site revision is older; this pass does not claim to activate hosting.
+## Home, projects, articles and personal pages
 
-### Three-environment synchronization
+| # | Brief | Implementation and evidence |
+| --- | --- | --- |
+| 24 | Home structure | Hero → Selected Works → Writing & Research → Featured Media → About → shared Connect footer. Source: section order in `index.php`. |
+| 25 | Concise Selected Works | Two projects with real images use category, title and one short summary; a project lacking imagery stays on the Projects list. |
+| 26 | Home color rhythm | Black hero, light work/writing, dark media, a compact light About transition, and true-red footer. Visual: full-page Home. |
+| 27 | Editorial articles | White canvas, ruled entries, serif titles and sans metadata. Browser: Articles index and reading page; visual check for scale and link behavior. |
+| 28 | Distinguish featured writing | Featured research and secondary essays use separate title scales and short excerpts. Visual: Home writing section and Articles index. |
+| 29 | Coherent Projects | One editorial Projects template uses linked rows, with available media in a dedicated track. The text-only console project stays honest. |
+| 30 | Projects header | Reduced title hierarchy, short copy and separate search utility. Browser: computed type and search width; confirm against final CSS. |
+| 31 | Compact responsive project search | Desktop target is 300–360 px for the search group, mobile fits the available column. Browser: measure utility and complete search/clear flow. |
+| 32 | Project rows | Ruled rows group image and copy rather than oversized isolated cards; content stacks at narrow widths. Visual: Projects at desktop and mobile. |
+| 33 | Project detail | Title, available hero visual, short overview/reflection, limited facts and existing destination links. No gallery or screenshot is fabricated when none exists. |
+| 34 | Refine About | Existing split portrait, location and short first-person copy remain. Browser: desktop arrangement and centered mobile portrait. |
+| 35 | About type | The same editorial face is bounded for the personal page, subordinate to the layout. Visual: About at mobile, tablet and desktop. |
+| 36 | Brief Current focus | “Studying Intelligence Computing at Dong-Eui University.” replaces the longer public paragraph. Source: `content/copy.json`. |
+| 37 | Preserve Connect simplicity | Existing email, socials and configured inquiry behavior remain, with revised spacing, colors and interactions. |
+| 38 | Connect colors | Black canvas, light title/text, deep-red email action and a pink hover accent share the theme tokens. Visual: desktop and mobile. |
+| 39 | Social-link feedback | Social text shifts slightly and an accent underline grows for hover/focus; no arrows. Browser: links and visible states. |
+| 40 | True deep-red footer | Shared footer uses the same deep-red token, with warm white foreground and a light divider. Browser: computed footer color. |
+| 41 | Footer content | Connect heading, actual email, existing social links and copyright, with no extra description. Source: `includes/footer.php`. |
+| 42 | Footer type | Responsive serif heading and compact Contact variant avoid billboard sizing. Visual: footer wrapping and spacing at narrow widths. |
 
-The subsequent user instruction explicitly requests matching localhost, GitHub and FreeHosting. The actual open localhost tab was still displaying revision `b99c116`, even though the checkout had advanced to `ea9fb07`; reloading the user's tab confirmed the newer palette, card markup and running background animation. Verification must include the actual open browser, not only fresh automated sessions. The single-column navigation cards also no longer reserve an unused second title line.
+## Résumé, copy and media
 
-Use the existing Publish workflow for hosted activation and verify the rendered revision, canonical content and versioned assets afterward. The final private receipt records the actual activated revision and browser acceptance; a GitHub push alone is not hosting synchronization.
+| # | Brief | Implementation and evidence |
+| --- | --- | --- |
+| 43 | Rebuild Résumé | Full-width paper canvas and aligned ruled sections replace the inset white rectangle. Verified on local desktop and mobile renders. |
+| 44 | Remove Selected Recognition | Removed the section from HTML and Dompdf. Name and phrase checks were run against the generated PDF and browser print. |
+| 45 | Use real sections and roles | Intro, education, sole paid role under Work Experience, DAAM/Global College/ANCHOR under Leadership & Activities, Skills & Areas and Tools share source data. |
+| 46 | Editorial résumé composition | Left label rail and right reading area; sections stack on mobile. Thin rules and small accents replace cards. Visual: desktop/mobile and printed layout. |
+| 47 | Readable résumé type | Serif name, small sans labels, strong entry headings, lighter dates and legible details. Local contrast and actual rendering checked. |
+| 48 | Professional résumé hover | Fine-pointer hover adds pink rule/tint and a 3px title movement; reduced motion disables movement. Local interaction verified. |
+| 49 | Remove redundant public copy | Shortened About/current focus, visible Home introduction, project previews and selected media metadata; preserve article bodies and contextual credits. |
+| 50 | Eliminate gratuitous large type | Main public heading tiers set bounds rather than one size for every section. Browser: rendered headings and longest title checks. |
+| 51 | Avoid giant serif stacks | Long project and video titles are given usable widths and responsive scales. Visual: long titles at tablet and mobile, with natural wrapping. |
+| 52 | Global College 2026 balance | Home pairs a controlled title with the larger video preview. Browser: line count at requested widths; visual relationship to poster. |
+| 53 | Image/video-first Media | Photographs, Videos and Published Work lead the page; available posters and images precede captions. Browser: tabs, hashes and no-JS sections. |
+| 54 | Photograph hover | Large preview, slight zoom and restrained accent complement the concise title; image remains unobscured. Browser: thumbnail, photo detail and lightbox. |
+| 55 | Thumbnail-led video | Existing posters with play controls; player loads on activation and closes when hidden. Browser: keyboard activation, tab switching and stopping playback. |
+| 56 | Editorial Published Work | Open, ruled rows integrate image-led gallery/publication content without heavy card containers. Browser: gallery, direct item and return category. |
+| 57 | Grain across major pages | Public fixed-grain layer crosses dark, white, Résumé, article and collection surfaces. Screen blend makes it quieter on paper. |
+| 58 | Optional floating shapes | Intentionally omitted. Grain and grouped motion supply atmosphere without another decorative object. |
+| 59 | Restrained section transitions | Viewport-triggered fades and masked image entries replace theatrical transitions; reading paragraphs remain stable. |
+| 60 | Inline link hover | Interactive text uses pink/red-context underline growth and subtle movement where appropriate, keeping references recognizable. |
+| 61 | Limit cursor effects | No global custom pointer or following display. Appropriate links and gallery/video controls use native pointer feedback. |
+| 62 | Use white editorial sections | Light work, writing, reading and résumé surfaces contrast with the shared dark frame. Visual: screenshot palette. |
+| 63 | Keep selected black surfaces | Home hero, media routes and Connect use the dark tone, distinct from reading sections. |
+| 64 | Pink personality accents | Pink is reserved for labels, underline, focus and small active markers; no full pink section backgrounds. |
+| 65 | Deep red action emphasis | Per-theme primary buttons and footer carry true deep red; not every surface uses the accent. |
 
-The user screenshots exposed defects the earlier audit missed: a bottom-aligned wordmark and unequal cards. Both are corrected. Responsive QA now explicitly asserts logo vertical centering and equal card heights, and interaction QA measures changing XS stroke offset plus pause behavior. See `tmp/refinement-qa/alignment-edge-audit.json` for this run.
+## Responsive, accessibility and maintainability
 
-## Complete brief and follow-up audit
+| # | Brief | Implementation and evidence |
+| --- | --- | --- |
+| 66 | Mobile behavior | Portrait centers, editorial columns stack, and nav keeps insets; text and tabs can reflow. Browser: narrow layout and 200% text checks. |
+| 67 | Tablet pass | Intermediate breakpoints reflow major grids, reading blocks and navigation. Browser: 768, 820 and 1024 px, plus intermediate resize. |
+| 68 | Responsive typography | Shared title and secondary scales use `clamp()`; font roles, wrapping and line-height also scale. Browser: named widths and zoom. |
+| 69 | Required breakpoints and drag | Browser suite covers 320, 360, 390, 430, 768, 820, 1024, 1280, 1366, 1440 and 1920 px, with intermediate viewport sweeps. |
+| 70 | Content-based page height | Major public sections size to their contents; media ratios are deliberate. Browser: inspect empty/404 and short-page behavior separately. |
+| 71 | Consistent spacing | Shared spacing, gutters, controls and container sizes are defined in editorial tokens; local overrides reflect layout roles. |
+| 72 | Section breathing room | Shared responsive padding and ruled transitions replace oversized blank bands. Visual: full-page desktop/mobile comparisons. |
+| 73 | Three container widths | Main 1320 px, reading target 740 px and résumé 1120 px; gutters clamp on smaller viewports. Browser: computed widths and overflow. |
+| 74 | Subtle borders | Light editorial rules and low-alpha dark separators serve hierarchy; no ornamental heavy panel framing. |
+| 75 | Minimal shadows | The nav/frame and editorial surfaces avoid heavy or neon shadows. Visual: portrait, previews and footer. |
+| 76 | Moderate radius | Bounded frame/portrait radii and smaller controls; circles remain only where a functional play marker calls for one. |
+| 77 | Fewer isolated cards | Project and article collections use rows; open media and résumé layouts keep only useful containment. |
+| 78 | Article reading page | Serif title, metadata, intro, readable body, subheads and supporting sources/related reading without a sidebar. Browser: all article destinations. |
+| 79 | Article opening motion | Category/title reveal as a group; available cover masks in; no individual paragraph animations. |
+| 80 | Project opening motion | Heading and visual reveal, followed by the overview/facts and interactive preview treatments. |
+| 81 | Sticky nav when scrolling | Detached frame remains usable and keeps a stable color; subtle scrolled treatment is applied without hiding nav. Browser: compare above/below scroll threshold. |
+| 82 | Lightweight motion | CSS, one small grain raster and IntersectionObserver; no canvas or background video. Responsive media and click-to-load player avoid avoidable weight. |
+| 83 | Reduced motion | Nonessential reveals/transforms, animated grain and smooth scrolling stop in the reduced-motion media query. Browser: preference switches and stable content. |
+| 84 | Preserve accessibility | Visible focus, labels/alt, landmarks, semantic controls, native fallback, and keyboard tabs/gallery behavior. Browser: focus, text resizing, touch sizes and contrast. |
+| 85 | Remove dead presentation code | Removed the XS partial/effects and obsolete résumé selectors; replaced obsolete hover/arrow presentation. No active music playback code. |
+| 86 | Central design tokens | `editorial.css` owns palette, font, spacing, width, radii, timing and stacking roles consumed by page modules. |
+| 87 | Active nav accent | `aria-current` state uses a modest pink underline rather than a dominant pill. Browser: active route, sticky scroll and narrow menu. |
+| 88 | Minimal search utility | Plain field and Clear button, with accessible count and no-results state; no extra command UI was introduced. Browser: project technology/article tag filtering. |
+| 89 | Connect refinement only | Kept familiar email/social layout, including form when configured; refined local styling/motion and shared footer. |
+| 90 | Keep About portrait split | Preserved left copy/right portrait and a centered responsive reflow. Visual: both orientations. |
+| 91 | Projects redesign | Compact heading/search, coupled image/text rows, controlled type and deliberate hover replace loose card layouts. Visual and browser: Projects and details. |
+| 92 | Home redesign | Name scale, balanced portrait, short actions, paper/dark rhythm, selected work, writing, video and footer were addressed together. |
+| 93 | Résumé reconstruction | Replaced the old layout and print styles with new résumé-specific CSS and shared profile rendering. |
+| 94 | Refined white résumé | Full-width paper, editorial margins, rail grid, contrast, restrained accents and ruled sections. Verified in local screenshots. |
+| 95 | Export and print work | Existing download route and browser Print are functional; reveals/controls do not leak into print. Locally rendered both as one readable A4 page. |
 
-Re-read all 32 sections and each subsequent correction. The later directions take priority: red leads the palette; cards share equal heights; the navbar wordmark is centered; and restrained light traces the XS edges. The original request to remove decorative background noise still applies elsewhere. Search, resume hierarchy, spacing, canonical facts and working routes are retained.
+## Facts, execution and release
 
-This pass found and corrected remaining charcoal surfaces in the mobile menu, gallery frame and gallery controls, plus old Media hover colors. No assets, facts, routes or frameworks were replaced.
+| # | Brief | Implementation and evidence |
+| --- | --- | --- |
+| 96 | No new bio claims | Existing profile roles, approved education dates, skills/tools and canonical credits remain. Work and leadership stay distinct. |
+| 97 | No Selected Recognition | Section is absent from the résumé HTML and regenerated PDF. |
+| 98 | No award meta-commentary | Removed the public résumé award field/method of attribution; publication language stays factual. |
+| 99 | No public redesign narration | Removed the visitor-facing “redesigned XuVerse homepage” caption; internal release records stay outside public text. |
+| 100 | Factual captions | Existing artwork/portfolio images use brief descriptive captions when useful; captions are optional in project detail. |
+| 101 | Meaningful labels only | Decorative project-status heading text is not displayed in listings; useful academic context stays with the case study or search metadata. |
+| 102 | Calm voice | Short first-person public copy, restrained hierarchy and purposeful motion. Visual/editorial judgment. |
+| 103 | Visual target | Editorial imagery and white reading space, black identity areas, restrained pink/red and smooth group motion. Visual judgment across all major routes. |
+| 104 | Execute autonomously | Worked against the written brief and existing release method; no design choices required from the owner. |
+| 105 | Follow the workflow | Baseline inspected, backup recorded, then code and local validation. Final build/screenshot/commit/push/deploy evidence belongs below. |
+| 106 | Visual review after major work | Inspected the seven primary pages and representative work/details, including the rebuilt résumé, its mobile layout and both PDF renders. Tightened image crops, narrow layouts and spacing before the final run. |
+| 107 | Required screenshot set | Captured and reviewed desktop Home, Projects, About, Résumé and Connect and mobile Home and Résumé under `tmp/editorial-qa/localhost/`. The runner also captures Articles and Media. |
+| 108 | Production build | Rebuilt canonical content and writing PDFs, and ran the content, portability and browser gates. The Publish command repeats source/hash verification and verifies the complete deployed release. |
+| 109 | Deploy in place | Use the existing `scripts/publish.py`, GitHub `main` and current free-hosting target. Activation and public browser acceptance are recorded in the generated receipt. |
+| 110 | Synchronize all three | The release receipt records verification of localhost, `origin/main`, hosted `release.json`, canonical content hash and revision-pinned assets. The Git baseline alone is not evidence of activation. |
+| 111 | Final acceptance gate | Close browser, link, content, print and release checks; use screenshots for subjective spacing, imagery, color and motion judgments. |
+| 112 | Effortless finish | Prefer short copy, clean lines, balanced type and useful interactions; visual judgment, supported by the final screenshot review. |
 
-- `tmp/refinement-qa/top-to-bottom-audit.json`: passed all 21 routes, 540 layout measurements at the 11 requested widths and intermediate resizing, plus search, navigation, Media/history, gallery, PDF, print and motion interactions. No application JavaScript or first-party console errors.
-- `scripts/refinement-extra-qa.cjs` / `tmp/refinement-qa/extra-audit.json`: passed normal-motion bounds at all 11 widths on all seven main pages, short landscape viewports, 200% text scaling, usable gallery/photo viewing space, red overlay surfaces, animated link feedback and keyboard focus.
-- `tmp/refinement-qa/final-normal-*.png`: fresh desktop, tablet and mobile screenshots reviewed for all seven main pages. Content validation, generated PDF hashes, PHP/JavaScript syntax, portability and whitespace checks pass.
+## Release record
 
-These checks document implementation and observed behavior; visual preference remains subject to the user's review. Third-party playback is not claimed beyond the preserved embeds and destination checks described below.
-
-## Current dark-red / black balance
-
-The latest direction supersedes the earlier all-crimson pass: aim for approximately 60% dark red and 40% black. Dark-red atmosphere contrasts with black cards, a consistently black navbar, black footer and neutral text. Pink/rose accents are removed. The ratio is an overall visual balance, not an exact pixel percentage at every viewport or animation frame.
-
-Broad, soft red light and black shadow fields now move independently. There are no new background lines, particles or geometric objects. XS remains centered with its restrained contour light. Both ambient layers and XS motion pause together and respect reduced motion. A rendered-frame comparison at 900×600 showed visible background change across 64.9% of pixels over four seconds; desktop/mobile frames were inspected.
-
-The navbar keeps the same background and border colors before and after scrolling. Tests cover this explicitly. See `tmp/refinement-qa/dark-red-balance-audit.json`, `tmp/refinement-qa/extra-audit.json`, `dark-red-home-*.png` and `cloud-motion-*.png` for current evidence. Earlier red-priority screenshots describe a superseded palette.
-
-## Latest re-audit
-
-- Full current-site run: `tmp/refinement-qa/complete-reaudit.json`, including all 21 public routes at all 11 named widths, all three Media layouts, intermediate resizing and interactions.
-- Final search/interaction run: `tmp/refinement-qa/reaudit-final-search-interactions.json`, including canonical metadata search and motion preference persistence through reload.
-- Fresh normal-motion desktop/mobile visual review: `tmp/refinement-qa/visual-reaudit-*.png`. The original red atmosphere, headers/footer, glows and motion remain.
-- Resume download remains one A4 page; its fresh render is `tmp/refinement-qa/reaudit-resume-1.png`.
-- Generated content, PDF/source hashes, PHP syntax, JavaScript syntax and portability checks pass. Public facts, credits and publication bodies are unchanged.
-- The approved GitHub push completed and origin/main was verified at implementation commit 294392f. No hosted-site deployment is claimed.
-
-## Verification evidence
-
-- `scripts/refinement-qa.cjs`: repeatable browser checks. Run with the installed Playwright runtime on NODE_PATH; XUVERSE_URL and XUVERSE_BROWSER may select another local server/browser.
-- `tmp/refinement-qa/results.json`: full route, responsive and interaction results (ignored local QA output).
-- `tmp/refinement-qa/detail-widths.json`: remaining named widths for every detail route (ignored local QA output).
-- `tmp/refinement-qa/media-categories.json`: all three category layouts at all 11 named widths (ignored local QA output).
-- `tmp/refinement-qa/final-interactions.json`: focused interaction checks after the final direct-link correction (ignored local QA output).
-- `tmp/refinement-qa/final-layouts.json`: focused verification after the final CV/navbar/button/sign-in/404 adjustments (ignored local QA output).
-- `tmp/refinement-qa/*.png`: desktop, tablet, mobile, intermediate and PDF renders inspected locally.
-- `php scripts/verify-content.php`: canonical content hashes, generated article PDFs, content shape, asset paths and PHP syntax.
-- `php scripts/test-portability.php`: existing URL, CSRF and file-boundary checks.
-- Resume PDF generated through the existing Dompdf system, checked with Poppler and visually inspected as a single A4 page. The download uses the already-authoritative public portfolio URL instead of a localhost address.
-
-Third-party playback is separate from application correctness: YouTube iframe sources and outbound destinations are preserved and checked, while canceled iframe requests during navigation/category changes are recorded in the QA log. No email was sent and no credentials were used or committed. The local contact page offers its configured email/copy controls; the SMTP-dependent inquiry form is not enabled in this local configuration.
-
-## Git synchronization
-
-The user explicitly approved pushing to `origin/main`. The reviewed localhost changes are committed and pushed to the existing GitHub repository. The current matching local/remote revision is saved in the verification receipt and reported in the chat. Hosting activation is a separate operation. Local/remote status is saved in `tmp/refinement-qa/git-verification.json`; the local commit is also reported in the chat. Unrelated presentation directories are excluded. No separate repository or implementation was created.
+| Evidence | Result |
+| --- | --- |
+| Baseline backup | `ac1d721` on `codex/backup-november-editorial`. |
+| Focused résumé review | Local page checked at all 11 requested widths; working reveal, hover, Print and no-JavaScript download. Both Dompdf and Chromium print rendered at one A4 page. |
+| Focused accessibility audit | Axe found no remaining WCAG A/AA or included best-practice violations across 18 local page/view samples at 390 and 1440 px. Checked visible focus and keyboard menu/tab behavior. A conservative calculation separately covered 118 contrast occurrences that axe could not resolve; the lowest was 6.21:1. Reports: `tmp/a11y/editorial-a11y.json` and `tmp/a11y/editorial-contrast.json`. |
+| Integrated local QA and screenshots | 182 layouts at 14 widths (320–3440px), intermediate resize sweeps on all seven primary routes, 18 detail/404 route checks, 26 internal links and five PDF downloads passed. Screenshots and exact results: `tmp/editorial-qa/localhost/`. |
+| Production build and artifact checks | Canonical source and generated writing PDFs are validated by `scripts/verify-content.php`; `scripts/test-portability.php` covers application URL and existing deployment boundaries. |
+| Actual production acceptance | Generated private receipt: `output/publish-receipt.json`; browser details: `tmp/editorial-qa/xuverse.freehosting.dev/`. These logs record the deployment revision and result after activation. |

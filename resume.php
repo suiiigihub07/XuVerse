@@ -12,12 +12,12 @@ include __DIR__ . '/includes/header.php';
 include __DIR__ . '/includes/navbar.php';
 ?>
 
-<section class="personal-page personal-cv" aria-labelledby="cv-name">
+<section class="personal-cv xu-tone-light" aria-labelledby="cv-name">
     <div class="container personal-cv-container">
-        <header class="personal-cv-header">
+        <header class="personal-cv-header reveal">
             <div>
-                <p class="personal-label">Résumé</p>
-                <h1 class="personal-title" id="cv-name"><?= e($resume['name']) ?></h1>
+                <p class="personal-cv-label">Résumé</p>
+                <h1 id="cv-name"><?= e($resume['name']) ?></h1>
                 <p class="personal-cv-headline"><?= e($resume['headline']) ?></p>
                 <ul class="personal-cv-links">
                     <li><?= e($resume['location']) ?></li>
@@ -31,73 +31,66 @@ include __DIR__ . '/includes/navbar.php';
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <div class="personal-actions personal-cv-controls">
-                <a class="personal-button personal-button-primary" href="<?= e(xuverse_url('resume/download')) ?>" download>Download PDF</a>
-                <button type="button" class="personal-button print-only-control" data-print-resume>Print</button>
+            <div class="personal-cv-controls">
+                <a class="personal-cv-download" href="<?= e(xuverse_url('resume/download')) ?>" download>Download PDF</a>
+                <button type="button" class="personal-cv-print" data-print-resume>Print</button>
             </div>
         </header>
 
         <div class="personal-cv-layout">
-            <div>
-                <section class="personal-cv-section" aria-labelledby="cv-education">
-                    <h2 id="cv-education">Education</h2>
+            <section class="personal-cv-section reveal" aria-labelledby="cv-education">
+                <h2 id="cv-education">Education</h2>
+                <div>
                     <?php foreach ($resume['education'] as $entry): ?>
                     <article class="personal-cv-entry">
                         <div class="personal-cv-entry-title">
                             <h3><?= e($entry['institution']) ?></h3>
-                            <p><?= e($entry['start_year']) ?> – <?= e($entry['end_year'] ?: 'Present') ?></p>
+                            <p class="personal-cv-date"><?= e($entry['start_year']) ?> – <?= e($entry['end_year'] ?: 'Present') ?></p>
                         </div>
                         <p><?= e($entry['degree']) ?></p>
                         <p class="personal-cv-detail"><?= e($entry['location']) ?> · <?= e($entry['semester']) ?></p>
-                        <p class="personal-cv-detail"><?= e($entry['description']) ?></p>
                     </article>
                     <?php endforeach; ?>
-                </section>
+                </div>
+            </section>
 
-                <?php foreach ($resume['role_groups'] as $heading => $roles): ?>
-                    <?php if (!$roles) continue; ?>
-                    <section class="personal-cv-section" aria-labelledby="cv-<?= e(strtolower($heading)) ?>">
-                        <h2 id="cv-<?= e(strtolower($heading)) ?>"><?= e($heading) ?></h2>
-                        <?php foreach ($roles as $role): ?>
+            <?php foreach ($resume['role_groups'] as $key => $group): ?>
+                <?php if (!$group['entries']) continue; ?>
+                <section class="personal-cv-section reveal" aria-labelledby="cv-<?= e($key) ?>">
+                    <h2 id="cv-<?= e($key) ?>"><?= e($group['label']) ?></h2>
+                    <div>
+                    <?php foreach ($group['entries'] as $role): ?>
                         <article class="personal-cv-entry">
                             <div class="personal-cv-entry-title">
                                 <h3><?= e($role['job_title']) ?></h3>
-                                <p><?= e($role['dates']) ?></p>
+                                <p class="personal-cv-date"><?= e($role['dates']) ?></p>
                             </div>
                             <p class="personal-cv-detail"><?= e($role['company_name']) ?></p>
                             <?php if ($role['description'] !== ''): ?>
                             <p><?= e($role['description']) ?></p>
                             <?php endif; ?>
                         </article>
-                        <?php endforeach; ?>
-                    </section>
-                <?php endforeach; ?>
-
-                <?php if ($resume['achievement'] !== ''): ?>
-                <section class="personal-cv-section" aria-labelledby="cv-recognition">
-                    <h2 id="cv-recognition">Selected Recognition</h2>
-                    <p><?= e($resume['achievement']) ?></p>
-                    <p class="personal-cv-detail"><?= e($resume['achievement_note']) ?></p>
+                    <?php endforeach; ?>
+                    </div>
                 </section>
-                <?php endif; ?>
-            </div>
+            <?php endforeach; ?>
 
-            <div>
-                <section class="personal-cv-section" aria-labelledby="cv-areas">
-                    <h2 id="cv-areas">Areas of Work</h2>
+            <section class="personal-cv-section reveal" aria-labelledby="cv-areas">
+                <h2 id="cv-areas">Skills &amp; Areas</h2>
+                <div class="personal-cv-skills">
                     <?php foreach ($resume['areas'] as $area => $skills): ?>
                     <div class="personal-cv-entry">
                         <h3><?= e($area) ?></h3>
                         <p class="personal-cv-detail"><?= e(implode(' · ', $skills)) ?></p>
                     </div>
                     <?php endforeach; ?>
-                </section>
+                </div>
+            </section>
 
-                <section class="personal-cv-section" aria-labelledby="cv-tools">
-                    <h2 id="cv-tools">Tools</h2>
-                    <p class="personal-cv-detail"><?= e(implode(' · ', $resume['tools'])) ?></p>
-                </section>
-            </div>
+            <section class="personal-cv-section reveal" aria-labelledby="cv-tools">
+                <h2 id="cv-tools">Tools</h2>
+                <p class="personal-cv-detail"><?= e(implode(' · ', $resume['tools'])) ?></p>
+            </section>
         </div>
     </div>
 </section>

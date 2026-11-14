@@ -8,11 +8,14 @@ function xuverse_resume_data($conn)
     $site = xuverse_content('site');
     $portfolio = xuverse_find_public('projects', 'xuverse');
     $education = $profile['education'];
-    $roleGroups = ['Experience' => [], 'Leadership' => []];
+    $roleGroups = [
+        'work' => ['label' => 'Work Experience', 'entries' => []],
+        'leadership' => ['label' => 'Leadership & Activities', 'entries' => []],
+    ];
 
     foreach ($profile['roles'] as $role) {
-        $heading = ($role['category'] ?? '') === 'work' ? 'Experience' : 'Leadership';
-        $roleGroups[$heading][] = [
+        $category = $role['category'];
+        $roleGroups[$category]['entries'][] = [
             'job_title' => $role['title'],
             'company_name' => $role['organisation'],
             'dates' => $role['dates'],
@@ -36,14 +39,11 @@ function xuverse_resume_data($conn)
             'end_year' => $education['end'],
             'location' => $education['location'],
             'semester' => $education['semester'],
-            'description' => $education['focus'],
         ]],
         'areas' => [
             'Software' => ['Front-end', 'Back-end', 'Database design', 'Software development', 'UI/UX'],
             'Creative' => ['Photography', 'Videography', 'Video direction', 'Video editing', 'Digital media'],
         ],
         'tools' => ['GitHub', 'VS Code', 'DaVinci Resolve', 'CapCut', 'Canva'],
-        'achievement' => $profile['achievement']['title'],
-        'achievement_note' => 'Award reported by ' . $copy['name'] . '.',
     ];
 }

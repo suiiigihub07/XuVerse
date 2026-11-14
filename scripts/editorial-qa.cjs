@@ -62,6 +62,12 @@ function watch(page) {
         }
     });
     page.on('pageerror', error => report.failures.push({ label: page.url(), error: error.message }));
+    page.on('console', message => {
+        const url = message.location().url;
+        if (message.type() === 'error' && url.startsWith(base.href) && !message.text().includes('404')) {
+            report.failures.push({ label: page.url(), error: message.text() });
+        }
+    });
     page.on('response', response => {
         if (response.status() < 400 || response.request().resourceType() === 'document') return;
         const url = new URL(response.url());
@@ -306,6 +312,50 @@ async function contactAndMotion(page) {
     report.interactions.push('Reduced motion stops continuous animations');
 }
 
+async function designChecks(page) {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    try {
+        for (const route of ['', 'projects', 'articles', 'media', 'about', 'resume', 'contact']) {
+            await openPage(page, route);
+            await page.locator('body.motion-ready').waitFor();
+            const design = await page.evaluate(() => {
+                const body = getComputedStyle(document.body);
+                const grain = getComputedStyle(document.body, '::before');
+                const footer = document.querySelector('.site-footer');
+                const nav = document.querySelector('.navbar');
+                const publicText = document.querySelector('main').innerText;
+                return {
+                    grain: [grain.animationName, grain.animationPlayState, Number(grain.opacity), grain.backgroundImage],
+                    size: parseFloat(getComputedStyle(document.querySelector('main h1')).fontSize),
+                    oldArt: !!document.querySelector('.xv-ambient,.xv-signature'),
+                    arrows: [...document.querySelectorAll('main a, .site-footer a')].some(anchor => /[→↗↓]/u.test(anchor.textContent)),
+                    award: /selected recognition|award reported by|user-reported award/i.test(publicText),
+                    base: body.backgroundColor,
+                    footer: getComputedStyle(footer).backgroundColor,
+                    edgeDelta: Math.abs(footer.getBoundingClientRect().left - nav.getBoundingClientRect().left)
+                };
+            });
+            assert.equal(design.grain[0], 'xu-grain-drift');
+            assert.equal(design.grain[1], 'running');
+            assert.ok(design.grain[2] > 0 && design.grain[2] < .1 && design.grain[3].includes('grain.png'));
+            assert.ok(design.size < 100, 'Heading scale on ' + route);
+            assert.equal(design.oldArt || design.arrows || design.award, false, 'Old public decoration or wording on ' + route);
+            assert.equal(design.base, 'rgb(9, 9, 9)');
+            assert.equal(design.footer, 'rgb(166, 0, 0)');
+            assert.ok(design.edgeDelta < 1, 'Footer and navbar align');
+        }
+        const grainTransform = () => page.evaluate(() => getComputedStyle(document.body, '::before').transform);
+        const previous = await grainTransform();
+        await page.waitForFunction(initial => getComputedStyle(document.body, '::before').transform !== initial, previous);
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        assert.equal(await page.evaluate(() => getComputedStyle(document.body, '::before').animationName), 'none');
+    } finally {
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+    }
+    report.interactions.push('Editorial palette and type scale, no legacy XS, no decorative arrows or award meta, matched frames, moving grain and live reduced-motion change');
+}
+
 async function verifyPdf(context, route, expectedHash) {
     const response = await context.request.get(new URL(route, base).href);
     try {
@@ -419,6 +469,7 @@ async function main() {
         await check('keyboard navigation and Media interactions', () => keyboardNavigation(page));
         await check('project and article search', () => collectionSearch(page));
         await check('contact access and reduced motion', () => contactAndMotion(page));
+        await check('editorial design and moving grain', () => designChecks(page));
         await check('home and Media at 200% text size', () => largerText(page));
         await check('resume PDF', () => verifyPdf(context, 'resume/download'));
         const manifest = canonical('manifest');

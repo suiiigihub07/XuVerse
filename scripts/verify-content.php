@@ -9,7 +9,7 @@ function verify_shared_asset_scope() {
     $name='B K Suraj'; $type='photo'; $path='caller-path'; $url='caller-url'; $separator='caller-separator';
     ob_start(); require __DIR__.'/../includes/site-assets.php'; $assets=ob_get_clean();
     check([$name,$type,$path,$url,$separator]===['B K Suraj','photo','caller-path','caller-url','caller-separator'],'Shared asset loader preserves caller variables');
-    foreach(['media-gallery.css','rounded.css','refinements.css','editorial.css','editorial-work.css','editorial-personal.css','media-gallery.js'] as $asset) check(str_contains($assets,$asset),'Shared asset '.$asset);
+    foreach(['media-gallery.css','rounded.css','refinements.css','editorial.css','editorial-work.css','editorial-pages.css','editorial-resume.css','media-gallery.js'] as $asset) check(str_contains($assets,$asset),'Shared asset '.$asset);
 }
 verify_shared_asset_scope();
 $root=dirname(__DIR__); $manifest=xuverse_content('manifest');

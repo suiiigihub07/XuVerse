@@ -1,0 +1,270 @@
+/* The résumé is an open directory: one label rail, one reading column. */
+.personal-cv {
+    --cv-rail: clamp(9rem, 17vw, 14rem);
+    --cv-gap: clamp(22px, 5vw, 64px);
+    --cv-accent: var(--xu-pink-ink);
+    padding-block: clamp(38px, 7vw, 96px);
+    background-color: var(--xu-paper);
+    color: var(--xu-ink);
+}
+
+.personal-cv .personal-cv-container {
+    max-width: var(--xu-resume-width);
+}
+
+.personal-cv-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 12px 34px;
+    padding-bottom: clamp(22px, 3.8vw, 39px);
+    border-bottom: 2px solid var(--xu-red-ink);
+}
+
+.personal-cv-label,
+.personal-cv-section h2 {
+    margin: 0;
+    color: var(--cv-accent);
+    font: 700 var(--xu-label)/1.45 var(--xu-sans);
+    letter-spacing: .095em;
+    text-transform: uppercase;
+}
+
+.personal-cv-header h1 {
+    margin: 8px 0 9px;
+    color: var(--xu-ink);
+    font: 400 clamp(3rem, 6vw, 5rem)/1 var(--xu-serif);
+    letter-spacing: -.03em;
+    text-wrap: balance;
+}
+
+.personal-cv-headline {
+    margin: 0;
+    color: var(--xu-foreground);
+    font: 550 clamp(1rem, 1.55vw, 1.18rem)/1.5 var(--xu-sans);
+}
+
+.personal-cv-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0 16px;
+    margin: 4px 0 0;
+    padding: 0;
+    color: var(--xu-paper-muted);
+    font-size: .875rem;
+    list-style: none;
+}
+
+.personal-cv-links li {
+    min-width: 0;
+}
+
+.personal-cv-links a,
+.personal-cv-print {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--xu-paper-line);
+    text-underline-offset: .26em;
+}
+
+.personal-cv-links a {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    min-height: var(--xu-control);
+    overflow-wrap: anywhere;
+}
+
+.personal-cv :is(.personal-cv-links a, .personal-cv-print):is(:hover, :focus-visible) {
+    color: var(--cv-accent);
+    text-decoration-color: currentColor;
+}
+
+.personal-cv :is(a, button):focus-visible {
+    outline-color: var(--cv-accent);
+}
+
+.personal-cv-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px 14px;
+}
+
+.personal-cv :is(.personal-cv-download, .personal-cv-print) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--xu-control);
+    padding: 9px 14px;
+    border-radius: 6px;
+    border: 0;
+    font: 650 .875rem/1.35 var(--xu-sans);
+    cursor: pointer;
+}
+
+.personal-cv .personal-cv-download {
+    background: var(--xu-red-ink);
+    color: #fff;
+}
+
+.personal-cv .personal-cv-download:is(:hover, :focus-visible) {
+    background: var(--xu-red-hover);
+}
+
+.personal-cv .personal-cv-print {
+    background: none;
+}
+
+body:not(.motion-ready) .personal-cv-print {
+    display: none;
+}
+
+.personal-cv-section {
+    display: grid;
+    grid-template-columns: var(--cv-rail) minmax(0, 1fr);
+    align-items: start;
+    gap: 10px var(--cv-gap);
+    padding-block: clamp(17px, 2.5vw, 30px);
+    border-bottom: 1px solid var(--xu-paper-line);
+}
+
+.personal-cv-section h2 {
+    padding-block-start: 4px;
+}
+
+.personal-cv-entry {
+    position: relative;
+}
+
+.personal-cv-entry + .personal-cv-entry {
+    margin-top: 13px;
+    padding-top: 13px;
+    border-top: 1px solid var(--xu-paper-line);
+}
+
+.personal-cv-entry-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1px 12px;
+}
+
+.personal-cv-section h3 {
+    margin: 0 0 2px;
+    color: inherit;
+    font: 650 clamp(.97rem, 1.4vw, 1.07rem)/1.4 var(--xu-sans);
+    letter-spacing: 0;
+}
+
+.personal-cv-section p {
+    margin: 0;
+    color: var(--xu-foreground);
+    font-size: .94rem;
+    line-height: 1.55;
+}
+
+.personal-cv-section :is(.personal-cv-date, .personal-cv-detail) {
+    color: var(--xu-paper-muted);
+}
+
+.personal-cv-section .personal-cv-date {
+    font-size: .84rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.personal-cv-skills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 22px;
+}
+
+.personal-cv-skills .personal-cv-entry + .personal-cv-entry {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .personal-cv-entry::before {
+        position: absolute;
+        inset: 0 0 0 -13px;
+        border-left: 2px solid var(--xu-pink);
+        background: linear-gradient(90deg, color-mix(in srgb, var(--xu-pink) 6%, transparent), transparent 75%);
+        content: "";
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .personal-cv-entry:hover::before { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .personal-cv-entry::before { transition: opacity var(--xu-fast) var(--xu-ease); }
+    .personal-cv-entry h3 { transition: translate var(--xu-fast) var(--xu-ease); }
+    .personal-cv :is(.personal-cv-download, .personal-cv-print) { transition: background-color var(--xu-fast), color var(--xu-fast), translate var(--xu-fast) var(--xu-ease); }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .personal-cv-entry:hover h3 { translate: 3px 0; }
+    .personal-cv-download:hover { translate: 0 -2px; }
+}
+
+@media screen and (max-width: 760px) {
+    .personal-cv-header,
+    .personal-cv-section { grid-template-columns: minmax(0, 1fr); }
+    .personal-cv-header h1 { font-size: clamp(2.75rem, 10vw, 3.9rem); }
+    .personal-cv-section h2 { padding-block-start: 0; }
+}
+
+@media screen and (max-width: 480px) {
+    .personal-cv-skills { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media print {
+    body.xu-public:has(.personal-cv), body.xu-public .personal-cv {
+        padding: 0;
+        background: #fff;
+        color: #111;
+    }
+
+    .personal-cv .personal-cv-container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .personal-cv .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .personal-cv-header {
+        display: block;
+        padding-bottom: 17pt;
+        break-inside: avoid;
+    }
+
+    .personal-cv-header h1 { font-size: 31pt; }
+    .personal-cv-headline { font-size: 11pt; }
+    .personal-cv-links { font-size: 9pt; }
+    .personal-cv-links a { min-height: 0; }
+    .personal-cv-controls { display: none; }
+
+    .personal-cv-section {
+        grid-template-columns: 93pt minmax(0, 1fr);
+        gap: 15pt;
+        padding-block: 14pt;
+        break-inside: avoid;
+    }
+
+    .personal-cv-section h3 { font-size: 9.5pt; }
+    .personal-cv-section p { font-size: 9pt; }
+    .personal-cv-section .personal-cv-date { font-size: 8.5pt; }
+    .personal-cv-entry + .personal-cv-entry { margin-top: 7pt; padding-top: 7pt; }
+    .personal-cv-entry::before { display: none; }
+}

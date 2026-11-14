@@ -91,19 +91,22 @@ $socials = array_filter($socials, fn($social) => trim($social['url']) !== '');
 xuverse_public_start('Connect', $contactIntro, 'contact');
 ?>
 
-<section class="personal-page personal-contact" aria-labelledby="contact-title">
+<section class="personal-page personal-contact xu-tone-dark" aria-labelledby="contact-title">
     <div class="container">
-        <header class="personal-contact-header">
+        <header class="personal-contact-header reveal">
             <h1 class="personal-title" id="contact-title"><?= e($copy['contact_heading']) ?></h1>
             <p class="personal-lead"><?= e($contactIntro) ?></p>
         </header>
 
         <div class="personal-contact-layout<?= $contactMailReady ? ' has-inquiry' : '' ?>">
-            <section class="personal-contact-email" aria-labelledby="email-title">
+            <section class="personal-contact-email reveal" aria-labelledby="email-title">
                 <h2 id="email-title">Email</h2>
-                <a href="<?= e($mailto) ?>" class="personal-contact-address email-action"
-                    data-mailto="<?= e($mailto) ?>" data-email="<?= e($email) ?>"><?= e($email) ?></a>
-                <button type="button" class="personal-button" data-copy-email="<?= e($email) ?>" hidden>Copy email</button>
+                <p class="personal-contact-address"><?= e($email) ?></p>
+                <div class="personal-actions">
+                    <a href="<?= e($mailto) ?>" class="xu-primary email-action"
+                        data-mailto="<?= e($mailto) ?>" data-email="<?= e($email) ?>">Email me</a>
+                    <button type="button" class="xu-link xu-flat-action" data-copy-email="<?= e($email) ?>" hidden>Copy email</button>
+                </div>
                 <p class="mail-status" role="status"></p>
                 <?php if ($formStatus !== '' && !$contactMailReady): ?>
                 <p class="form-status is-error" role="alert"><?= e($formStatus) ?></p>
@@ -111,17 +114,17 @@ xuverse_public_start('Connect', $contactIntro, 'contact');
             </section>
 
             <?php if ($socials): ?>
-            <nav class="personal-socials" aria-label="Social links">
+            <nav class="personal-socials reveal" aria-label="Contact social links">
                 <ul>
                 <?php foreach ($socials as $social): ?>
-                    <li><a href="<?= e($social['url']) ?>" target="_blank" rel="noopener noreferrer"><?= e($social['label']) ?><span aria-hidden="true">↗</span></a></li>
+                    <li><a href="<?= e($social['url']) ?>" target="_blank" rel="noopener noreferrer"><span><?= e($social['label']) ?></span></a></li>
                 <?php endforeach; ?>
                 </ul>
             </nav>
             <?php endif; ?>
 
             <?php if ($contactMailReady): ?>
-            <section class="personal-contact-inquiry" aria-labelledby="inquiry-title">
+            <section class="personal-contact-inquiry reveal" aria-labelledby="inquiry-title">
                 <h2 id="inquiry-title">Send a message</h2>
                 <?php if ($formStatus !== ''): ?>
                 <p class="form-status <?= $formStatusType === 'success' ? 'is-success' : 'is-error' ?>"
@@ -156,7 +159,7 @@ xuverse_public_start('Connect', $contactIntro, 'contact');
                         <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
                     </div>
                     <div class="form-field-wide">
-                        <button type="submit" class="personal-button personal-button-primary">Send message</button>
+                        <button type="submit" class="xu-primary">Send message</button>
                     </div>
                 </form>
             </section>

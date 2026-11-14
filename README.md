@@ -4,7 +4,7 @@ XuVerse is B K Suraj's PHP and MySQL portfolio for software projects, writing, r
 
 Public site: [xuverse.freehosting.dev](https://xuverse.freehosting.dev/). Source: [suiiigihub07/XuVerse](https://github.com/suiiigihub07/XuVerse).
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for verified hosting status and [PUBLISH.md](PUBLISH.md) for the single edit-and-publish workflow. Earlier responsive notes are historical; the October handoff supersedes their public content and visual design.
+See [REFINEMENT-CHECKLIST.md](REFINEMENT-CHECKLIST.md) for the current editorial correction, [DEPLOYMENT.md](DEPLOYMENT.md) for hosting verification and [PUBLISH.md](PUBLISH.md) for the edit-and-publish workflow. Earlier handoff and responsive notes are historical.
 
 ## Requirements
 

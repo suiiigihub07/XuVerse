@@ -18,7 +18,7 @@ function xuverse_gallery($item, $id) {
       <?php endforeach; ?>
       </div>
       <?php if (count($images) > 1): ?>
-      <div class="post-gallery-controls">
+      <div class="post-gallery-controls" data-gallery-controls>
         <button type="button" data-gallery-previous aria-controls="<?= e($id) ?>" aria-label="Previous image">←</button>
         <span data-gallery-counter aria-live="polite">1 / <?= count($images) ?></span>
         <button type="button" data-gallery-next aria-controls="<?= e($id) ?>" aria-label="Next image">→</button>
@@ -33,39 +33,31 @@ function xuverse_published_card($post) {
     $url = xuverse_url('photos/' . $post['slug']);
     $modalId = 'published-gallery-' . $post['slug'];
     ?>
-    <article class="media-card published-post compact-media-card reveal" id="<?= e($post['slug']) ?>">
+    <article class="xw-published-entry<?= $images || !empty($post['video_urls']) ? ' xw-published-has-preview' : '' ?> reveal" id="<?= e($post['slug']) ?>">
     <?php if ($images): ?>
-      <a href="<?= e($url) ?>" class="gallery-post-cover" data-open-gallery="<?= e($modalId) ?>" aria-label="Browse <?= count($images) ?> images: <?= e($post['title']) ?>">
-        <img src="<?= e(xuverse_asset($images[0])) ?>" <?= xuverse_image_attributes($images[0]) ?> alt="<?= e(!empty($post['alt']) ? $post['alt'] : $post['title']) ?>" loading="lazy" decoding="async">
+      <a href="<?= e($url) ?>" class="gallery-post-cover xu-image-reveal" data-open-gallery="<?= e($modalId) ?>" aria-label="Browse <?= count($images) ?> images: <?= e($post['title']) ?>">
+        <img src="<?= e(xuverse_asset($images[0])) ?>" <?= xuverse_image_attributes($images[0]) ?> <?= xuverse_responsive_image_attributes($images[0], '(max-width: 560px) 76vw, 250px') ?> alt="<?= e($post['alt'] ?? '') ?>" loading="lazy" decoding="async">
         <?php if (count($images) > 1): ?><span class="gallery-count" aria-hidden="true">1 / <?= count($images) ?></span><?php endif; ?>
       </a>
     <?php elseif (!empty($post['video_urls'])): ?>
-      <?php xuverse_published_video($post['video_urls'][0], $post['title']); ?>
-    <?php else: ?>
-      <a href="<?= e($url) ?>" class="published-article-cover" aria-label="Read <?= e($post['title']) ?>">
-        <svg viewBox="0 0 80 80" aria-hidden="true"><path d="M20 12h30l10 10v46H20zM50 12v12h10M29 34h22M29 43h22M29 52h14"/></svg>
-        <span>Read article</span>
-      </a>
+      <?php xuverse_inline_video(['url' => $post['video_urls'][0], 'title' => $post['title']], $url, '(max-width: 560px) 85vw, 320px'); ?>
     <?php endif; ?>
-      <div class="media-content"><h3><a href="<?= e($url) ?>"><?= e($post['title']) ?></a></h3></div>
+      <div class="xw-published-copy">
+        <h3><a class="xw-media-link" href="<?= e($url) ?>"><?= e($post['title']) ?></a></h3>
+        <?php if (!empty($post['summary'])): ?><p><?= e($post['summary']) ?></p><?php endif; ?>
+      </div>
     </article>
     <?php if ($images): ?>
     <dialog class="gallery-modal" id="<?= e($modalId) ?>" aria-label="<?= e($post['title']) ?> gallery">
-      <div class="gallery-modal-toolbar"><a href="<?= e($url) ?>"><?= e($post['title']) ?></a><button class="gallery-close" type="button">Close</button></div>
+      <div class="gallery-modal-toolbar"><a class="xw-media-link" href="<?= e($url) ?>"><?= e($post['title']) ?></a><button class="gallery-close" type="button">Close</button></div>
       <?php xuverse_gallery($post, $modalId . '-track'); ?>
-      <a class="text-link" href="<?= e(xuverse_url()) ?>">Home</a>
     </dialog>
     <?php endif;
 }
 
 function xuverse_published_video($url, $title) {
-    $embed = xuverse_youtube_embed($url);
-    if ($embed === '') return;
-    ?>
-    <div class="video-detail-frame media-player">
-      <iframe src="<?= e($embed) ?>" title="<?= e($title) ?>" width="1600" height="900" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
-    <?php
+    if (xuverse_youtube_embed($url) === '') return;
+    xuverse_inline_video(['url' => $url, 'title' => $title], $url, '(max-width: 760px) 90vw, 720px');
 }
 
 function xuverse_inline_video($video, $fallbackUrl, $posterSizes)
@@ -74,7 +66,7 @@ function xuverse_inline_video($video, $fallbackUrl, $posterSizes)
     $embed = xuverse_youtube_embed($video['url']);
     ?>
     <div class="personal-video-player" data-inline-video data-video-source="<?= e($embed) ?>" data-video-title="<?= e($video['title']) ?>">
-        <div class="personal-video-stage" data-video-stage>
+        <div class="personal-video-stage xu-image-reveal" data-video-stage>
             <?php if ($poster !== ''): ?>
             <img src="<?= e(xuverse_asset($poster)) ?>"
                 <?= xuverse_image_attributes($poster) ?>

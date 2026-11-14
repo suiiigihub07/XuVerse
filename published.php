@@ -12,21 +12,22 @@ if ($images) $pageImage = $images[0];
 $schemaData = ['@type'=>'CreativeWork','name'=>$post['title'],'description'=>$post['summary'],'url'=>xuverse_absolute_url('photos/' . $post['slug'])];
 xuverse_public_start($post['title'], $post['summary'], 'photos/' . $post['slug'], 'published');
 ?>
-<section class="personal-page personal-media-detail media-detail-section">
+<section class="xw-media-detail xu-tone-dark media-detail-section">
 <div class="container">
-<article class="media-detail published-detail reveal">
-<?php if ($images): ?><div class="published-detail-images"><?php xuverse_gallery($post, 'published-detail-gallery'); ?></div><?php endif; ?>
+<article class="media-detail published-detail<?= $images ? ' xw-visual-detail' : '' ?>">
+<?php if ($images || !empty($post['video_urls'])): ?><div class="xw-detail-visual reveal"><?php endif; ?>
+<?php if ($images): ?><?php xuverse_gallery($post, 'published-detail-gallery'); ?><?php endif; ?>
 <?php if (!empty($post['video_urls'])): ?><div class="published-detail-videos">
 <?php foreach ($post['video_urls'] as $index=>$url) xuverse_published_video($url, $post['title'] . (count($post['video_urls']) > 1 ? ' — video ' . ($index + 1) : '')); ?>
 </div><?php endif; ?>
-<div class="media-detail-info">
+<?php if ($images || !empty($post['video_urls'])): ?></div><?php endif; ?>
+<div class="media-detail-info reveal">
 <h1><?= e($post['title']) ?></h1>
 <?php $description = trim($post['description'] ?? '') ?: $post['summary']; if ($description !== ''): ?><div class="prose"><?= xuverse_markdown($description) ?></div><?php endif; ?>
 <?php if (!empty($post['article_body'])): ?><div class="prose published-article-body"><?= xuverse_markdown($post['article_body']) ?></div><?php endif; ?>
 <?php if (!empty($post['credit_note'])): ?><p class="media-credit"><?= e($post['credit_note']) ?></p><?php endif; ?>
-<div class="project-buttons">
-<a class="text-link" href="<?= e(xuverse_url('media#published')) ?>">Back to Published Work</a>
-<a class="text-link" href="<?= e(xuverse_url()) ?>">Home</a>
+<div class="xw-media-actions">
+<a class="xw-media-link" href="<?= e(xuverse_url('media#published')) ?>">All published work</a>
 </div>
 </div>
 </article>

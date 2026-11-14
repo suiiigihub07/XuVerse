@@ -30,23 +30,24 @@ $image = $project['image'] ?? '';
 $hasFacts = !empty($project['role']) || !empty($project['technology']);
 xuverse_public_start($project['title'], $project['summary'], $path);
 ?>
+<div class="xw-shell xu-tone-light">
 <article class="xw-page xw-container xw-project-page">
-    <header class="xw-reading-head">
-        <p class="xw-kicker"><?= e($project['status']) ?></p>
+    <header class="xw-reading-head reveal">
         <h1><?= e($project['title']) ?></h1>
-        <p class="xw-reading-lead"><?= e($project['summary']) ?></p>
     </header>
 
     <?php if ($image): ?>
-    <figure class="xw-project-evidence">
-        <img src="<?= e(xuverse_asset($image)) ?>" <?= xuverse_image_attributes($image) ?> <?= xuverse_responsive_image_attributes($image, '(max-width: 1280px) 94vw, 1100px') ?> alt="<?= e($project['image_alt'] ?? '') ?>" fetchpriority="high" decoding="async">
+    <figure class="xw-project-evidence reveal">
+        <div class="xu-image-reveal">
+            <img src="<?= e(xuverse_asset($image)) ?>" <?= xuverse_image_attributes($image) ?> <?= xuverse_responsive_image_attributes($image, '(max-width: 1020px) 90vw, 940px') ?> alt="<?= e($project['image_alt'] ?? '') ?>" fetchpriority="high" decoding="async">
+        </div>
         <?php if (!empty($project['image_caption'])): ?>
         <figcaption><?= e($project['image_caption']) ?></figcaption>
         <?php endif; ?>
     </figure>
     <?php endif; ?>
 
-    <div class="xw-project-main<?= $hasFacts ? ' xw-project-with-facts' : '' ?>">
+    <div class="xw-project-main<?= $hasFacts ? ' xw-project-with-facts' : '' ?> reveal">
         <div class="xw-project-story">
             <section>
                 <h2>Overview</h2>
@@ -70,17 +71,17 @@ xuverse_public_start($project['title'], $project['summary'], $path);
         <?php endif; ?>
     </div>
 
-    <footer class="xw-project-footer">
-        <a class="xw-return" href="<?= e(xuverse_url('projects')) ?>"><span aria-hidden="true">←</span> All projects</a>
-        <?php if (!empty($project['repository']) || !empty($project['live'])): ?>
+    <?php if (!empty($project['repository']) || !empty($project['live'])): ?>
+    <footer class="xw-project-footer reveal">
         <div class="xw-project-actions">
             <?php foreach (['repository' => 'GitHub', 'live' => 'Live site'] as $key => $label): ?>
             <?php if (!empty($project[$key])): ?>
-            <a class="xw-control" href="<?= e($project[$key]) ?>" rel="noopener noreferrer"><?= e($label) ?><span aria-hidden="true">↗</span></a>
+            <a class="xw-control" href="<?= e($project[$key]) ?>" rel="noopener noreferrer"><?= e($label) ?></a>
             <?php endif; ?>
             <?php endforeach; ?>
         </div>
-        <?php endif; ?>
     </footer>
+    <?php endif; ?>
 </article>
+</div>
 <?php include __DIR__ . '/includes/footer.php'; ?>

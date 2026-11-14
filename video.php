@@ -25,19 +25,23 @@ $schemaData = [
 xuverse_public_start($video['title'], $video['summary'], 'videos/' . $video['slug']);
 ?>
 
-<section class="personal-page personal-media-detail media-detail-section">
+<section class="xw-media-detail xw-video-detail xu-tone-dark media-detail-section">
 <div class="container">
-<article class="media-detail reveal">
-<?php xuverse_inline_video($video, $video['url'], '(max-width: 1040px) 94vw, 980px'); ?>
-<div class="media-detail-info">
+<article class="media-detail">
+<header class="xw-media-detail-head reveal">
 <h1><?= e($video['title']) ?></h1>
+</header>
+<div class="reveal">
+<?php xuverse_inline_video($video, $video['url'], '(max-width: 1040px) 90vw, 920px'); ?>
+</div>
+<div class="media-detail-info reveal">
 <div class="prose"><?= xuverse_markdown(!empty($video['description']) ? $video['description'] : $video['summary']) ?></div>
 <?php if (!empty($video['credit_note'])): ?>
 <p class="media-credit"><?= e($video['credit_note']) ?></p>
 <?php endif; ?>
-<div class="project-buttons">
-<a href="<?= e($video['url']) ?>" target="_blank" rel="noopener noreferrer" class="btn">Watch on YouTube</a>
-<a href="<?= e(xuverse_url('media#videos')) ?>" class="text-link">Back to videos</a>
+<div class="xw-media-actions">
+<a href="<?= e($video['url']) ?>" target="_blank" rel="noopener noreferrer" class="xw-media-action">Watch on YouTube</a>
+<a href="<?= e(xuverse_url('media#videos')) ?>" class="xw-media-link">All videos</a>
 </div>
 </div>
 </article>

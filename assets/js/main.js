@@ -114,6 +114,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navbar && 'ResizeObserver' in window) { new ResizeObserver(measureNavigation).observe(navbar); }
     measureNavigation();
 
+    if (document.body.classList.contains('xu-public')) {
+        const syncVisibility = () => document.body.classList.toggle('xu-page-hidden', document.hidden);
+        document.addEventListener('visibilitychange', syncVisibility);
+        syncVisibility();
+        const syncNav = () => navbar?.classList.toggle('nav-scrolled', window.scrollY > 28);
+        window.addEventListener('scroll', syncNav, { passive: true });
+        syncNav();
+    }
+
     document.querySelectorAll('.profile-menu').forEach((menu) => {
         const trigger = menu.querySelector('.profile-trigger');
 
@@ -154,11 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const revealItems = [...document.querySelectorAll('.reveal')];
+    const revealItems = [...document.querySelectorAll('.reveal,.xu-image-reveal')];
+    const groupOffsets = new Map();
     revealItems.forEach((item) => {
-        const siblings = [...(item.parentElement?.children || [])].filter((child) => child.classList.contains('reveal'));
-        const siblingIndex = Math.max(0, siblings.indexOf(item));
-        item.style.setProperty('--reveal-delay', `${Math.min(siblingIndex * 70, 280)}ms`);
+        const group = item.parentElement;
+        const index = groupOffsets.get(group) ?? 0;
+        groupOffsets.set(group, index + 1);
+        item.style.setProperty('--reveal-delay', `${Math.min(index * 65, 260)}ms`);
     });
 
     if (!reduceMotion && 'IntersectionObserver' in window) {

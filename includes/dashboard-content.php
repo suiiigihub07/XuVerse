@@ -36,7 +36,7 @@ function xuverse_editor_template($collection, $type = '') {
         else { $entry['cards'] = []; }
         return $entry;
     }
-    if ($collection === 'projects') return ['title'=>'','slug'=>'','summary'=>'','description'=>'','technology'=>[],'role'=>'','status'=>'','repository'=>null,'live'=>null,'learning'=>'','image'=>'','image_alt'=>'','image_caption'=>'','publication_status'=>'draft'];
+    if ($collection === 'projects') return ['title'=>'','slug'=>'','summary'=>'','home_summary'=>'','description'=>'','technology'=>[],'role'=>'','status'=>'','repository'=>null,'live'=>null,'learning'=>'','image'=>'','image_alt'=>'','image_caption'=>'','publication_status'=>'draft'];
     if ($collection === 'articles') return ['title'=>'','subtitle'=>'','slug'=>'','author'=>xuverse_content('copy')['name'],'date_display'=>'','written_date'=>'','date_precision'=>'year','category'=>'','language'=>'en','summary'=>'','tags'=>[],'publication_status'=>'draft','source_note'=>'','references'=>[]];
     return [];
 }
@@ -97,7 +97,7 @@ function xuverse_editor_validate($collection, $data) {
             if (!preg_match('/^[a-z][a-z0-9-]{0,99}$/', $item['slug']) || isset($slugs[$item['slug']])) throw new RuntimeException('Use a unique address with lowercase letters, numbers and hyphens.');
             $slugs[$item['slug']] = true;
             if (!in_array($item['publication_status'] ?? 'published', ['draft','published'], true)) throw new RuntimeException('Invalid publication status.');
-            foreach (['description','article_body','alt','credit_note','author','subtitle','date_display','source_note','image_alt','image_caption'] as $key) if (isset($item[$key]) && !is_string($item[$key])) throw new RuntimeException('Use text for ' . str_replace('_',' ',$key) . '.');
+            foreach (['description','article_body','alt','credit_note','author','subtitle','date_display','source_note','image_alt','image_caption','home_summary'] as $key) if (isset($item[$key]) && !is_string($item[$key])) throw new RuntimeException('Use text for ' . str_replace('_',' ',$key) . '.');
             foreach (['technology','tags','related_links'] as $key) if (isset($item[$key])) {
                 if (!is_array($item[$key]) || !array_is_list($item[$key])) throw new RuntimeException('Invalid list: ' . $key);
                 foreach ($item[$key] as $value) if (!is_string($value)) throw new RuntimeException('Use text for each ' . $key . ' item.');

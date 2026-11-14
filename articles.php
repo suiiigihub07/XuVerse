@@ -11,8 +11,9 @@ if (!in_array($featuredSlug, array_column($articles, 'slug'), true)) {
 usort($articles, static fn($a, $b) => ($b['slug'] === $featuredSlug) <=> ($a['slug'] === $featuredSlug));
 xuverse_public_start($site['articles_page_heading'], $copy['articles_intro'], 'articles');
 ?>
-<section class="xw-page xw-container">
-    <header class="xw-index-head">
+<section class="xw-shell xu-tone-light">
+<div class="xw-page xw-container">
+    <header class="xw-index-head reveal">
         <h1><?= e($site['articles_page_heading']) ?></h1>
         <p><?= e($copy['articles_intro']) ?></p>
     </header>
@@ -34,9 +35,9 @@ xuverse_public_start($site['articles_page_heading'], $copy['articles_intro'], 'a
             $image = ($item['image'] ?? '') ?: ($item['cover'] ?? '');
             $category = $item['category'] ?? $item['type'] ?? '';
             $dateTime = ($item['date_precision'] ?? 'year') === 'year' ? '' : ($item['written_date'] ?? '');
-            $searchTerms = array_merge([$item['subtitle'] ?? '', $item['status'] ?? ''], $item['tags'] ?? []);
+            $searchTerms = array_merge([$item['subtitle'] ?? '', $item['status'] ?? '', $item['summary']], $item['tags'] ?? []);
         ?>
-        <article class="xw-entry<?= $isFeatured ? ' xw-entry-feature' : '' ?><?= $image ? ' xw-entry-has-image' : '' ?>" data-search="<?= e(implode(' ', $searchTerms)) ?>">
+        <article class="xw-entry<?= $isFeatured ? ' xw-entry-feature' : '' ?><?= $image ? ' xw-entry-has-image' : '' ?> reveal" data-search="<?= e(implode(' ', $searchTerms)) ?>">
             <div class="xw-entry-meta">
                 <?php if ($category): ?><p class="xw-kicker"><?= e($category) ?></p><?php endif; ?>
                 <?php if (!empty($item['date_display']) || !empty($item['reading_time_minutes'])): ?>
@@ -51,21 +52,20 @@ xuverse_public_start($site['articles_page_heading'], $copy['articles_intro'], 'a
                 <?php endif; ?>
             </div>
             <div class="xw-entry-copy">
-                <h2><a href="<?= e(xuverse_url('articles/' . $item['slug'])) ?>"><?= e($item['title']) ?><span aria-hidden="true">→</span></a></h2>
-                <p><?= e($item['summary']) ?></p>
+                <h2><a href="<?= e(xuverse_url('articles/' . $item['slug'])) ?>"><?= e($item['title']) ?></a></h2>
+                <p><?= e($isFeatured ? $item['summary'] : (($item['subtitle'] ?? '') ?: $item['summary'])) ?></p>
                 <?php if ($isResearch && !empty($item['status'])): ?>
                 <p class="xw-entry-status"><?= e($item['status']) ?></p>
                 <?php endif; ?>
             </div>
             <?php if ($image): ?>
-            <figure class="xw-entry-image">
+            <figure class="xw-entry-image xu-image-reveal">
                 <img src="<?= e(xuverse_asset($image)) ?>" <?= xuverse_image_attributes($image) ?> <?= xuverse_responsive_image_attributes($image, '(max-width: 760px) 82vw, 38vw') ?> alt="<?= e($item['image_alt'] ?? $item['cover_alt'] ?? '') ?>" loading="lazy" decoding="async">
             </figure>
-            <?php elseif ($isFeatured): ?>
-            <div class="xw-issue-art" aria-hidden="true"><span></span></div>
             <?php endif; ?>
         </article>
         <?php endforeach; ?>
     </div>
+</div>
 </section>
 <?php include __DIR__ . '/includes/footer.php'; ?>
