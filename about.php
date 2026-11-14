@@ -7,22 +7,22 @@ $portrait = $site['portrait'];
 $portraitSizes = '(max-width: 720px) 260px, 360px';
 $intro = $copy['about'];
 
-xuverse_public_start('About', $intro, 'about');
+xuverse_public_start(xuverse_site_label('about_title', 'About'), $intro, 'about');
 ?>
 
-<section class="personal-page personal-about xu-tone-dark" aria-labelledby="about-name">
-    <div class="container personal-about-layout">
+<section class="personal-page personal-about xu-tone-light" aria-labelledby="about-name">
+    <div class="xu-container personal-about-layout">
         <div class="personal-about-intro reveal">
-            <p class="xu-kicker">About</p>
+            <p class="xu-kicker"><?= e(xuverse_site_label('about_title', 'About')) ?></p>
             <h1 class="personal-title" id="about-name"><?= e($copy['name']) ?></h1>
             <p class="personal-lead"><?= e($intro) ?></p>
             <div class="personal-about-focus">
-                <h2>Current focus</h2>
-                <p><?= e($copy['current_focus']) ?></p>
+                <h2><?= e(xuverse_site_label('about_focus_title', 'Working on it.')) ?></h2>
+                <?php if (!empty($copy['current_focus'])): ?><p><?= e($copy['current_focus']) ?></p><?php endif; ?>
             </div>
             <div class="personal-actions">
                 <a class="xu-primary" href="<?= e(xuverse_url('resume')) ?>"><?= e($site['about_resume_action']) ?></a>
-                <a class="xu-link" href="<?= e(xuverse_url('contact')) ?>">Get in touch</a>
+                <a class="xu-link" href="<?= e(xuverse_url('contact')) ?>"><?= e(xuverse_site_label('about_connect_action', 'Get in touch')) ?></a>
             </div>
         </div>
         <figure class="personal-portrait reveal xu-image-reveal">

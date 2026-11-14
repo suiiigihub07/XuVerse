@@ -9,8 +9,8 @@ function xuverse_gallery($item, $id) {
     $images = xuverse_gallery_images($item);
     if (!$images) return;
     ?>
-    <div class="post-gallery" data-post-gallery aria-label="<?= e($item['title']) ?> images">
-      <div class="post-gallery-track" id="<?= e($id) ?>" tabindex="0" aria-label="Swipe images or use arrow keys">
+    <div class="post-gallery" data-post-gallery role="group" aria-label="<?= e($item['title']) ?> images">
+      <div class="post-gallery-track" id="<?= e($id) ?>" role="group" tabindex="0" aria-label="Swipe images or use arrow keys">
       <?php foreach ($images as $i => $path): ?>
         <figure class="post-gallery-slide" aria-label="Image <?= $i + 1 ?> of <?= count($images) ?>">
           <img src="<?= e(xuverse_asset($path)) ?>" <?= xuverse_image_attributes($path) ?> alt="<?= e((!empty($item['alt']) ? $item['alt'] : $item['title']) . (count($images) > 1 ? ' — image ' . ($i + 1) : '')) ?>" loading="<?= $i ? 'lazy' : 'eager' ?>" decoding="async">

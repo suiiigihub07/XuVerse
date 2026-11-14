@@ -19,15 +19,15 @@ xuverse_public_start($site['articles_page_heading'], $copy['articles_intro'], 'a
     </header>
     <div class="xw-collection-tools" data-collection-tools hidden>
         <div class="xw-search">
-            <label for="content-search">Search articles</label>
+            <label for="content-search"><?= e(xuverse_site_label('work_search_articles', 'Search articles')) ?></label>
             <div class="xw-search-fields">
                 <input type="search" id="content-search" aria-controls="content-results">
-                <button type="button" class="xw-control" data-clear-search>Clear</button>
+                <button type="button" class="xw-control" data-clear-search><?= e(xuverse_site_label('work_search_clear', 'Clear')) ?></button>
             </div>
         </div>
         <p class="collection-count" role="status" aria-live="polite"></p>
     </div>
-    <p class="xw-empty" data-collection-empty hidden>No matches. Try another word.</p>
+    <p class="xw-empty" data-collection-empty hidden><?= e(xuverse_site_label('work_search_empty', 'No matches. Try another word.')) ?></p>
     <div id="content-results" data-collection>
         <?php foreach ($articles as $item):
             $isFeatured = $item['slug'] === $featuredSlug;
@@ -60,7 +60,7 @@ xuverse_public_start($site['articles_page_heading'], $copy['articles_intro'], 'a
             </div>
             <?php if ($image): ?>
             <figure class="xw-entry-image xu-image-reveal">
-                <img src="<?= e(xuverse_asset($image)) ?>" <?= xuverse_image_attributes($image) ?> <?= xuverse_responsive_image_attributes($image, '(max-width: 760px) 82vw, 38vw') ?> alt="<?= e($item['image_alt'] ?? $item['cover_alt'] ?? '') ?>" loading="lazy" decoding="async">
+                <img src="<?= e(xuverse_asset($image)) ?>" <?= xuverse_image_attributes($image) ?> <?= xuverse_responsive_image_attributes($image, '(max-width: 760px) 82vw, 38vw') ?> alt="<?= e(trim($item['image_alt'] ?? '') ?: ($item['cover_alt'] ?? '')) ?>" loading="lazy" decoding="async">
             </figure>
             <?php endif; ?>
         </article>

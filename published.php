@@ -27,7 +27,7 @@ xuverse_public_start($post['title'], $post['summary'], 'photos/' . $post['slug']
 <?php if (!empty($post['article_body'])): ?><div class="prose published-article-body"><?= xuverse_markdown($post['article_body']) ?></div><?php endif; ?>
 <?php if (!empty($post['credit_note'])): ?><p class="media-credit"><?= e($post['credit_note']) ?></p><?php endif; ?>
 <div class="xw-media-actions">
-<a class="xw-media-link" href="<?= e(xuverse_url('media#published')) ?>">All published work</a>
+<a class="xw-media-link" href="<?= e(xuverse_url('media#published')) ?>"><?= e(xuverse_site_label('media_all_published_action', 'All published work')) ?></a>
 </div>
 </div>
 </article>

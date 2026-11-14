@@ -10,6 +10,8 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
 
 require_once '../includes/db.php';
 require_once '../includes/functions.php';
+require_once '../includes/dashboard-content.php';
+$editorWritable = xuverse_editor_is_writable();
 
 function xuverse_count($conn, $table)
 {
@@ -47,7 +49,7 @@ include '../includes/navbar.php';
 <div class="dashboard-heading">
 <div>
 <h1>Control Center</h1>
-<p>Welcome back, <?= e($adminName) ?>. Edit your public website content here, review the preview, then use Publish to sync the same revision.</p>
+<p>Welcome back, <?= e($adminName) ?>. <?= $editorWritable ? 'Edit the local website, or import a change file from the hosted editor.' : 'Edit website content and download a change file for review and publishing from the local dashboard.' ?></p>
 </div>
 
 <div class="dashboard-actions">
@@ -56,17 +58,16 @@ include '../includes/navbar.php';
 </div>
 
 <?php
-require_once '../includes/dashboard-content.php';
 $publicMedia=xuverse_content('media');
 $publicStats=['Projects'=>count(xuverse_content('projects')),'Articles'=>count(xuverse_content('articles')),'Photographs'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='photograph')),'Published posts'=>count(xuverse_content('published')),'Videos'=>count(array_filter($publicMedia,fn($entry)=>$entry['type']==='video'))];
 ?>
 <div class="dashboard-grid">
-<a class="stat-card" href="website/index.php"><h2>Website content</h2><p>Photos, ANCHOR galleries, videos, writing and every public content section</p></a>
+<a class="stat-card" href="website/index.php"><h2>Website content</h2><p><?= $editorWritable ? 'Manage public content and import hosted changes' : 'Edit public content and download changes' ?></p></a>
 <?php foreach($publicStats as $label=>$total): ?><div class="stat-card"><h2><?= $total ?></h2><p><?= e($label) ?></p></div><?php endforeach; ?>
 </div>
 
 <div class="quick-links">
-<?php require_once '../includes/dashboard-content.php'; foreach (xuverse_editor_sections() as $key=>$label): ?>
+<?php foreach (xuverse_editor_sections() as $key=>$label): ?>
 <a href="website/index.php?collection=<?= e($key) ?>"><h2><?= e($label) ?></h2><p>Edit the content displayed on your public pages</p></a>
 <?php endforeach; ?>
 </div>

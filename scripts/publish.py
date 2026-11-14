@@ -17,7 +17,7 @@ def run(*args, capture=False):
 def allowed(name):
     p=PurePosixPath(name)
     if '__pycache__' in p.parts or p.suffix in {'.pyc','.zip','.sql','.log','.bak','.pem','.key'}: return False
-    return (p.parts[0] in {'admin','includes','assets','content','scripts'} or name in {'.htaccess','.gitignore','.gitattributes','README.md','DEPLOYMENT.md','PUBLISH.md','CONTENT-GUIDE.md','REFINEMENT-CHECKLIST.md','composer.json','composer.lock'} or (len(p.parts)==1 and p.suffix=='.php' and not name.startswith('config.') and 'backup' not in name))
+    return (p.parts[0] in {'admin','includes','assets','content','scripts'} or name in {'.htaccess','.gitignore','.gitattributes','README.md','DEPLOYMENT.md','PUBLISH.md','CONTENT-GUIDE.md','REFINEMENT-CHECKLIST.md','ALIGNMENT-CHECKLIST.md','composer.json','composer.lock'} or (len(p.parts)==1 and p.suffix=='.php' and not name.startswith('config.') and 'backup' not in name))
 
 def release_files(revision):
     names=run('git','ls-tree','-r','--name-only',revision,capture=True).splitlines()

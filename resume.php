@@ -16,7 +16,7 @@ include __DIR__ . '/includes/navbar.php';
     <div class="container personal-cv-container">
         <header class="personal-cv-header reveal">
             <div>
-                <p class="personal-cv-label">Résumé</p>
+                <p class="personal-cv-label"><?= e(xuverse_site_label('resume_label', 'Résumé')) ?></p>
                 <h1 id="cv-name"><?= e($resume['name']) ?></h1>
                 <p class="personal-cv-headline"><?= e($resume['headline']) ?></p>
                 <ul class="personal-cv-links">
@@ -32,14 +32,14 @@ include __DIR__ . '/includes/navbar.php';
                 </ul>
             </div>
             <div class="personal-cv-controls">
-                <a class="personal-cv-download" href="<?= e(xuverse_url('resume/download')) ?>" download>Download PDF</a>
-                <button type="button" class="personal-cv-print" data-print-resume>Print</button>
+                <a class="personal-cv-download" href="<?= e(xuverse_url('resume/download')) ?>" download><?= e(xuverse_site_label('resume_pdf_action', 'Download PDF')) ?></a>
+                <button type="button" class="personal-cv-print" data-print-resume><?= e(xuverse_site_label('resume_print_action', 'Print')) ?></button>
             </div>
         </header>
 
         <div class="personal-cv-layout">
             <section class="personal-cv-section reveal" aria-labelledby="cv-education">
-                <h2 id="cv-education">Education</h2>
+                <h2 id="cv-education"><?= e(xuverse_site_label('resume_education', 'Education')) ?></h2>
                 <div>
                     <?php foreach ($resume['education'] as $entry): ?>
                     <article class="personal-cv-entry">
@@ -76,19 +76,19 @@ include __DIR__ . '/includes/navbar.php';
             <?php endforeach; ?>
 
             <section class="personal-cv-section reveal" aria-labelledby="cv-areas">
-                <h2 id="cv-areas">Skills &amp; Areas</h2>
+                <h2 id="cv-areas"><?= e(xuverse_site_label('resume_skills', 'Skills & Areas')) ?></h2>
                 <div class="personal-cv-skills">
-                    <?php foreach ($resume['areas'] as $area => $skills): ?>
+                    <?php foreach ($resume['areas'] as $area): ?>
                     <div class="personal-cv-entry">
-                        <h3><?= e($area) ?></h3>
-                        <p class="personal-cv-detail"><?= e(implode(' · ', $skills)) ?></p>
+                        <h3><?= e($area['title']) ?></h3>
+                        <p class="personal-cv-detail"><?= e(implode(' · ', $area['items'])) ?></p>
                     </div>
                     <?php endforeach; ?>
                 </div>
             </section>
 
             <section class="personal-cv-section reveal" aria-labelledby="cv-tools">
-                <h2 id="cv-tools">Tools</h2>
+                <h2 id="cv-tools"><?= e(xuverse_site_label('resume_tools', 'Tools')) ?></h2>
                 <p class="personal-cv-detail"><?= e(implode(' · ', $resume['tools'])) ?></p>
             </section>
         </div>

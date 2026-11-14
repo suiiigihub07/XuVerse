@@ -60,8 +60,9 @@ if (preg_match('#/admin/(articles|projects|media|experience|education|skills|hig
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') { http_response_code(405); }
         include __DIR__ . '/header.php';
         include __DIR__ . '/navbar.php';
-        echo '<section class="section container"><h1>Public content is versioned</h1><p>Edit the JSON and Markdown files in content/ in the local checkout, then run Publish. This keeps the local preview, GitHub and hosted site on the same revision.</p><p>Historical database records are retained privately. These public-content fields are read-only in this CMS.</p><p>Account, password and avatar tools remain available.</p></section>';
-        echo '<p class="container"><a href="' . e(xuverse_url('admin/dashboard.php')) . '">Back to dashboard</a></p>';
+        preg_match('#/admin/([a-z]+)/#', $script, $area);
+        $section = ['articles'=>'articles','projects'=>'projects','media'=>'media','experience'=>'profile','education'=>'profile','skills'=>'profile','highlights'=>'published','settings'=>'site'][$area[1] ?? ''] ?? 'site';
+        echo '<section class="section container"><h1>Public content is versioned</h1><p>Historical database records remain private. The Website content editor now manages the text, images and records visitors see.</p><p><a class="btn" href="' . e(xuverse_url('admin/website/index.php') . '?collection=' . $section) . '">Open Website content editor</a></p><p><a href="' . e(xuverse_url('admin/dashboard.php')) . '">Back to dashboard</a></p></section>';
         include __DIR__ . '/footer.php';
         exit;
     }

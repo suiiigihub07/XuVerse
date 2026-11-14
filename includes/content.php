@@ -23,6 +23,11 @@ function xuverse_content($name, $refresh = false) {
     return $cache[$name] ??= json_decode(file_get_contents(dirname(__DIR__) . '/content/' . $name . '.json'), true, 512, JSON_THROW_ON_ERROR);
 }
 
+function xuverse_site_label(string $key, string $fallback): string {
+    $label = xuverse_content('site')['labels'][$key] ?? '';
+    return is_string($label) && trim($label) !== '' ? $label : $fallback;
+}
+
 function xuverse_published($name) {
     return array_values(array_filter(xuverse_content($name), fn($item) => ($item['publication_status'] ?? 'published') === 'published'));
 }

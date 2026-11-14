@@ -22,9 +22,9 @@ xuverse_public_start('Media', 'Photographs, videos, and selected published work 
     <header class="container xw-media-header reveal">
         <h1><?= e($site['media_page_heading']) ?></h1>
         <nav class="media-categories" aria-label="Media categories">
-            <a href="#photographs" aria-current="true">Photographs</a>
-            <a href="#videos">Videos</a>
-            <a href="#published">Published Work</a>
+            <a href="#photographs" aria-current="true"><?= e($site['photographs_heading']) ?></a>
+            <a href="#videos"><?= e($site['videos_heading']) ?></a>
+            <a href="#published"><?= e($site['published_heading']) ?></a>
         </nav>
     </header>
 
@@ -33,7 +33,7 @@ xuverse_public_start('Media', 'Photographs, videos, and selected published work 
             <h2 class="xw-media-label" id="photographs-title"><?= e($site['photographs_heading']) ?></h2>
             <div class="xw-photo-layout">
             <?php foreach ($photos as $index => $photo): ?>
-                <?php $photoSizes = '(max-width: 560px) 90vw, 380px'; ?>
+                <?php $photoSizes = '(max-width: 560px) 90vw, (max-width: 900px) 44vw, 440px'; ?>
                 <article class="photo-card xw-photo reveal">
                     <a href="<?= e(xuverse_url('photos/' . $photo['slug'])) ?>" class="media-link xu-image-reveal" data-full-image="<?= e(xuverse_asset($photo['image'])) ?>">
                         <picture>

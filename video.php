@@ -40,8 +40,8 @@ xuverse_public_start($video['title'], $video['summary'], 'videos/' . $video['slu
 <p class="media-credit"><?= e($video['credit_note']) ?></p>
 <?php endif; ?>
 <div class="xw-media-actions">
-<a href="<?= e($video['url']) ?>" target="_blank" rel="noopener noreferrer" class="xw-media-action">Watch on YouTube</a>
-<a href="<?= e(xuverse_url('media#videos')) ?>" class="xw-media-link">All videos</a>
+<a href="<?= e($video['url']) ?>" target="_blank" rel="noopener noreferrer" class="xw-media-action"><?= e(xuverse_site_label('media_youtube_action', 'Watch on YouTube')) ?></a>
+<a href="<?= e(xuverse_url('media#videos')) ?>" class="xw-media-link"><?= e(xuverse_site_label('media_all_videos_action', 'All videos')) ?></a>
 </div>
 </div>
 </article>

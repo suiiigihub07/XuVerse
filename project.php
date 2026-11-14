@@ -50,11 +50,11 @@ xuverse_public_start($project['title'], $project['summary'], $path);
     <div class="xw-project-main<?= $hasFacts ? ' xw-project-with-facts' : '' ?> reveal">
         <div class="xw-project-story">
             <section>
-                <h2>Overview</h2>
+                <h2><?= e(xuverse_site_label('project_overview_heading', 'Overview')) ?></h2>
                 <p><?= e($project['description']) ?></p>
             </section>
             <section>
-                <h2>What I learned</h2>
+                <h2><?= e(xuverse_site_label('project_learning_heading', 'What I learned')) ?></h2>
                 <p><?= e($project['learning']) ?></p>
             </section>
         </div>
@@ -62,10 +62,10 @@ xuverse_public_start($project['title'], $project['summary'], $path);
         <?php if ($hasFacts): ?>
         <dl class="xw-project-facts">
             <?php if (!empty($project['role'])): ?>
-            <div><dt>Role</dt><dd><?= e($project['role']) ?></dd></div>
+            <div><dt><?= e(xuverse_site_label('project_role_label', 'Role')) ?></dt><dd><?= e($project['role']) ?></dd></div>
             <?php endif; ?>
             <?php if (!empty($project['technology'])): ?>
-            <div><dt>Technology</dt><dd><?= e(implode(' · ', $project['technology'])) ?></dd></div>
+            <div><dt><?= e(xuverse_site_label('project_technology_label', 'Technology')) ?></dt><dd><?= e(implode(' · ', $project['technology'])) ?></dd></div>
             <?php endif; ?>
         </dl>
         <?php endif; ?>
@@ -74,7 +74,7 @@ xuverse_public_start($project['title'], $project['summary'], $path);
     <?php if (!empty($project['repository']) || !empty($project['live'])): ?>
     <footer class="xw-project-footer reveal">
         <div class="xw-project-actions">
-            <?php foreach (['repository' => 'GitHub', 'live' => 'Live site'] as $key => $label): ?>
+            <?php foreach (['repository' => xuverse_site_label('project_repository_action', 'GitHub'), 'live' => xuverse_site_label('project_live_action', 'Live site')] as $key => $label): ?>
             <?php if (!empty($project[$key])): ?>
             <a class="xw-control" href="<?= e($project[$key]) ?>" rel="noopener noreferrer"><?= e($label) ?></a>
             <?php endif; ?>

@@ -44,6 +44,7 @@ $pageImage = $pageImage ?? xuverse_setting($settings, 'og_image', $ownerAvatar);
 $absoluteImage = xuverse_absolute_url($pageImage);
 $pageType = $pageType ?? 'website';
 $isAdminPage = strpos($_SERVER['SCRIPT_NAME'] ?? '', '/admin/') !== false;
+$isEditorialHome = !$isAdminPage && basename($_SERVER['SCRIPT_NAME'] ?? '') === 'index.php';
 $isPrivatePage = $isAdminPage || basename($_SERVER['SCRIPT_NAME'] ?? '') === 'login.php' || http_response_code() >= 400;
 $robots = $robots ?? (xuverse_is_production() && !$isPrivatePage ? 'index, follow, max-image-preview:large' : xuverse_noindex());
 $adminName = $adminName ?? xuverse_setting($settings, 'hero_title', 'B K Suraj');
@@ -94,7 +95,7 @@ if (!empty($schemaData) && is_array($schemaData)) {
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title><?= htmlspecialchars($documentTitle) ?></title>
 
@@ -104,7 +105,7 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 
 <meta name="robots" content="<?= e($robots) ?>">
 <meta name="xuverse-revision" content="<?= e(xuverse_checkout_revision()) ?>">
-<meta name="theme-color" content="#090909">
+<meta name="theme-color" content="<?= $isAdminPage ? '#090909' : '#c2185b' ?>">
 <link rel="canonical" href="<?= e($canonicalUrl) ?>">
 
 <meta property="og:type" content="<?= e($pageType) ?>">
@@ -126,13 +127,10 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 
 
 
+<?php if ($isAdminPage): ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="//fonts.googleapis.com">
-<?php if ($isAdminPage): ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<?php else: ?>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400..800&amp;display=swap">
 <?php endif; ?>
 <link rel="preload" href="<?= e(xuverse_url('assets/css/style.min.css')) ?><?= $assetVersionSeparator ?>v=<?= $baseStylesheetVersion ?>" as="style">
 <?php if (session_status() === PHP_SESSION_ACTIVE && !empty($_SESSION['user_id'])): ?>
@@ -157,5 +155,5 @@ defer></script>
 <?php require __DIR__ . '/site-assets.php'; ?>
 </head>
 
-<body<?= $isAdminPage ? '' : ' class="xu-public"' ?>>
+<body<?= $isAdminPage ? '' : ($isEditorialHome ? ' class="xu-public xu-home-view"' : ' class="xu-public"') ?>>
 <a class="skip-link" href="#main-content">Skip to main content</a>

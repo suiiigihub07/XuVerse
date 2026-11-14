@@ -17,12 +17,18 @@
   };
   let number = 0;
   const hiddenKeys = new Set(['legacy_ids','pdf_path','word_count','reading_time_minutes','published_at']);
-  const label = key => ({cards:'Gallery images (up to 10)',video_urls:'YouTube videos (optional)',article_body:'Article text (optional)',slug:'Page address',alt:'Image description',credit_note:'Credits',publication_status:'Visibility',date_precision:'Date precision',source_note:'Source access note'}[key] || key.replaceAll('_',' ').replace(/^./,c=>c.toUpperCase()));
+  if (config.collection==='profile') ['achievement','omit'].forEach(key=>hiddenKeys.add(key));
+  if (config.collection==='links') ['local','legacy_unverified'].forEach(key=>hiddenKeys.add(key));
+  const label = key => ({cards:'Gallery images (up to 10)',video_urls:'YouTube videos (optional)',article_body:'Article text (optional)',slug:'Page address',alt:'Image description',credit_note:'Credits',publication_status:'Visibility',date_precision:'Date precision',source_note:'Source access note',labels:'Page and action labels',resume_areas:'Public résumé skills',resume_tools:'Public résumé tools'}[key] || key.replaceAll('_',' ').replace(/^./,c=>c.toUpperCase()));
   const set = (path,value) => {let target=data;for(let i=0;i<path.length-1;i++)target=target[path[i]];target[path.at(-1)]=value; output.value=JSON.stringify(data);};
   const blank = value => Array.isArray(value) ? [] : value && typeof value==='object' ? Object.fromEntries(Object.entries(value).map(([key,child])=>[key,blank(child)])) : typeof value==='number' ? 0 : typeof value==='boolean' ? false : '';
   const makeButton = (text,action) => {const button=document.createElement('button');button.type='button';button.textContent=text;button.addEventListener('click',action);return button;};
   const render = () => {
-    number=0;container.replaceChildren(); Object.entries(data).forEach(([key,value])=>{if(!hiddenKeys.has(key)) container.append(field(value,[key],key));});
+    number=0;container.replaceChildren();
+    Object.entries(data).forEach(([key,value])=>{
+      if (hiddenKeys.has(key) || (config.collection==='profile' && ['name','location'].includes(key))) return;
+      container.append(field(value,[key],key));
+    });
     if (config.collection==='skills') {
       const group=document.createElement('div');group.className='input-group';const caption=document.createElement('label');caption.htmlFor='new-skill-category';caption.textContent='New skill category';const input=document.createElement('input');input.id='new-skill-category';
       const add=makeButton('Add category',()=>{const key=input.value.trim();if(!key || key.length>60 || ['__proto__','prototype','constructor'].includes(key) || Object.hasOwn(data,key)) {input.setCustomValidity('Choose a new category name.');input.reportValidity();return;}data[key]=[];render();});add.className='cms-add';input.addEventListener('input',()=>input.setCustomValidity(''));group.append(caption,input,add);container.append(group);
@@ -49,7 +55,16 @@
     const group=document.createElement('div');group.className='input-group';const caption=document.createElement('label');const id=`cms-field-${++number}`;caption.htmlFor=id;caption.textContent=label(key);group.append(caption);
     let input;
     const options={publication_status:['draft','published'],date_precision:['year','month','day'],type:['card series','photograph','video']};
-    if (options[key]) {input=document.createElement('select');options[key].forEach(option=>{const element=document.createElement('option');element.value=option;element.textContent=option==='card series'?'ANCHOR / gallery post':option;input.append(element);});}
+    const choices = path.length===1 ? config.choices[key] : undefined;
+    const isRoleCategory = key==='category' && config.collection==='profile' && path[0]==='roles';
+    if (choices || isRoleCategory || options[key]) {
+      input=document.createElement('select');
+      const values = choices || (isRoleCategory ? [{value:'leadership',label:'Leadership & activities'},{value:'work',label:'Work experience'}] : options[key].map(value=>({value,label:value==='card series'?'Gallery post':value})));
+      values.forEach(({value,label})=>{const element=document.createElement('option');element.value=value;element.textContent=label;input.append(element);});
+      if (choices && value && !values.some(option=>option.value===value)) {
+        const element=document.createElement('option');element.value=value;element.textContent=value+' (unavailable)';input.append(element);
+      }
+    }
     else if (typeof value==='boolean') {input=document.createElement('input');input.type='checkbox';input.checked=value;}
     else if (/description|article_body|summary|intro|about|philosophy|note|learning|contribution/.test(key) || String(value??'').length>180) {input=document.createElement('textarea');input.rows=key==='article_body'?18:4;}
     else {input=document.createElement('input');input.type=typeof value==='number'?'number':'text';}

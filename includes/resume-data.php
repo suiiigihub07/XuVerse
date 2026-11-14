@@ -9,8 +9,8 @@ function xuverse_resume_data($conn)
     $portfolio = xuverse_find_public('projects', 'xuverse');
     $education = $profile['education'];
     $roleGroups = [
-        'work' => ['label' => 'Work Experience', 'entries' => []],
-        'leadership' => ['label' => 'Leadership & Activities', 'entries' => []],
+        'work' => ['label' => xuverse_site_label('resume_work_experience', 'Work Experience'), 'entries' => []],
+        'leadership' => ['label' => xuverse_site_label('resume_leadership', 'Leadership & Activities'), 'entries' => []],
     ];
 
     foreach ($profile['roles'] as $role) {
@@ -40,10 +40,7 @@ function xuverse_resume_data($conn)
             'location' => $education['location'],
             'semester' => $education['semester'],
         ]],
-        'areas' => [
-            'Software' => ['Front-end', 'Back-end', 'Database design', 'Software development', 'UI/UX'],
-            'Creative' => ['Photography', 'Videography', 'Video direction', 'Video editing', 'Digital media'],
-        ],
-        'tools' => ['GitHub', 'VS Code', 'DaVinci Resolve', 'CapCut', 'Canva'],
+        'areas' => $profile['resume_areas'],
+        'tools' => $profile['resume_tools'],
     ];
 }

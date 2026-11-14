@@ -17,4 +17,11 @@
 .cms-form input[readonly] { opacity:.6; }
 .cms-form .input-group { margin-block:16px; }
 .cms-form textarea { resize:vertical; }
+.cms-import-form { display:grid; justify-items:start; gap:10px; margin-top:12px; }
+.cms-import-form input[type="file"] { max-width:100%; }
+.cms-undo { margin-bottom:24px; }
+.cms-review { max-width:1000px; }
+.cms-review-values { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:10px; }
+.cms-review-values pre { overflow-wrap:anywhere; white-space:pre-wrap; color:#e4e4e7; }
+@media(max-width:600px) { .cms-review-values { grid-template-columns:minmax(0,1fr); } }
 @media(max-width:600px) { .cms-array-row { flex-direction:column; } .cms-array-row > .cms-row-value { width:100%; } .cms-entry { align-items:start; flex-direction:column; } }

@@ -63,6 +63,8 @@
     "legacy_ids": [
       12
     ],
-    "image": ""
+    "image": "assets/images/public/hotel-reservation-overview.webp",
+    "image_alt": "Illustrated overview of the C++ console project showing room availability, guest records, and reservations.",
+    "image_caption": "Illustrated project overview."
   }
 ]

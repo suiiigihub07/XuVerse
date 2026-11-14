@@ -92,7 +92,7 @@ xuverse_public_start('Connect', $contactIntro, 'contact');
 ?>
 
 <section class="personal-page personal-contact xu-tone-dark" aria-labelledby="contact-title">
-    <div class="container">
+    <div class="xu-container">
         <header class="personal-contact-header reveal">
             <h1 class="personal-title" id="contact-title"><?= e($copy['contact_heading']) ?></h1>
             <p class="personal-lead"><?= e($contactIntro) ?></p>
@@ -100,12 +100,12 @@ xuverse_public_start('Connect', $contactIntro, 'contact');
 
         <div class="personal-contact-layout<?= $contactMailReady ? ' has-inquiry' : '' ?>">
             <section class="personal-contact-email reveal" aria-labelledby="email-title">
-                <h2 id="email-title">Email</h2>
+                <h2 id="email-title"><?= e(xuverse_site_label('contact_email_heading', 'Email')) ?></h2>
                 <p class="personal-contact-address"><?= e($email) ?></p>
                 <div class="personal-actions">
                     <a href="<?= e($mailto) ?>" class="xu-primary email-action"
-                        data-mailto="<?= e($mailto) ?>" data-email="<?= e($email) ?>">Email me</a>
-                    <button type="button" class="xu-link xu-flat-action" data-copy-email="<?= e($email) ?>" hidden>Copy email</button>
+                        data-mailto="<?= e($mailto) ?>" data-email="<?= e($email) ?>"><?= e(xuverse_site_label('contact_email_action', 'Email me')) ?></a>
+                    <button type="button" class="xu-link xu-flat-action" data-copy-email="<?= e($email) ?>" hidden><?= e(xuverse_site_label('contact_copy_email', 'Copy email')) ?></button>
                 </div>
                 <p class="mail-status" role="status"></p>
                 <?php if ($formStatus !== '' && !$contactMailReady): ?>
@@ -125,7 +125,7 @@ xuverse_public_start('Connect', $contactIntro, 'contact');
 
             <?php if ($contactMailReady): ?>
             <section class="personal-contact-inquiry reveal" aria-labelledby="inquiry-title">
-                <h2 id="inquiry-title">Send a message</h2>
+                <h2 id="inquiry-title"><?= e(xuverse_site_label('contact_inquiry_title', 'Send a message')) ?></h2>
                 <?php if ($formStatus !== ''): ?>
                 <p class="form-status <?= $formStatusType === 'success' ? 'is-success' : 'is-error' ?>"
                     role="<?= $formStatusType === 'success' ? 'status' : 'alert' ?>"><?= e($formStatus) ?></p>
@@ -159,7 +159,7 @@ xuverse_public_start('Connect', $contactIntro, 'contact');
                         <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
                     </div>
                     <div class="form-field-wide">
-                        <button type="submit" class="xu-primary">Send message</button>
+                        <button type="submit" class="xu-primary"><?= e(xuverse_site_label('contact_send_action', 'Send message')) ?></button>
                     </div>
                 </form>
             </section>
@@ -167,7 +167,7 @@ xuverse_public_start('Connect', $contactIntro, 'contact');
         </div>
 
         <?php if (empty($_SESSION['user_id'])): ?>
-        <p class="personal-admin-access"><a href="<?= e(xuverse_url('login')) ?>">Admin login</a></p>
+        <p class="personal-admin-access"><a href="<?= e(xuverse_url('login')) ?>"><?= e(xuverse_site_label('contact_admin_action', 'Admin login')) ?></a></p>
         <?php endif; ?>
     </div>
 </section>

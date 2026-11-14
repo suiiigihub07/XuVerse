@@ -37,6 +37,11 @@
       "category": "work"
     }
   ],
+  "resume_areas": [
+    {"title": "Software", "items": ["Front-end", "Back-end", "Database design", "Software development", "UI/UX"]},
+    {"title": "Creative", "items": ["Photography", "Videography", "Video direction", "Video editing", "Digital media"]}
+  ],
+  "resume_tools": ["GitHub", "VS Code", "DaVinci Resolve", "CapCut", "Canva"],
   "achievement": {
     "title": "Dong-Eui University promotional video competition — Award winner",
     "note": "User-reported award; exact official competition title, placement and date are unverified. Do not add them."

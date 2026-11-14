@@ -30,7 +30,7 @@ a { color: #982047; text-decoration: none; word-wrap: break-word; }
 </head>
 <body>
 <div class="masthead">
-<p class="label">Résumé</p>
+<p class="label"><?= xuverse_resume_pdf_text(xuverse_site_label('resume_label', 'Résumé')) ?></p>
 <h1><?= xuverse_resume_pdf_text($resume['name']) ?></h1>
 <?php if ($resume['headline'] !== ''): ?><p class="headline"><?= xuverse_resume_pdf_text($resume['headline']) ?></p><?php endif; ?>
 <p class="contact">
@@ -46,7 +46,7 @@ a { color: #982047; text-decoration: none; word-wrap: break-word; }
 
 <?php if ($resume['education']): ?>
 <table class="section" role="presentation"><tr>
-<td class="rail"><h2>Education</h2></td>
+<td class="rail"><h2><?= xuverse_resume_pdf_text(xuverse_site_label('resume_education', 'Education')) ?></h2></td>
 <td>
 <?php foreach ($resume['education'] as $entry): ?>
 <div class="entry">
@@ -76,15 +76,15 @@ a { color: #982047; text-decoration: none; word-wrap: break-word; }
 <?php endforeach; ?>
 
 <table class="section" role="presentation"><tr>
-<td class="rail"><h2>Skills &amp; Areas</h2></td>
+<td class="rail"><h2><?= xuverse_resume_pdf_text(xuverse_site_label('resume_skills', 'Skills & Areas')) ?></h2></td>
 <td>
-<?php foreach ($resume['areas'] as $area => $skills): ?>
-<p><strong><?= xuverse_resume_pdf_text($area) ?></strong> · <?= xuverse_resume_pdf_text(implode(', ', $skills)) ?></p>
+<?php foreach ($resume['areas'] as $area): ?>
+<p><strong><?= xuverse_resume_pdf_text($area['title']) ?></strong> · <?= xuverse_resume_pdf_text(implode(', ', $area['items'])) ?></p>
 <?php endforeach; ?>
 </td></tr></table>
 
 <table class="section" role="presentation"><tr>
-<td class="rail"><h2>Tools</h2></td>
+<td class="rail"><h2><?= xuverse_resume_pdf_text(xuverse_site_label('resume_tools', 'Tools')) ?></h2></td>
 <td><p><?= xuverse_resume_pdf_text(implode(', ', $resume['tools'])) ?></p></td>
 </tr></table>
 </body>

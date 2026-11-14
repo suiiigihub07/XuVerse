@@ -51,8 +51,8 @@ xuverse_public_start($photo['title'], $photo['summary'], 'photos/' . $photo['slu
 <div class="prose"><?= xuverse_markdown(!empty($photo['description']) ? $photo['description'] : $photo['summary']) ?></div>
 <?php if (!empty($photo['credit_note'])): ?><p class="media-credit"><?= e($photo['credit_note']) ?></p><?php endif; ?>
 <div class="xw-media-actions">
-<a href="<?= e(xuverse_asset($pageImage)) ?>" class="xw-media-action">View full size</a>
-<a href="<?= e(xuverse_url($photo['type'] === 'card series' ? 'media#published' : 'media#photographs')) ?>" class="xw-media-link"><?= $photo['type'] === 'card series' ? 'All published work' : 'All photographs' ?></a>
+<a href="<?= e(xuverse_asset($pageImage)) ?>" class="xw-media-action"><?= e(xuverse_site_label('media_view_full_action', 'View full size')) ?></a>
+<a href="<?= e(xuverse_url($photo['type'] === 'card series' ? 'media#published' : 'media#photographs')) ?>" class="xw-media-link"><?= e($photo['type'] === 'card series' ? xuverse_site_label('media_all_published_action', 'All published work') : xuverse_site_label('media_all_photographs_action', 'All photographs')) ?></a>
 </div>
 </div>
 </article>

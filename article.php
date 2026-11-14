@@ -54,7 +54,7 @@ xuverse_public_start($article['title'], $article['summary'], $path);
 
     <?php if ($cover): ?>
     <figure class="xw-article-cover xu-image-reveal reveal">
-        <img src="<?= e(xuverse_asset($cover)) ?>" <?= xuverse_image_attributes($cover) ?> <?= xuverse_responsive_image_attributes($cover, '(max-width: 1015px) 88vw, 928px') ?> alt="<?= e($article['image_alt'] ?? $article['cover_alt'] ?? '') ?>" decoding="async">
+        <img src="<?= e(xuverse_asset($cover)) ?>" <?= xuverse_image_attributes($cover) ?> <?= xuverse_responsive_image_attributes($cover, '(max-width: 1015px) 88vw, 740px') ?> alt="<?= e(trim($article['image_alt'] ?? '') ?: ($article['cover_alt'] ?? '')) ?>" decoding="async">
     </figure>
     <?php endif; ?>
 
@@ -73,9 +73,9 @@ xuverse_public_start($article['title'], $article['summary'], $path);
 
         <div class="xw-reading-actions">
             <?php if (!empty($article['pdf_path'])): ?>
-            <a class="xw-control" href="<?= e(xuverse_url($article['pdf_path'])) ?>" download>Download PDF</a>
+            <a class="xw-control" href="<?= e(xuverse_url($article['pdf_path'])) ?>" download><?= e(xuverse_site_label('article_pdf_action', 'Download PDF')) ?></a>
             <?php endif; ?>
-            <button type="button" class="xw-control share-button" data-share-url="<?= e(xuverse_base_url() . '/' . $path) ?>" data-share-title="<?= e($article['title']) ?>" hidden>Share</button>
+            <button type="button" class="xw-control share-button" data-share-url="<?= e(xuverse_base_url() . '/' . $path) ?>" data-share-title="<?= e($article['title']) ?>" hidden><?= e(xuverse_site_label('article_share_action', 'Share')) ?></button>
             <p class="xw-share-status" role="status" data-share-status></p>
         </div>
 
@@ -99,14 +99,14 @@ xuverse_public_start($article['title'], $article['summary'], $path);
         <?php $related = array_filter(xuverse_published('articles'), static fn($item) => $item['slug'] !== $article['slug']); ?>
         <footer class="xw-reading-footer reveal">
             <?php if ($related): ?>
-            <h2>Related reading</h2>
+            <h2><?= e(xuverse_site_label('article_related_heading', 'Related reading')) ?></h2>
             <ul>
                 <?php foreach ($related as $item): ?>
                 <li><a href="<?= e(xuverse_url('articles/' . $item['slug'])) ?>"><?= e($item['title']) ?></a></li>
                 <?php endforeach; ?>
             </ul>
             <?php endif; ?>
-            <a class="xw-return" href="<?= e(xuverse_url('articles')) ?>">All articles</a>
+            <a class="xw-return" href="<?= e(xuverse_url('articles')) ?>"><?= e(xuverse_site_label('article_all_action', 'All articles')) ?></a>
         </footer>
     </div>
 </article>

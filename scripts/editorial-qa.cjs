@@ -322,16 +322,21 @@ async function designChecks(page) {
             const design = await page.evaluate(() => {
                 const body = getComputedStyle(document.body);
                 const grain = getComputedStyle(document.body, '::before');
+                const paper = document.querySelector('main .xu-tone-light');
+                const paperGrain = paper ? getComputedStyle(paper, '::before') : null;
                 const footer = document.querySelector('.site-footer');
                 const nav = document.querySelector('.navbar');
                 const publicText = document.querySelector('main').innerText;
                 return {
                     grain: [grain.animationName, grain.animationPlayState, Number(grain.opacity), grain.backgroundImage],
+                    paperGrain: paperGrain && [paperGrain.animationName, paperGrain.animationPlayState, Number(paperGrain.opacity)],
                     size: parseFloat(getComputedStyle(document.querySelector('main h1')).fontSize),
                     oldArt: !!document.querySelector('.xv-ambient,.xv-signature'),
                     arrows: [...document.querySelectorAll('main a, .site-footer a')].some(anchor => /[→↗↓]/u.test(anchor.textContent)),
                     award: /selected recognition|award reported by|user-reported award/i.test(publicText),
                     base: body.backgroundColor,
+                    sans: body.fontFamily,
+                    navbar: getComputedStyle(nav).backgroundColor,
                     footer: getComputedStyle(footer).backgroundColor,
                     edgeDelta: Math.abs(footer.getBoundingClientRect().left - nav.getBoundingClientRect().left)
                 };
@@ -341,8 +346,11 @@ async function designChecks(page) {
             assert.ok(design.grain[2] > 0 && design.grain[2] < .1 && design.grain[3].includes('grain.png'));
             assert.ok(design.size < 100, 'Heading scale on ' + route);
             assert.equal(design.oldArt || design.arrows || design.award, false, 'Old public decoration or wording on ' + route);
-            assert.equal(design.base, 'rgb(9, 9, 9)');
-            assert.equal(design.footer, 'rgb(166, 0, 0)');
+            assert.equal(design.base, route === 'about' ? 'rgb(248, 247, 244)' : 'rgb(9, 9, 9)');
+            if (design.paperGrain) assert.deepEqual(design.paperGrain, ['xu-paper-grain', 'running', .023]);
+            assert.match(design.sans, /Manrope/);
+            assert.equal(design.navbar, 'rgb(194, 24, 91)');
+            assert.equal(design.footer, 'rgb(169, 15, 79)');
             assert.ok(design.edgeDelta < 1, 'Footer and navbar align');
         }
         const grainTransform = () => page.evaluate(() => getComputedStyle(document.body, '::before').transform);
@@ -354,6 +362,55 @@ async function designChecks(page) {
         await page.emulateMedia({ reducedMotion: 'reduce' });
     }
     report.interactions.push('Editorial palette and type scale, no legacy XS, no decorative arrows or award meta, matched frames, moving grain and live reduced-motion change');
+}
+
+async function alignAndFit(page) {
+    const viewports = [[1366,768],[1440,900],[1920,1080],[390,844],[430,932],[320,568]];
+    report.firstViewports = [];
+    for (const [width,height] of viewports) {
+        await page.setViewportSize({ width, height });
+        await openPage(page, '');
+        await page.evaluate(() => document.fonts.ready);
+        await settleImages(page);
+        const result = await page.evaluate(() => {
+            const box = selector => document.querySelector(selector).getBoundingClientRect();
+            const grid = box('.xu-hero .xu-container');
+            const nav = box('.navbar>.container'), footer = box('.xu-footer-inner');
+            const portrait = box('.xu-hero-portrait img'), actions = box('.xu-hero-actions');
+            const hero = box('.xu-hero');
+            return {
+                viewport: innerHeight, hero: hero.bottom,
+                next: box('#selected-work').top,
+                portraitBottom: portrait.bottom, actionsBottom: actions.bottom,
+                portraitCenterError: Math.abs((portrait.left + portrait.right) / 2 - (grid.left + grid.right) / 2),
+                frameAlignError: Math.max(Math.abs(grid.left - nav.left), Math.abs(grid.left - footer.left),
+                    Math.abs(grid.right - nav.right), Math.abs(grid.right - footer.right)),
+                loadedFonts: ['Manrope','Instrument Serif'].map(name => [...document.fonts].some(font => font.family.replaceAll('"','') === name && font.status === 'loaded')),
+                surfaces: ['.xu-hero','#selected-work','.xu-home-writing','.xu-home-media','.xu-home-about'].map(selector => getComputedStyle(document.querySelector(selector)).backgroundColor),
+                firstPartyFonts: performance.getEntriesByType('resource').filter(resource => /\.woff2(?:\?|$)/.test(resource.name))
+                    .every(resource => new URL(resource.name).origin === location.origin)
+            };
+        });
+        assert.ok(Math.abs(result.next - height) <= 2, 'Selected Works begins below the first view: ' + width + '×' + height);
+        assert.ok(Math.abs(result.hero - result.next) < 1 && Math.max(result.portraitBottom,result.actionsBottom) <= height,
+            'The entire hero fits the first view');
+        if (width <= 720) assert.ok(result.portraitCenterError < 1, 'Mobile portrait stays centered');
+        assert.ok(result.frameAlignError < 1, 'Hero, navigation, and footer share both grid edges');
+        assert.deepEqual(result.loadedFonts, [true,true]);
+        assert.equal(result.firstPartyFonts,true);
+        assert.deepEqual(result.surfaces, ['rgb(248, 247, 244)','rgb(9, 9, 9)','rgb(248, 247, 244)','rgb(9, 9, 9)','rgb(248, 247, 244)']);
+        const name = `first-viewport-${width}x${height}.png`;
+        await page.screenshot({path:path.join(output,name),animations:'disabled'});
+        report.screenshots.push(name);
+        report.firstViewports.push({width,height,...result});
+    }
+    await page.setViewportSize({width:1440,height:900});
+    await openPage(page,'projects');
+    const projectRhythm = () => page.locator('#content-results > article:visible').evaluateAll(rows => rows.map(row => getComputedStyle(row).backgroundColor));
+    assert.deepEqual(await projectRhythm(), ['rgb(9, 9, 9)','rgb(248, 247, 244)','rgb(9, 9, 9)']);
+    await page.getByRole('searchbox').fill('Tailwind');
+    assert.deepEqual(await projectRhythm(), ['rgb(9, 9, 9)'], 'Search results preserve visible rhythm');
+    report.interactions.push('Six exact first viewports; hero fit, Home rhythm, centered phones, matched grid, first-party fonts, and filtered project rhythm');
 }
 
 async function verifyPdf(context, route, expectedHash) {
@@ -470,6 +527,7 @@ async function main() {
         await check('project and article search', () => collectionSearch(page));
         await check('contact access and reduced motion', () => contactAndMotion(page));
         await check('editorial design and moving grain', () => designChecks(page));
+        await check('alignment, section rhythm and exact first viewports', () => alignAndFit(page));
         await check('home and Media at 200% text size', () => largerText(page));
         await check('resume PDF', () => verifyPdf(context, 'resume/download'));
         const manifest = canonical('manifest');
