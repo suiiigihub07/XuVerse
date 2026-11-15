@@ -11,7 +11,7 @@ if (!in_array($featuredSlug, array_column($articles, 'slug'), true)) {
 usort($articles, static fn($a, $b) => ($b['slug'] === $featuredSlug) <=> ($a['slug'] === $featuredSlug));
 xuverse_public_start($site['articles_page_heading'], $copy['articles_intro'], 'articles');
 ?>
-<section class="xw-shell xu-tone-light">
+<section class="xw-shell xu-tone-dark">
 <div class="xw-page xw-container">
     <header class="xw-index-head reveal">
         <h1><?= e($site['articles_page_heading']) ?></h1>

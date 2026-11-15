@@ -12,7 +12,7 @@ include __DIR__ . '/includes/header.php';
 include __DIR__ . '/includes/navbar.php';
 ?>
 
-<section class="personal-cv xu-tone-light" aria-labelledby="cv-name">
+<section class="personal-cv xu-tone-dark" aria-labelledby="cv-name">
     <div class="container personal-cv-container">
         <header class="personal-cv-header reveal">
             <div>

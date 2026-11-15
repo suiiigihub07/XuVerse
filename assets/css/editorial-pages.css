@@ -1,10 +1,12 @@
 /* Home, About, Connect, and the public closing frame. */
 .xu-hero {
+    --xu-hero-light: 82% 53%;
     display: grid;
     align-items: center;
     min-height: calc(100vh - var(--nav-height, 58px) - var(--xu-nav-top, 10px));
     min-height: calc(100svh - var(--nav-height, 58px) - var(--xu-nav-top, 10px));
     padding-block: max(28px, env(safe-area-inset-top)) max(28px, env(safe-area-inset-bottom));
+    background: radial-gradient(ellipse at var(--xu-hero-light), #211728 0%, #111726 28%, transparent 66%), var(--xu-ink);
 }
 @media (min-width: 1061px) {
     /* The full desktop bar is 58px before JavaScript measures the actual bar. */
@@ -22,15 +24,16 @@
 .xu-hero-copy h1 {
     margin: 0 0 var(--xu-space-md);
     color: inherit;
-    font: 760 clamp(3.35rem, 5.25vw, 5.25rem) / 1.025 var(--xu-sans);
-    letter-spacing: -.045em;
-    word-spacing: .035em;
+    font: 710 clamp(2.75rem, 4vw, 4rem) / 1.09 var(--xu-sans);
+    letter-spacing: -.05em;
+    word-spacing: .03em;
     text-wrap: balance;
 }
 .xu-hero-line {
     margin: 0;
-    color: inherit;
-    font: 400 clamp(1.75rem, 2.5vw, 2.55rem) / 1.12 var(--xu-serif);
+    color: var(--xu-secondary);
+    max-width: 33ch;
+    font: 400 clamp(1.2rem, 1.8vw, 1.6rem) / 1.38 var(--xu-prose);
     text-wrap: pretty;
 }
 .xu-hero-actions, .personal-page .personal-actions {
@@ -46,7 +49,7 @@
     margin: 0;
     justify-self: end;
 }
-.xu-hero-portrait { width: min(100%, clamp(250px, 29vw, 372px)); }
+.xu-hero-portrait { width: min(100%, clamp(225px, 27vw, 318px)); }
 .xu-hero-portrait picture, .personal-about .personal-portrait picture { display: block; }
 .xu-hero-portrait img, .personal-about .personal-portrait img {
     display: block;
@@ -56,11 +59,12 @@
     object-fit: cover;
     border: 1px solid var(--xu-line);
     border-radius: var(--xu-portrait-radius);
-    background: var(--xu-white);
+    background: var(--xu-charcoal);
 }
 
 .xu-home-section { padding-block: var(--xu-space); }
-.xu-home-work, .xu-home-media { background: var(--xu-ink); }
+.xu-home-work, .xu-home-media { border-block: 1px solid var(--xu-divider); }
+.xu-home-writing, .xu-home-about { background: var(--xu-ink); }
 #selected-work { scroll-margin-top: 24px; }
 .xu-feature-head {
     display: flex;
@@ -74,8 +78,8 @@
 }
 .xu-feature-head h2, .xu-home-about h2 {
     margin: 0;
-    font: 680 var(--xu-section-title) / 1.05 var(--xu-sans);
-    letter-spacing: -.06em;
+    font: 600 var(--xu-section-title) / 1.14 var(--xu-serif);
+    letter-spacing: -.038em;
     text-wrap: pretty;
 }
 .xu-feature-head > .xu-link { font-size: .87rem; }
@@ -105,13 +109,13 @@
 .xu-home-project-title h3 {
     margin: 0;
     color: inherit;
-    font: 650 clamp(1.15rem, 2.3vw, 1.7rem) / 1.2 var(--xu-sans);
-    letter-spacing: -.04em;
+    font: 600 clamp(1.1rem, 1.7vw, 1.38rem) / 1.25 var(--xu-sans);
+    letter-spacing: -.026em;
     text-wrap: pretty;
     transition: color var(--xu-fast) var(--xu-ease), transform var(--xu-fast) var(--xu-ease);
 }
 .xu-home-project-link:is(:hover, :focus-visible) h3 { color: var(--xu-link-accent); }
-.xu-home-project-summary { margin: 7px 0 0; color: var(--xu-secondary); font-size: .95rem; }
+.xu-home-project-summary { margin: 7px 0 0; color: var(--xu-secondary); font: 400 1rem / 1.57 var(--xu-prose); }
 
 .xu-writing-grid {
     display: grid;
@@ -122,11 +126,11 @@
 .xu-research-feature a { display: block; }
 .xu-research-feature h3, .xu-home-video-copy h3 {
     margin: 0 0 var(--xu-space-sm);
-    font: 400 clamp(2rem, 3.8vw, 3.5rem) / 1.07 var(--xu-serif);
+    font: 400 clamp(1.65rem, 2.6vw, 2.35rem) / 1.15 var(--xu-serif);
     letter-spacing: -.035em;
     text-wrap: pretty;
 }
-.xu-research-feature p:last-child, .xu-home-video-copy p:last-child { margin: 0; color: var(--xu-secondary); }
+.xu-research-feature p:last-child, .xu-home-video-copy p:last-child { margin: 0; color: var(--xu-secondary); font: 400 1rem / 1.58 var(--xu-prose); }
 .xu-research-feature a:is(:hover, :focus-visible) h3,
 .xu-essay-list a:is(:hover, :focus-visible) strong,
 .xu-home-video-copy a:is(:hover, :focus-visible),
@@ -146,8 +150,8 @@
 .xu-essay-list li:is(:hover, :focus-within) { background-size: 100% 1px; }
 .xu-essay-list a { display: grid; justify-items: start; gap: 5px; padding-block: 11px; }
 .xu-essay-list .xu-kicker { margin: 0; }
-.xu-essay-list strong { font: 400 clamp(1.4rem, 2.55vw, 2.1rem) / 1.1 var(--xu-serif); transition: transform var(--xu-fast) var(--xu-ease); }
-.xu-essay-list small { color: var(--xu-secondary); font-size: .9rem; }
+.xu-essay-list strong { font: 400 clamp(1.25rem, 1.7vw, 1.55rem) / 1.2 var(--xu-serif); transition: transform var(--xu-fast) var(--xu-ease); }
+.xu-essay-list small { color: var(--xu-secondary); font: 400 .95rem / 1.5 var(--xu-prose); }
 
 .xu-home-media-grid {
     display: grid;
@@ -175,11 +179,11 @@
     border: 1px solid var(--xu-line);
     border-radius: 50%;
     background: var(--xu-ink);
-    color: var(--xu-white);
+    color: var(--xu-fg);
     transition: background-color var(--xu-fast) var(--xu-ease), transform var(--xu-fast) var(--xu-ease);
 }
-.xu-video-preview:is(:hover, :focus-visible) .xu-play { background: var(--xu-pink); }
-.xu-home-video-copy h3 { font-size: clamp(1.8rem, 3.4vw, 2.85rem); }
+.xu-video-preview:is(:hover, :focus-visible) .xu-play { background: var(--xu-pink-on-dark); color: var(--xu-accent-ink); }
+.xu-home-video-copy h3 { font-size: clamp(1.55rem, 2.3vw, 2.1rem); }
 .xu-home-about { padding-block: clamp(40px, 4.8vw, 70px); }
 .xu-home-about-grid {
     display: grid;
@@ -187,7 +191,7 @@
     align-items: start;
     gap: var(--xu-space-md) var(--xu-space-xl);
 }
-.xu-home-about p { max-width: 42ch; margin: 0; color: inherit; font-size: clamp(1rem, 1.8vw, 1.22rem); }
+.xu-home-about p { max-width: 46ch; margin: 0; color: var(--xu-secondary); font: 400 clamp(1rem, 1.35vw, 1.15rem) / 1.65 var(--xu-prose); }
 
 /* On short pages only, balance spare viewport space above and below the content. */
 .xu-public .page-shell:has(:is(.personal-about, .personal-contact)) { display: flex; }
@@ -196,21 +200,23 @@
     align-content: center;
     width: 100%;
 }
-.xu-public:has(.personal-about) { background: var(--xu-paper); }
-.personal-page:is(.personal-about, .personal-contact) { padding-block: clamp(42px, 5.3vw, 74px) clamp(32px, 4.2vw, 62px); }
+.personal-page:is(.personal-about, .personal-contact) {
+    padding-block: clamp(32px, 4.4vw, 62px) clamp(28px, 3.8vw, 56px);
+    background: transparent;
+    color: var(--xu-foreground);
+}
 .personal-page:is(.personal-about, .personal-contact) .personal-title {
     margin: 0;
     color: inherit;
-    font: 400 clamp(2.55rem, 4.15vw, 4.2rem) / 1.03 var(--xu-serif);
-    letter-spacing: -.04em;
+    font: 400 clamp(2.35rem, 3.55vw, 3.55rem) / 1.06 var(--xu-serif);
+    letter-spacing: -.025em;
     text-wrap: balance;
 }
 .personal-page:is(.personal-about, .personal-contact) .personal-lead {
-    max-width: 50ch;
-    margin: var(--xu-space-md) 0 0;
-    color: inherit;
-    font-size: clamp(1rem, 1.5vw, 1.15rem);
-    line-height: 1.6;
+    max-width: 43ch;
+    margin: var(--xu-space-sm) 0 0;
+    color: var(--xu-secondary);
+    font: 400 clamp(1rem, 1.2vw, 1.0625rem) / 1.64 var(--xu-prose, var(--xu-serif));
 }
 .personal-about-layout {
     display: grid;
@@ -218,12 +224,12 @@
     align-items: start;
     gap: clamp(24px, 5vw, 76px);
 }
-.personal-about .personal-portrait { width: min(100%, 348px); }
+.personal-about .personal-portrait { width: min(100%, 316px); }
 .personal-about-focus {
-    max-width: 44ch;
+    max-width: 40ch;
     margin-block: var(--xu-space-lg) var(--xu-space-md);
     padding-top: var(--xu-space-sm);
-    border-top: 1px solid var(--xu-divider);
+    border-top: 1px solid color-mix(in srgb, var(--xu-link-accent) 28%, transparent);
 }
 .personal-contact-email h2 {
     margin: 0 0 5px;
@@ -233,10 +239,11 @@
     text-transform: uppercase;
 }
 .personal-about-focus h2 { margin: 0 0 4px; color: var(--xu-link-accent); font: 650 1rem / 1.35 var(--xu-sans); }
-.personal-about-focus p { margin: 0; color: var(--xu-secondary); }
-.personal-about .personal-portrait img, .xu-hero-portrait img { border-color: var(--xu-divider); }
+.personal-about-focus p { margin: 0; color: var(--xu-secondary); font-family: var(--xu-prose, var(--xu-serif)); }
+.personal-about .personal-portrait img { border-color: color-mix(in srgb, var(--xu-link-accent) 34%, transparent); }
+.xu-hero-portrait img { border-color: var(--xu-divider); }
 .personal-about .personal-portrait figcaption { margin-block-start: 10px; color: var(--xu-secondary); font-size: .8rem; }
-.personal-contact .personal-contact-header { margin-bottom: clamp(22px, 3.5vw, 38px); }
+.personal-contact .personal-contact-header { margin-bottom: clamp(20px, 3vw, 34px); }
 .personal-contact .personal-contact-layout {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -251,13 +258,13 @@
 .personal-contact .personal-contact-email {
     grid-area: email;
     padding: var(--xu-space-md) 0 0;
-    border-top: 1px solid var(--xu-divider);
+    border-top: 1px solid color-mix(in srgb, var(--xu-link-accent) 28%, transparent);
 }
 .personal-contact .personal-contact-email .personal-contact-address {
     display: block;
     margin: 0 0 var(--xu-space-sm);
     color: inherit;
-    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
     font-weight: 550;
     text-decoration: none;
     overflow-wrap: anywhere;
@@ -309,7 +316,7 @@
     border-radius: var(--xu-radius);
     background: var(--xu-charcoal);
 }
-.personal-contact .personal-contact-inquiry h2 { margin: 0 0 var(--xu-space-md); font: 400 clamp(1.8rem, 3.8vw, 2.6rem) / 1.05 var(--xu-serif); }
+.personal-contact .personal-contact-inquiry h2 { margin: 0 0 var(--xu-space-md); font: 400 clamp(1.7rem, 3.2vw, 2.3rem) / 1.08 var(--xu-serif); }
 .personal-contact .personal-contact-inquiry :is(input, textarea, select) {
     color: var(--xu-foreground);
     background: var(--xu-ink);
@@ -330,12 +337,12 @@
 .xu-footer-title {
     margin: 0;
     color: inherit;
-    font: 400 clamp(2rem, 3.2vw, 2.8rem) / 1.05 var(--xu-serif);
+    font: 400 clamp(1.55rem, 2.2vw, 2rem) / 1.15 var(--xu-serif);
     letter-spacing: -.025em;
 }
-.xu-footer-compact .xu-footer-title { font-size: clamp(1.8rem, 3.2vw, 2.55rem); }
+.xu-footer-compact .xu-footer-title { font-size: clamp(1.45rem, 2.15vw, 1.85rem); }
 .xu-footer-top .xu-link { font-size: .87rem; }
-.xu-footer-bottom { padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, .3); }
+.xu-footer-bottom { padding-top: 6px; border-top: 1px solid var(--xu-divider); }
 .xu-footer-bottom p { margin: 0; color: inherit; opacity: .9; font-size: .76rem; }
 .xu-footer-socials { display: flex; flex-wrap: wrap; column-gap: var(--xu-space-md); }
 .xu-footer-socials a {
@@ -347,8 +354,7 @@
     font-size: .8rem;
     transition: background-size 260ms var(--xu-ease), transform var(--xu-fast) var(--xu-ease);
 }
-.xu-footer-socials a:is(:hover, :focus-visible) { background-size: 100% 1px; }
-.xu-footer-contact { --xu-link-accent: #ffd0e0; color: var(--xu-white); }
+.xu-footer-socials a:is(:hover, :focus-visible) { background-size: 100% 1px; color: var(--xu-link-accent); }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .xu-home-project-link:hover img, .xu-video-preview:hover img { transform: scale(1.022); }
@@ -359,10 +365,10 @@
 }
 
 @media (max-width: 720px) {
-    .xu-hero { padding-block: 24px max(24px, env(safe-area-inset-bottom)); }
+    .xu-hero { --xu-hero-light: 50% 72%; padding-block: 24px max(24px, env(safe-area-inset-bottom)); }
     .xu-hero-grid { grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 3.4vh, 34px); }
-    .xu-hero-copy h1 { margin-bottom: var(--xu-space-sm); font-size: clamp(2.5rem, 8.9vw, 3.55rem); }
-    .xu-hero-portrait { width: min(100%, clamp(194px, 60vw, 260px)); justify-self: center; }
+    .xu-hero-copy h1 { margin-bottom: var(--xu-space-sm); font-size: clamp(2.1rem, 8vw, 3.05rem); }
+    .xu-hero-portrait { width: min(100%, clamp(188px, 58vw, 245px)); justify-self: center; }
     .xu-hero-actions { margin-top: var(--xu-space-md); }
     .xu-home-media-grid { grid-template-columns: minmax(0, 1fr); }
     .xu-home-video-copy h3 { margin-bottom: 6px; }
@@ -387,7 +393,6 @@
     .xu-hero-copy .xu-kicker { font-size: .7rem; }
     .xu-home-project-grid, .xu-writing-grid, .xu-home-about-grid { grid-template-columns: minmax(0, 1fr); }
     .xu-home-project-grid { row-gap: 30px; }
-    .xu-feature-head h2, .xu-home-about h2 { font-size: clamp(1.8rem, 8vw, 2.15rem); }
     .xu-footer-bottom { align-items: start; }
     .xu-footer-socials { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
     .xu-footer-socials a { width: fit-content; }

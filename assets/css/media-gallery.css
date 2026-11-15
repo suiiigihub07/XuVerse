@@ -83,8 +83,13 @@
     border-left: 12px solid #fff;
 }
 
-.personal-video-stage .personal-video-activation:hover::before {
-    background: var(--xu-red);
+.xu-public .personal-video-stage .personal-video-activation:is(:hover, :focus-visible)::before {
+    background: var(--xu-pink-on-dark);
+    border-color: var(--xu-pink-on-dark);
+}
+
+.xu-public .personal-video-stage .personal-video-activation:is(:hover, :focus-visible)::after {
+    border-left-color: var(--xu-accent-ink);
 }
 
 .personal-video-stage .personal-video-activation:focus-visible {

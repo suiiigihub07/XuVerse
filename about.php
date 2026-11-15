@@ -10,7 +10,7 @@ $intro = $copy['about'];
 xuverse_public_start(xuverse_site_label('about_title', 'About'), $intro, 'about');
 ?>
 
-<section class="personal-page personal-about xu-tone-light" aria-labelledby="about-name">
+<section class="personal-page personal-about xu-tone-dark" aria-labelledby="about-name">
     <div class="xu-container personal-about-layout">
         <div class="personal-about-intro reveal">
             <p class="xu-kicker"><?= e(xuverse_site_label('about_title', 'About')) ?></p>

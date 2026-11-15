@@ -33,7 +33,7 @@ if (!empty($article['published_at'])) {
 }
 xuverse_public_start($article['title'], $article['summary'], $path);
 ?>
-<div class="xw-shell xu-tone-light">
+<div class="xw-shell xu-tone-dark">
 <article class="xw-page xw-container xw-article-page<?= $isResearch ? ' xw-article-research' : '' ?>">
     <header class="xw-reading-head reveal">
         <?php if ($category): ?><p class="xw-kicker"><?= e($category) ?></p><?php endif; ?>

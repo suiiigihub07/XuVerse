@@ -44,7 +44,6 @@ $pageImage = $pageImage ?? xuverse_setting($settings, 'og_image', $ownerAvatar);
 $absoluteImage = xuverse_absolute_url($pageImage);
 $pageType = $pageType ?? 'website';
 $isAdminPage = strpos($_SERVER['SCRIPT_NAME'] ?? '', '/admin/') !== false;
-$isEditorialHome = !$isAdminPage && basename($_SERVER['SCRIPT_NAME'] ?? '') === 'index.php';
 $isPrivatePage = $isAdminPage || basename($_SERVER['SCRIPT_NAME'] ?? '') === 'login.php' || http_response_code() >= 400;
 $robots = $robots ?? (xuverse_is_production() && !$isPrivatePage ? 'index, follow, max-image-preview:large' : xuverse_noindex());
 $adminName = $adminName ?? xuverse_setting($settings, 'hero_title', 'B K Suraj');
@@ -105,7 +104,7 @@ content="<?= e(xuverse_excerpt($pageDescription, 155)) ?>">
 
 <meta name="robots" content="<?= e($robots) ?>">
 <meta name="xuverse-revision" content="<?= e(xuverse_checkout_revision()) ?>">
-<meta name="theme-color" content="<?= $isAdminPage ? '#090909' : '#c2185b' ?>">
+<meta name="theme-color" content="<?= $isAdminPage ? '#090909' : '#08090d' ?>">
 <link rel="canonical" href="<?= e($canonicalUrl) ?>">
 
 <meta property="og:type" content="<?= e($pageType) ?>">
@@ -155,5 +154,5 @@ defer></script>
 <?php require __DIR__ . '/site-assets.php'; ?>
 </head>
 
-<body<?= $isAdminPage ? '' : ($isEditorialHome ? ' class="xu-public xu-home-view"' : ' class="xu-public"') ?>>
+<body<?= $isAdminPage ? '' : ' class="xu-public"' ?>>
 <a class="skip-link" href="#main-content">Skip to main content</a>

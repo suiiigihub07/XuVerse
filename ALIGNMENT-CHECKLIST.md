@@ -1,5 +1,7 @@
 # XuVerse alignment pass
 
+This records the earlier white and black alignment pass. The follow-up keeps its grid and viewport work and changes the public palette to ink, navy and pink. It uses Spectral for headings and reading text, with Manrope for interface labels. The revised scale and dark surfaces are checked by the same browser suite.
+
 This record maps the 90-point alignment brief to the existing site. The changes preserve the routes, editorial sections, real content, and deployment target. The numbers refer to the attached brief.
 
 The initial localhost review at desktop, tablet, and phone sizes found a 1px navbar/footer drift from the content grid, an 80.5px extra résumé inset at 1440px, and Selected Works starting at y=608/444/576 on 1440×900, 820×900, and 390×844. The baseline hero, navbar, and footer also used a dark hero, charcoal bar, and red footer. The current measurements below are from the rendered replacement, with the major surfaces aligned to one grid.

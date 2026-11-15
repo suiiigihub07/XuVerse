@@ -1,11 +1,14 @@
 /* The résumé is an open directory: one label rail, one reading column. */
 .personal-cv {
-    --cv-rail: clamp(9rem, 15vw, 12.5rem);
-    --cv-gap: clamp(22px, 4vw, 56px);
-    --cv-accent: var(--xu-pink-ink);
-    padding-block: clamp(40px, 5.5vw, 78px);
-    background-color: var(--xu-paper);
-    color: var(--xu-ink);
+    --cv-rail: clamp(9rem, 15vw, 12rem);
+    --cv-gap: clamp(22px, 3.5vw, 48px);
+    --cv-text: var(--xu-foreground);
+    --cv-muted: var(--xu-muted);
+    --cv-rule: var(--xu-line);
+    --cv-accent: var(--xu-pink-on-dark);
+    padding-block: clamp(34px, 4.7vw, 66px);
+    background: transparent;
+    color: var(--cv-text);
 }
 
 .personal-cv-header {
@@ -14,7 +17,7 @@
     align-items: baseline;
     gap: 12px 34px;
     padding-bottom: clamp(16px, 2.8vw, 30px);
-    border-bottom: 1px solid color-mix(in srgb, var(--xu-ink) 28%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--cv-accent) 30%, var(--cv-rule));
 }
 
 .personal-cv-label,
@@ -28,16 +31,16 @@
 
 .personal-cv-header h1 {
     margin: 8px 0 9px;
-    color: var(--xu-ink);
-    font: 400 clamp(2.7rem, 4.6vw, 4.35rem)/1.04 var(--xu-serif);
+    color: var(--cv-text);
+    font: 400 clamp(2.5rem, 3.9vw, 3.65rem)/1.06 var(--xu-serif);
     letter-spacing: -.03em;
     text-wrap: balance;
 }
 
 .personal-cv-headline {
     margin: 0;
-    color: var(--xu-foreground);
-    font: 550 clamp(1rem, 1.55vw, 1.18rem)/1.5 var(--xu-sans);
+    color: var(--cv-muted);
+    font: 550 clamp(1rem, 1.35vw, 1.0625rem)/1.5 var(--xu-sans);
 }
 
 .personal-cv-links {
@@ -47,7 +50,7 @@
     gap: 0 16px;
     margin: 4px 0 0;
     padding: 0;
-    color: var(--xu-paper-muted);
+    color: var(--cv-muted);
     font-size: .875rem;
     list-style: none;
 }
@@ -60,7 +63,7 @@
 .personal-cv-print {
     color: inherit;
     text-decoration: underline;
-    text-decoration-color: var(--xu-paper-line);
+    text-decoration-color: var(--cv-rule);
     text-underline-offset: .26em;
 }
 
@@ -102,16 +105,17 @@
 }
 
 .personal-cv .personal-cv-download {
-    background: var(--xu-red-ink);
-    color: #fff;
+    background: var(--xu-pink-on-dark);
+    color: var(--xu-accent-ink);
 }
 
 .personal-cv .personal-cv-download:is(:hover, :focus-visible) {
-    background: var(--xu-red-hover);
+    background: var(--xu-pink-bright);
 }
 
 .personal-cv .personal-cv-print {
     background: none;
+    color: var(--cv-text);
 }
 
 body:not(.motion-ready) .personal-cv-print {
@@ -124,7 +128,7 @@ body:not(.motion-ready) .personal-cv-print {
     align-items: start;
     gap: 10px var(--cv-gap);
     padding-block: clamp(17px, 2vw, 27px);
-    border-bottom: 1px solid var(--xu-paper-line);
+    border-bottom: 1px solid var(--cv-rule);
 }
 
 .personal-cv-section h2 {
@@ -138,7 +142,7 @@ body:not(.motion-ready) .personal-cv-print {
 .personal-cv-entry + .personal-cv-entry {
     margin-top: 13px;
     padding-top: 13px;
-    border-top: 1px solid var(--xu-paper-line);
+    border-top: 1px solid var(--cv-rule);
 }
 
 .personal-cv-entry-title {
@@ -157,15 +161,15 @@ body:not(.motion-ready) .personal-cv-print {
 }
 
 .personal-cv-section p {
-    max-width: 72ch;
+    max-width: 59ch;
     margin: 0;
-    color: var(--xu-foreground);
+    color: var(--cv-text);
     font-size: .94rem;
     line-height: 1.55;
 }
 
 .personal-cv-section :is(.personal-cv-date, .personal-cv-detail) {
-    color: var(--xu-paper-muted);
+    color: var(--cv-muted);
 }
 
 .personal-cv-section .personal-cv-date {
@@ -213,7 +217,7 @@ body:not(.motion-ready) .personal-cv-print {
 @media screen and (max-width: 760px) {
     .personal-cv-header,
     .personal-cv-section { grid-template-columns: minmax(0, 1fr); }
-    .personal-cv-header h1 { font-size: clamp(2.5rem, 9vw, 3.3rem); }
+    .personal-cv-header h1 { font-size: clamp(2.35rem, 8.6vw, 3.15rem); }
     .personal-cv-section h2 { padding-block-start: 0; }
 }
 
@@ -226,6 +230,13 @@ body:not(.motion-ready) .personal-cv-print {
         padding: 0;
         background: #fff;
         color: #111;
+    }
+
+    .personal-cv {
+        --cv-text: #111;
+        --cv-muted: #39393e;
+        --cv-rule: #d0d0d4;
+        --cv-accent: #242428;
     }
 
     .personal-cv .personal-cv-container {

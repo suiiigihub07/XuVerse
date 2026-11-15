@@ -30,7 +30,7 @@ $image = $project['image'] ?? '';
 $hasFacts = !empty($project['role']) || !empty($project['technology']);
 xuverse_public_start($project['title'], $project['summary'], $path);
 ?>
-<div class="xw-shell xu-tone-light">
+<div class="xw-shell xu-tone-dark">
 <article class="xw-page xw-container xw-project-page">
     <header class="xw-reading-head reveal">
         <h1><?= e($project['title']) ?></h1>

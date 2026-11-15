@@ -13,12 +13,12 @@ $essays = array_slice(array_values(array_filter(
     fn ($article) => $article['slug'] !== $site['featured_article']
 )), 0, 2);
 $portrait = $site['portrait'];
-$portraitSizes = '(max-width: 720px) 60vw, (max-width: 1279px) 30vw, 372px';
+$portraitSizes = '(max-width: 720px) 58vw, (max-width: 1199px) 27vw, 318px';
 
 xuverse_public_start($site['home_title'], $copy['hero_intro']);
 ?>
 
-<section class="xu-hero xu-tone-light" aria-labelledby="home-title">
+<section class="xu-hero" aria-labelledby="home-title">
     <div class="xu-container xu-hero-grid">
         <div class="xu-hero-copy reveal">
             <p class="xu-kicker"><span><?= e($site['headline']) ?></span><span><?= e($copy['location']) ?></span></p>
@@ -39,7 +39,7 @@ xuverse_public_start($site['home_title'], $copy['hero_intro']);
 </section>
 
 <?php if ($work): ?>
-<section id="selected-work" class="xu-home-section xu-home-work xu-tone-dark" aria-labelledby="work-title">
+<section id="selected-work" class="xu-home-section xu-home-work xu-tone-navy" aria-labelledby="work-title">
     <div class="xu-container">
         <div class="xu-feature-head reveal">
             <h2 id="work-title"><?= e($site['featured_heading']) ?></h2>
@@ -70,7 +70,7 @@ xuverse_public_start($site['home_title'], $copy['hero_intro']);
 <?php endif; ?>
 
 <?php if ($research || $essays): ?>
-<section class="xu-home-section xu-home-writing xu-tone-light" aria-labelledby="home-writing-title">
+<section class="xu-home-section xu-home-writing" aria-labelledby="home-writing-title">
     <div class="xu-container">
         <div class="xu-feature-head reveal">
             <h2 id="home-writing-title"><?= e(xuverse_site_label('home_writing_title', 'Writing & Research')) ?></h2>
@@ -99,7 +99,7 @@ xuverse_public_start($site['home_title'], $copy['hero_intro']);
 <?php endif; ?>
 
 <?php if ($video): ?>
-<section class="xu-home-section xu-home-media xu-tone-dark" aria-labelledby="home-media-title">
+<section class="xu-home-section xu-home-media xu-tone-navy" aria-labelledby="home-media-title">
     <div class="xu-container">
         <div class="xu-feature-head reveal">
             <h2 id="home-media-title"><?= e(xuverse_site_label('home_media_title', 'Featured Media')) ?></h2>
@@ -124,7 +124,7 @@ xuverse_public_start($site['home_title'], $copy['hero_intro']);
 </section>
 <?php endif; ?>
 
-<section class="xu-home-section xu-home-about xu-tone-light" aria-labelledby="home-about-title">
+<section class="xu-home-section xu-home-about" aria-labelledby="home-about-title">
     <div class="xu-container xu-home-about-grid">
         <h2 class="reveal" id="home-about-title"><?= e(xuverse_site_label('about_title', 'About')) ?></h2>
         <div class="reveal">

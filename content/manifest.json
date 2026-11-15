@@ -1,8 +1,8 @@
 {
-    "content_sha256": "c8cf6545c35e8aa34c05813b3570dfd60e2d89fcf9348e7a5fb2d35e3fa0e529",
+    "content_sha256": "9e59575b0995ff53a51c19b691035864504a7c6560fd19fdc4c2acdfa9c84876",
     "files": {
         "content/articles.json": "23253654e8d01f4e061ad35ee6712480d8e14c17ee0d5526f9a7c6e448247f8c",
-        "content/copy.json": "5372d21d46f6174971bd25d646101ca8a676b3d59d088f5ee7408da942f2e5b8",
+        "content/copy.json": "d510a8e128ad345fe305d531fb79d6e124849628d32768c456c23161de36e681",
         "content/links.json": "4ee74f11040be2f34eccb4ae6a174171e1eaee1202d8d9eb47005da67514cc0b",
         "content/media.json": "24eddc486aa669676fb48cbf47586e077f1776775a75dc6686e5214d716c8dde",
         "content/profile.json": "3370fd3ba388336c408c2e62b0e9f781b681939d8e7d0362f16eee15f2f2440d",
@@ -17,20 +17,20 @@
     },
     "writing": {
         "kage": {
-            "source_sha256": "9ceda43b6d72aa3ffbb6c6a89ab56c590e79534183dab6dd3574c16ab0b8138c",
-            "pdf_sha256": "e931f33dc02075f997a05d2b3f8f11f11a14f26650b0ff180870e1647162a0bb"
+            "source_sha256": "2a9e50f2811f60f851b7c0e559bbc5fa94532cde11c86b81967918f24dff29ef",
+            "pdf_sha256": "d504bc31b3cf0c57893ed869da0422d55f39c05786f4df4d7e4203d0b23bf71e"
         },
         "before-the-next-cut": {
-            "source_sha256": "1681e286717117bc0207c7a533cdcf8e81116e23f36ab450c200772d89acb783",
-            "pdf_sha256": "dae2cf7863de1f071ba731cf3cb027dbe9eb68054f9cedc29a214732b3929bea"
+            "source_sha256": "4f6738b428eca52ed415008217d0e4c3d9c56eb5eb3c7cdc3d3bf862683e82a2",
+            "pdf_sha256": "a93236867e4b2c69129ee6215b01c2542c382f413fbff11b5d1c27d8efca4feb"
         },
         "what-the-frame-holds": {
-            "source_sha256": "62524839ef98870c5a95994f42a603d340e92842a0020e692883ba97aa530a88",
-            "pdf_sha256": "c318a6d49b091a2ae6793c80865a33d26c0892435474815bf92bb579d6a63f68"
+            "source_sha256": "15f161807fce343938628dfb5fbb327fad6f7236e0777ed52529d9bd738e6dc2",
+            "pdf_sha256": "20f328b56c497678b743c8020295d3a25bff738111c5e91f0585ed6044b439d1"
         },
         "same-moment-different-meaning": {
-            "source_sha256": "d838b97a06a2c4102391eb8d5cd0f2acd53612536e5c2812082c1afe5009d08c",
-            "pdf_sha256": "5e96a8bfd3c94fda63d45f3e4b18087e5a091a4774e471dd7a0448ae865898e8"
+            "source_sha256": "e627a7e9cb57cc2d6a611daebe8b119f86d4e147ca9524c5df9437ed1fcb88dc",
+            "pdf_sha256": "16b76c7064e2c9644b034f500e341ae96d4e0c22c8728a763c223422c7d06e60"
         }
     }
 }

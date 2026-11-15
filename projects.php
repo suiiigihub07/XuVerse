@@ -8,7 +8,7 @@ $featuredSlug = $site['featured_project'] ?? '';
 usort($projects, static fn($a, $b) => ($b['slug'] === $featuredSlug) <=> ($a['slug'] === $featuredSlug));
 xuverse_public_start($site['projects_page_heading'], $copy['projects_intro'], 'projects');
 ?>
-<section class="xw-shell xw-project-index xu-tone-light">
+<section class="xw-shell xw-project-index xu-tone-dark">
     <div class="xw-page xw-container xw-project-index-heading">
     <header class="xw-index-head reveal">
         <h1><?= e($site['projects_page_heading']) ?></h1>
